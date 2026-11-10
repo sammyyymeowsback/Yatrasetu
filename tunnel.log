@@ -1,0 +1,60 @@
+{"level":"info","time":"2026-09-08T16:33:00Z","message":"Thank you for trying Cloudflare Tunnel. Doing so, without a Cloudflare account, is a quick way to experiment and try it out. However, be aware that these account-less Tunnels have no uptime guarantee, are subject to the Cloudflare Online Services Terms of Use (https://www.cloudflare.com/website-terms/), and Cloudflare reserves the right to investigate your use of Tunnels for violations of such terms. If you intend to use Tunnels in production you should use a pre-created named tunnel by following: https://developers.cloudflare.com/cloudflare-one/connections/connect-apps"}
+{"level":"info","time":"2026-09-08T16:33:00Z","message":"Requesting new quick Tunnel on trycloudflare.com..."}
+{"level":"info","time":"2026-09-08T16:33:09Z","message":"+--------------------------------------------------------------------------------------------+"}
+{"level":"info","time":"2026-09-08T16:33:09Z","message":"|  Your quick Tunnel has been created! Visit it at (it may take some time to be reachable):  |"}
+{"level":"info","time":"2026-09-08T16:33:09Z","message":"|  https://race-dicke-derek-medical.trycloudflare.com                                        |"}
+{"level":"info","time":"2026-09-08T16:33:09Z","message":"+--------------------------------------------------------------------------------------------+"}
+{"level":"info","time":"2026-09-08T16:33:09Z","message":"Cannot determine default configuration path. No file [config.yml config.yaml] in [~/.cloudflared ~/.cloudflare-warp ~/cloudflare-warp]"}
+{"level":"info","time":"2026-09-08T16:33:09Z","message":"Version 2026.8.3 (Checksum 83e726ed18ea78c5ad5213c4c3a3a27051393950d2bc8ed4de69bec12d14eaae)"}
+{"level":"info","time":"2026-09-08T16:33:09Z","message":"GOOS: windows, GOVersion: go1.26.4, GoArch: amd64"}
+{"level":"info","time":"2026-09-08T16:33:09Z","message":"Settings: map[ha-connections:1 logfile:tunnel.log protocol:quic url:http://127.0.0.1:5000]"}
+{"level":"info","time":"2026-09-08T16:33:09Z","message":"cloudflared will not automatically update on Windows systems."}
+{"level":"info","time":"2026-09-08T16:33:09Z","message":"Generated Connector ID: 2476a2fa-a885-474d-91c6-c645b53a54b7"}
+{"level":"info","time":"2026-09-08T16:33:09Z","message":"Initial protocol quic"}
+{"level":"info","time":"2026-09-08T16:33:09Z","message":"ICMP proxy will use 192.168.31.82 as source for IPv4"}
+{"level":"info","time":"2026-09-08T16:33:09Z","message":"ICMP proxy will use 2409:40e0:11c1:276c:30c6:bf47:707d:4643 in zone Wi-Fi as source for IPv6"}
+{"level":"info","time":"2026-09-08T16:33:10Z","message":"cloudflared does not support loading the system root certificate pool on Windows. Please use --origin-ca-pool <PATH> to specify the path to the certificate pool"}
+{"level":"info","time":"2026-09-08T16:33:10Z","message":"ICMP proxy will use 192.168.31.82 as source for IPv4"}
+{"level":"info","event":0,"ip":"2606:4700:a0::10","connIndex":0,"time":"2026-09-08T16:33:10Z","message":"Tunnel connection curve preferences: [X25519MLKEM768 CurveID(65074) CurveP256]"}
+{"level":"info","time":"2026-09-08T16:33:10Z","message":"ICMP proxy will use 2409:40e0:11c1:276c:30c6:bf47:707d:4643 in zone Wi-Fi as source for IPv6"}
+{"level":"info","time":"2026-09-08T16:33:10Z","message":"Starting metrics server on 127.0.0.1:20241/metrics"}
+{"level":"info","time":"2026-09-08T16:33:10Z","message":"+-------------------------------------------------------------------------------------+"}
+{"level":"info","time":"2026-09-08T16:33:10Z","message":"|                               CONNECTIVITY PRE-CHECKS                               |"}
+{"level":"info","time":"2026-09-08T16:33:10Z","message":"+-------------------------------------------------------------------------------------+"}
+{"level":"info","time":"2026-09-08T16:33:10Z","message":"|  COMPONENT         TARGET                     STATUS  DETAILS                       |"}
+{"level":"info","time":"2026-09-08T16:33:10Z","message":"|  DNS Resolution    region1.v2.argotunnel.com  PASS    DNS Resolved successfully     |"}
+{"level":"info","time":"2026-09-08T16:33:10Z","message":"|  DNS Resolution    region2.v2.argotunnel.com  PASS    DNS Resolved successfully     |"}
+{"level":"info","time":"2026-09-08T16:33:10Z","message":"|  UDP Connectivity  region1.v2.argotunnel.com  PASS    QUIC connection successful    |"}
+{"level":"info","time":"2026-09-08T16:33:10Z","message":"|  UDP Connectivity  region2.v2.argotunnel.com  PASS    QUIC connection successful    |"}
+{"level":"info","time":"2026-09-08T16:33:10Z","message":"|  TCP Connectivity  region1.v2.argotunnel.com  PASS    HTTP/2 connection successful  |"}
+{"level":"info","time":"2026-09-08T16:33:10Z","message":"|  TCP Connectivity  region2.v2.argotunnel.com  PASS    HTTP/2 connection successful  |"}
+{"level":"info","time":"2026-09-08T16:33:10Z","message":"|  Cloudflare API    api.cloudflare.com:443     PASS    API is reachable              |"}
+{"level":"info","time":"2026-09-08T16:33:10Z","message":"|                                                                                     |"}
+{"level":"info","time":"2026-09-08T16:33:10Z","message":"|  SUMMARY: Environment is healthy. cloudflared will use 'quic' as primary protocol.  |"}
+{"level":"info","time":"2026-09-08T16:33:10Z","message":"+-------------------------------------------------------------------------------------+"}
+{"level":"info","run_id":"cee6e326-2371-4e09-ace5-37388968b46d","component":"DNS Resolution","target":"region1.v2.argotunnel.com","status":"pass","details":"DNS Resolved successfully","time":"2026-09-08T16:33:10Z","message":"precheck"}
+{"level":"info","run_id":"cee6e326-2371-4e09-ace5-37388968b46d","component":"DNS Resolution","target":"region2.v2.argotunnel.com","status":"pass","details":"DNS Resolved successfully","time":"2026-09-08T16:33:10Z","message":"precheck"}
+{"level":"info","run_id":"cee6e326-2371-4e09-ace5-37388968b46d","component":"UDP Connectivity","target":"region1.v2.argotunnel.com","status":"pass","details":"QUIC connection successful","time":"2026-09-08T16:33:10Z","message":"precheck"}
+{"level":"info","run_id":"cee6e326-2371-4e09-ace5-37388968b46d","component":"UDP Connectivity","target":"region2.v2.argotunnel.com","status":"pass","details":"QUIC connection successful","time":"2026-09-08T16:33:10Z","message":"precheck"}
+{"level":"info","run_id":"cee6e326-2371-4e09-ace5-37388968b46d","component":"TCP Connectivity","target":"region1.v2.argotunnel.com","status":"pass","details":"HTTP/2 connection successful","time":"2026-09-08T16:33:10Z","message":"precheck"}
+{"level":"info","run_id":"cee6e326-2371-4e09-ace5-37388968b46d","component":"TCP Connectivity","target":"region2.v2.argotunnel.com","status":"pass","details":"HTTP/2 connection successful","time":"2026-09-08T16:33:10Z","message":"precheck"}
+{"level":"info","run_id":"cee6e326-2371-4e09-ace5-37388968b46d","component":"Cloudflare API","target":"api.cloudflare.com:443","status":"pass","details":"API is reachable","time":"2026-09-08T16:33:10Z","message":"precheck"}
+{"level":"info","run_id":"cee6e326-2371-4e09-ace5-37388968b46d","hard_fail":false,"suggested_protocol":"quic","time":"2026-09-08T16:33:10Z","message":"precheck complete"}
+{"level":"info","event":0,"connection":"e45978a6-e98d-4851-93d1-0b6e69dbe5ac","connIndex":0,"location":"del02","ip":"2606:4700:a0::10","protocol":"quic","time":"2026-09-08T16:33:10Z","message":"Registered tunnel connection"}
+{"level":"error","event":1,"connIndex":0,"originService":"http://127.0.0.1:5000","ingressRule":0,"error":"Incoming request ended abruptly: context canceled","time":"2026-09-08T16:36:59Z"}
+{"level":"error","event":0,"ip":"2606:4700:a0::10","connIndex":0,"error":"Incoming request ended abruptly: context canceled","type":"http","dest":"https://race-dicke-derek-medical.trycloudflare.com/itinerary/generate","time":"2026-09-08T16:36:59Z","message":"Request failed"}
+{"level":"error","event":1,"connIndex":0,"originService":"http://127.0.0.1:5000","ingressRule":0,"error":"Incoming request ended abruptly: context canceled","time":"2026-09-08T16:38:08Z"}
+{"level":"error","event":0,"ip":"2606:4700:a0::10","connIndex":0,"error":"Incoming request ended abruptly: context canceled","type":"http","dest":"https://race-dicke-derek-medical.trycloudflare.com/itinerary/generate","time":"2026-09-08T16:38:08Z","message":"Request failed"}
+{"level":"error","event":1,"connIndex":0,"originService":"http://127.0.0.1:5000","ingressRule":0,"error":"Incoming request ended abruptly: context canceled","time":"2026-09-08T16:39:03Z"}
+{"level":"error","event":0,"ip":"2606:4700:a0::10","connIndex":0,"error":"Incoming request ended abruptly: context canceled","type":"http","dest":"https://race-dicke-derek-medical.trycloudflare.com/itinerary/generate","time":"2026-09-08T16:39:03Z","message":"Request failed"}
+{"level":"error","event":1,"connIndex":0,"originService":"http://127.0.0.1:5000","ingressRule":0,"error":"Incoming request ended abruptly: context canceled","time":"2026-09-08T18:48:19Z"}
+{"level":"error","event":0,"ip":"2606:4700:a0::10","connIndex":0,"error":"Incoming request ended abruptly: context canceled","type":"http","dest":"https://race-dicke-derek-medical.trycloudflare.com/itinerary/generate","time":"2026-09-08T18:48:19Z","message":"Request failed"}
+{"level":"info","time":"2026-09-08T19:35:22Z","message":"Initiating graceful shutdown due to signal terminated ..."}
+{"level":"error","event":0,"ip":"2606:4700:a0::10","connIndex":0,"error":"Application error 0x0 (remote)","time":"2026-09-08T19:35:22Z","message":"failed to run the datagram handler"}
+{"level":"error","event":0,"ip":"2606:4700:a0::10","connIndex":0,"error":"accept stream listener encountered a failure while serving","time":"2026-09-08T19:35:22Z","message":"failed to serve tunnel connection"}
+{"level":"error","event":0,"ip":"2606:4700:a0::10","connIndex":0,"error":"accept stream listener encountered a failure while serving","time":"2026-09-08T19:35:22Z","message":"Serve tunnel error"}
+{"level":"info","event":0,"ip":"2606:4700:a0::10","connIndex":0,"time":"2026-09-08T19:35:22Z","message":"Retrying connection in up to 1s"}
+{"level":"error","connIndex":0,"time":"2026-09-08T19:35:22Z","message":"Connection terminated"}
+{"level":"error","time":"2026-09-08T19:35:22Z","message":"no more connections active and exiting"}
+{"level":"info","time":"2026-09-08T19:35:22Z","message":"Tunnel server stopped"}
+{"level":"info","time":"2026-09-08T19:35:22Z","message":"Metrics server stopped"}
