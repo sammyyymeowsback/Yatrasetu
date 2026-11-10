@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="card-stock" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FCFAF5"/>
+      <stop offset="50%" stop-color="#F7F3EA"/>
+      <stop offset="100%" stop-color="#EFE9DC"/>
+    </linearGradient>
+    <linearGradient id="gold-foil" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#DFB76C"/>
+      <stop offset="35%" stop-color="#F3E1B2"/>
+      <stop offset="70%" stop-color="#C5A059"/>
+      <stop offset="100%" stop-color="#9C7836"/>
+    </linearGradient>
+    <pattern id="jaali-pat" width="6" height="6" patternUnits="userSpaceOnUse">
+      <rect width="6" height="6" fill="none" stroke="#C5A059" stroke-width="0.5" opacity="0.4"/>
+      <circle cx="3" cy="3" r="1" fill="#C5A059" opacity="0.5"/>
+    </pattern>
+  </defs>
+
+  <!-- Card Stock -->
+  <rect x="2" y="2" width="316" height="476" rx="16" ry="16" fill="url(#card-stock)" stroke="#1A1A1A" stroke-width="2.5"/>
+  <rect x="8" y="8" width="304" height="464" rx="12" ry="12" fill="none" stroke="url(#gold-foil)" stroke-width="1.2"/>
+  <rect x="22" y="22" width="276" height="436" rx="8" ry="8" fill="none" stroke="#222" stroke-width="0.9" stroke-dasharray="6,2"/>
+
+  <!-- Corner Brackets -->
+  <path d="M 28 42 L 28 28 L 42 28" fill="none" stroke="#C5A059" stroke-width="1.8"/>
+  <path d="M 292 42 L 292 28 L 278 28" fill="none" stroke="#C5A059" stroke-width="1.8"/>
+  <path d="M 28 438 L 28 452 L 42 452" fill="none" stroke="#C5A059" stroke-width="1.8"/>
+  <path d="M 292 438 L 292 452 L 278 452" fill="none" stroke="#C5A059" stroke-width="1.8"/>
+
+  
+    <!-- Top-Left Pip -->
+    <g class="corner-pip" transform="translate(24, 38)">
+      <text x="0" y="0" font-family="'Cinzel', 'Times New Roman', serif" font-size="26" font-weight="800" fill="#C8102E" text-anchor="middle">A</text>
+      <text x="0" y="22" font-family="serif" font-size="20" fill="#C8102E" text-anchor="middle">♦</text>
+    </g>
+    <!-- Bottom-Right Pip (Inverted) -->
+    <g class="corner-pip" transform="translate(296, 442) rotate(180)">
+      <text x="0" y="0" font-family="'Cinzel', 'Times New Roman', serif" font-size="26" font-weight="800" fill="#C8102E" text-anchor="middle">A</text>
+      <text x="0" y="22" font-family="serif" font-size="20" fill="#C8102E" text-anchor="middle">♦</text>
+    </g>
+    
+  
+    <g transform="translate(14, 240) rotate(-90)">
+      <text x="0" y="0" font-family="'Cinzel', 'Times New Roman', serif" font-size="8.5" font-weight="700" letter-spacing="2.5" fill="#555" text-anchor="middle">❖ CHOLA EMPIRE · 848 CE ❖</text>
+    </g>
+    <g transform="translate(306, 240) rotate(90)">
+      <text x="0" y="0" font-family="'Cinzel', 'Times New Roman', serif" font-size="8.5" font-weight="700" letter-spacing="2.5" fill="#555" text-anchor="middle">❖ CHOLA EMPIRE · 848 CE ❖</text>
+    </g>
+    
+
+  <!-- Canvas Inset -->
+  <rect x="42" y="32" width="236" height="416" rx="4" ry="4" fill="none" stroke="#222" stroke-width="1.2"/>
+  <rect x="44" y="34" width="232" height="412" rx="3" ry="3" fill="none" stroke="#C5A059" stroke-width="0.6"/>
+
+  
+    <g transform="translate(160, 82)">
+      <text x="0" y="0" font-family="'Cinzel', 'Noto Serif Devanagari', serif" font-size="24" font-weight="800" fill="#C8102E" text-anchor="middle">चोल</text>
+      <text x="0" y="20" font-family="'Cinzel', 'Times New Roman', serif" font-size="12" font-weight="700" letter-spacing="4" fill="#C8102E" text-anchor="middle">CHOLA</text>
+      <text x="0" y="34" font-family="'Cinzel', sans-serif" font-size="9" font-weight="600" letter-spacing="2" fill="#666" text-anchor="middle">848 CE — 1279 CE</text>
+      <line x1="-50" y1="42" x2="50" y2="42" stroke="#C8102E" stroke-width="0.8"/>
+    </g>
+    <g transform="translate(160, 240)">
+      <polygon points="0,-82 82,0 0,82 -82,0" fill="none" stroke="#C5A059" stroke-width="0.8" stroke-dasharray="3,3"/>
+      <polygon points="0,-72 72,0 0,72 -72,0" fill="none" stroke="#222" stroke-width="1.2"/>
+      <polygon points="0,-58 58,0 0,58 -58,0" fill="#FAF6EE" stroke="#C8102E" stroke-width="2"/>
+      <polygon points="0,-48 48,0 0,48 -48,0" fill="none" stroke="#222" stroke-width="0.8" stroke-dasharray="2,2"/>
+      <g stroke="#C8102E" stroke-width="1.2">
+        <line x1="0" y1="-48" x2="0" y2="-18"/>
+        <line x1="0" y1="48" x2="0" y2="18"/>
+        <line x1="-48" y1="0" x2="-18" y2="0"/>
+        <line x1="48" y1="0" x2="18" y2="0"/>
+      </g>
+      <circle cx="0" cy="0" r="22" fill="#FAF6EE" stroke="#222" stroke-width="1.6"/>
+      <circle cx="0" cy="0" r="16" fill="none" stroke="#C5A059" stroke-width="1"/>
+      <polygon points="0,-10 10,0 0,10 -10,0" fill="#C8102E" stroke="#222" stroke-width="1"/>
+      <circle cx="0" cy="0" r="3" fill="#FFF"/>
+    </g>
+    <g transform="translate(160, 398) rotate(180)">
+      <text x="0" y="0" font-family="'Cinzel', 'Noto Serif Devanagari', serif" font-size="24" font-weight="800" fill="#C8102E" text-anchor="middle">चोल</text>
+      <text x="0" y="20" font-family="'Cinzel', 'Times New Roman', serif" font-size="12" font-weight="700" letter-spacing="4" fill="#C8102E" text-anchor="middle">CHOLA</text>
+      <text x="0" y="34" font-family="'Cinzel', sans-serif" font-size="9" font-weight="600" letter-spacing="2" fill="#666" text-anchor="middle">848 CE — 1279 CE</text>
+      <line x1="-50" y1="42" x2="50" y2="42" stroke="#C8102E" stroke-width="0.8"/>
+    </g>
+    
+</svg>

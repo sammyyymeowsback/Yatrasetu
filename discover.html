@@ -1,0 +1,251 @@
+{% extends "base.html" %}
+{% block title %}Discover Hidden Destinations{% endblock %}
+{% block og_title %}Discover India's Under-Explored Places{% endblock %}
+{% block body_class %}page-discover{% endblock %}
+
+{% block content %}
+<div style="padding-top:80px;">
+
+  <!-- Header -->
+  <div class="section section--dark" style="padding-block:var(--space-16);">
+    <div class="container container--narrow" style="text-align:center;">
+      <div class="label" style="color:var(--color-gold);justify-content:center;display:flex;margin-bottom:var(--space-4);">Discovery</div>
+      <h1 style="font-family:var(--font-serif);font-size:var(--text-2xl);color:var(--color-ivory);margin-bottom:var(--space-4);">
+        India's Hidden Journeys Await
+      </h1>
+      <p style="color:rgba(250,246,238,0.6);font-size:var(--text-md);max-width:540px;margin-inline:auto;">
+        Crowd-aware destinations with low foot traffic, rich culture, and extraordinary stories —
+        flipped from the Royal Deck just for you.
+      </p>
+    </div>
+  </div>
+
+  <!-- ── GANJIFA FULL DECK ──────────────────────────────────────── -->
+  <section class="section" aria-label="Discovery deck">
+    <div class="container">
+
+      {% if destinations %}
+
+        <!-- Filter row -->
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--space-4);margin-bottom:var(--space-10);">
+          <div>
+            <div class="label" style="margin-bottom:var(--space-2);">{{ destinations|length }} destinations discovered</div>
+            <h2 style="font-family:var(--font-serif);font-size:var(--text-xl);color:var(--color-forest);">The Full Deck</h2>
+          </div>
+          <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;">
+            <a href="{{ url_for('main.discover') }}" class="btn btn-sm {% if not request.args.get('category') %}btn-secondary{% else %}btn-outline{% endif %}">All</a>
+            <a href="{{ url_for('main.discover') }}?category=heritage"  class="btn btn-sm {% if request.args.get('category')=='heritage'  %}btn-secondary{% else %}btn-outline{% endif %}">Heritage</a>
+            <a href="{{ url_for('main.discover') }}?category=nature"    class="btn btn-sm {% if request.args.get('category')=='nature'    %}btn-secondary{% else %}btn-outline{% endif %}">Nature</a>
+            <a href="{{ url_for('main.discover') }}?category=spiritual" class="btn btn-sm {% if request.args.get('category')=='spiritual' %}btn-secondary{% else %}btn-outline{% endif %}">Spiritual</a>
+            <a href="{{ url_for('main.discover') }}?category=culture"   class="btn btn-sm {% if request.args.get('category')=='culture'   %}btn-secondary{% else %}btn-outline{% endif %}">Culture</a>
+            <a href="{{ url_for('main.discover') }}?category=rural"     class="btn btn-sm {% if request.args.get('category')=='rural'     %}btn-secondary{% else %}btn-outline{% endif %}">Rural</a>
+          </div>
+        </div>
+
+        <!-- Deck Toolbar: Reveal/Conceal Deck & Stats -->
+        <div class="deck-toolbar">
+          <div>
+            <span style="color:var(--color-gold);font-weight:700;font-size:var(--text-sm);">🎴 The Royal Deck</span>
+            <span style="color:rgba(250,246,238,0.55);font-size:var(--text-xs);margin-left:8px;">Click any card to flip &amp; reveal its secret</span>
+          </div>
+          <button id="btn-deck-toggle" class="btn btn-outline btn-sm" onclick="flipAllCards('.ganjifa-deck')" style="border-color:rgba(197,160,89,0.5);color:var(--color-gold);display:inline-flex;align-items:center;gap:6px;">
+            <img src="{{ url_for('static', filename='img/logo_surya_seal.svg') }}?v=15" width="13" height="13" alt="" style="display:inline-block;">
+            <span>Reveal All Cards</span>
+          </button>
+        </div>
+
+        <!-- Card grid -->
+        <div class="ganjifa-deck" style="grid-template-columns:repeat(auto-fill,minmax(270px,1fr));">
+
+          {% for dest in destinations %}
+          {% set card_idx = loop.index0 % 16 %}
+          {% if card_idx == 0 %}
+            {% set card_svg = 'raja_samudragupta.svg' %}
+            {% set card_pip = 'K ♣' %}
+            {% set card_title = 'King Samudragupta — Raja of Clubs' %}
+          {% elif card_idx == 1 %}
+            {% set card_svg = 'rani_dattadevi.svg' %}
+            {% set card_pip = 'Q ♣' %}
+            {% set card_title = 'Queen Dattadevi — Rani of Clubs' %}
+          {% elif card_idx == 2 %}
+            {% set card_svg = 'wazir_chandragupta.svg' %}
+            {% set card_pip = 'J ♣' %}
+            {% set card_title = 'Prince Chandragupta — Wazir of Clubs' %}
+          {% elif card_idx == 3 %}
+            {% set card_svg = 'ikka_gupta.svg' %}
+            {% set card_pip = 'A ♣' %}
+            {% set card_title = 'Gupta Dynasty Ace — Ikka of Clubs' %}
+          {% elif card_idx == 4 %}
+            {% set card_svg = 'raja_chola.svg' %}
+            {% set card_pip = 'K ♦' %}
+            {% set card_title = 'Rajaraja Chola I — Raja of Diamonds' %}
+          {% elif card_idx == 5 %}
+            {% set card_svg = 'rani_chola.svg' %}
+            {% set card_pip = 'Q ♦' %}
+            {% set card_title = 'Queen Lokamahadevi — Rani of Diamonds' %}
+          {% elif card_idx == 6 %}
+            {% set card_svg = 'wazir_chola.svg' %}
+            {% set card_pip = 'J ♦' %}
+            {% set card_title = 'Rajendra Chola I — Wazir of Diamonds' %}
+          {% elif card_idx == 7 %}
+            {% set card_svg = 'ikka_chola.svg' %}
+            {% set card_pip = 'A ♦' %}
+            {% set card_title = 'Chola Empire Ace — Ikka of Diamonds' %}
+          {% elif card_idx == 8 %}
+            {% set card_svg = 'raja_ashoka.svg' %}
+            {% set card_pip = 'K ♠' %}
+            {% set card_title = 'Ashoka the Great — Raja of Spades' %}
+          {% elif card_idx == 9 %}
+            {% set card_svg = 'rani_devi.svg' %}
+            {% set card_pip = 'Q ♠' %}
+            {% set card_title = 'Queen Devi — Rani of Spades' %}
+          {% elif card_idx == 10 %}
+            {% set card_svg = 'wazir_senapati.svg' %}
+            {% set card_pip = 'J ♠' %}
+            {% set card_title = 'Chandragupta Maurya — Wazir of Spades' %}
+          {% elif card_idx == 11 %}
+            {% set card_svg = 'ikka_maurya.svg' %}
+            {% set card_pip = 'A ♠' %}
+            {% set card_title = 'Maurya Empire Ace — Ikka of Spades' %}
+          {% elif card_idx == 12 %}
+            {% set card_svg = 'raja_shivaji.svg' %}
+            {% set card_pip = 'K ♥' %}
+            {% set card_title = 'Shivaji Maharaj — Raja of Hearts' %}
+          {% elif card_idx == 13 %}
+            {% set card_svg = 'rani_jijabai.svg' %}
+            {% set card_pip = 'Q ♥' %}
+            {% set card_title = 'Queen Jijabai — Rani of Hearts' %}
+          {% elif card_idx == 14 %}
+            {% set card_svg = 'wazir_tanaji.svg' %}
+            {% set card_pip = 'J ♥' %}
+            {% set card_title = 'Tanaji Malusare — Wazir of Hearts' %}
+          {% else %}
+            {% set card_svg = 'ikka_maratha.svg' %}
+            {% set card_pip = 'A ♥' %}
+            {% set card_title = 'Maratha Empire Ace — Ikka of Hearts' %}
+          {% endif %}
+
+          <article class="ganjifa-card"
+                   style="{% if loop.index > 4 %}animation-delay:{{ ((loop.index0 % 4) * 0.08)|string }}s;{% endif %}"
+                   role="button" tabindex="0"
+                   aria-label="{{ card_title }} — Tap to reveal mystery destination."
+                   data-destination-id="{{ dest.id }}">
+
+            <div class="ganjifa-card-inner">
+              <div class="card-sheen"></div>
+
+              <!-- Back face: Authentic Royal Indian Playing Card SVG -->
+              <div class="card-face card-back">
+                <img class="card-back-svg"
+                     src="{{ url_for('static', filename='img/cards/' ~ card_svg) }}"
+                     alt="{{ card_title }}"
+                     loading="lazy"
+                     draggable="false">
+                <!-- Mystery Shimmer Prompt -->
+                <div class="card-reveal-prompt">
+                  <img src="{{ url_for('static', filename='img/logo_surya_seal.svg') }}?v=15" width="11" height="11" alt="" style="display:inline-block;">
+                  <span>TAP TO REVEAL</span>
+                </div>
+              </div>
+
+              <!-- Front face: Revealed Destination with Photography & Details -->
+              <div class="card-face card-front">
+                <div class="royal-front-pip" aria-hidden="true">
+                  {{ card_pip }}
+                </div>
+                <button class="card-flip-back-btn" title="Flip back to royal playing card" aria-label="Flip back" type="button">
+                  ↺ Flip
+                </button>
+
+                <div class="card-front-img-wrap">
+                  {% if dest.image_path %}
+                    <img class="card-front-img"
+                         src="{{ dest.image_path }}"
+                         alt="Photo of {{ dest.name }}"
+                         loading="lazy"
+                         draggable="false"
+                         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                    <div class="card-img-fallback" style="display:none;" aria-hidden="true">
+                      {{ dest.name | truncate(2, True, '') | upper }}
+                    </div>
+                  {% else %}
+                    <div class="card-img-fallback" aria-hidden="true">
+                      <svg viewBox="0 0 80 60" width="80" height="60" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10,60 L10,30 Q10,5 40,5 Q70,5 70,30 L70,60Z" fill="rgba(250,246,238,0.3)"/>
+                        <rect x="30" y="40" width="20" height="20" fill="rgba(250,246,238,0.4)"/>
+                      </svg>
+                    </div>
+                  {% endif %}
+                </div>
+
+                <div class="card-front-body">
+                  <div>
+                    <div class="card-front-name">{{ dest.name }}</div>
+                    <div class="card-front-location">{{ dest.state }} · {{ dest.category|title }}</div>
+                  </div>
+
+                  {% if dest.reason_to_visit %}
+                    <p class="card-front-secret">{{ dest.reason_to_visit }}</p>
+                  {% elif dest.description %}
+                    <p class="card-front-secret">{{ dest.description }}</p>
+                  {% endif %}
+
+                  <div class="card-front-meta">
+                    <span class="crowd-pill crowd-pill--{{ dest.crowd_level or 'low' }}">
+                      {{ (dest.crowd_level or 'low') | replace('_', ' ') }}
+                    </span>
+                    <div class="card-action-group">
+                      <a href="{{ url_for('main.destination_detail', destination_id=dest.id) }}"
+                         class="btn btn-outline btn-sm">
+                        Details
+                      </a>
+                      <a href="{{ url_for('itinerary.itinerary_page') }}?destination={{ dest.name }}&dest_id={{ dest.id }}"
+                         class="btn btn-primary btn-sm"
+                         title="Plan AI Itinerary for {{ dest.name }}"
+                         style="display:inline-flex;align-items:center;gap:4px;">
+                        <span>Plan</span>
+                        <img src="{{ url_for('static', filename='img/logo_surya_seal.svg') }}?v=15" width="11" height="11" alt="" style="display:inline-block;">
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div><!-- /ganjifa-card-inner -->
+          </article>
+          {% endfor %}
+
+        </div>
+
+      {% else %}
+        <!-- Empty state -->
+        <div style="text-align:center;padding:var(--space-24);">
+          <img src="{{ url_for('static', filename='img/logo_surya_seal.svg') }}?v=15" alt="" width="52" height="52" style="width:52px;height:52px;display:inline-block;margin-bottom:var(--space-6);filter:drop-shadow(0 3px 12px rgba(197,160,89,0.4));" aria-hidden="true">
+          <h2 style="font-family:var(--font-serif);font-size:var(--text-xl);color:var(--color-forest);margin-bottom:var(--space-4);">
+            The deck is being assembled
+          </h2>
+          <p style="color:rgba(20,40,29,0.55);max-width:400px;margin-inline:auto;">
+            No destinations are in the database yet. Be the first to
+            <a href="{{ url_for('submissions.submit_page') }}" style="color:var(--color-gold);">submit a hidden spot</a>.
+          </p>
+        </div>
+      {% endif %}
+
+    </div>
+  </section>
+
+  <!-- CTA strip -->
+  <section class="section section--forest" style="background:var(--color-forest);padding-block:var(--space-16);">
+    <div class="container container--narrow" style="text-align:center;">
+      <h2 style="font-family:var(--font-serif);font-size:var(--text-xl);color:var(--color-ivory);margin-bottom:var(--space-6);">
+        Know a place that belongs in the deck?
+      </h2>
+      <a href="{{ url_for('submissions.submit_page') }}" class="btn btn-primary btn-lg" style="display:inline-flex;align-items:center;gap:8px;">
+        <span>Submit a Hidden Spot</span>
+        <img src="{{ url_for('static', filename='img/logo_surya_seal.svg') }}?v=15" width="16" height="16" alt="" style="display:inline-block;">
+      </a>
+    </div>
+  </section>
+
+</div>
+{% endblock %}

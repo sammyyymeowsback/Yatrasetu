@@ -1,0 +1,1254 @@
+/* ============================================================
+   YatraSetu — Interactive Map & Live Routing Stylesheet
+   Harmonized with YatraSetu Royal Heritage Design System
+   ============================================================ */
+
+/* Map page shell */
+body.page-explore {
+  overflow: hidden !important;
+  background: var(--color-ivory, #FAF6EE);
+}
+
+body.page-explore .site-footer {
+  display: none !important;
+}
+
+#map-container {
+  position: relative;
+  height: calc(100vh - 70px);
+  margin-top: 70px;
+  display: flex;
+  overflow: hidden;
+  background: #f1ede4;
+}
+
+/* ── Left Sidebar ───────────────────────────────────────────── */
+.map-sidebar {
+  width: 370px;
+  max-width: 90vw;
+  flex-shrink: 0;
+  background: var(--color-ivory, #FAF6EE);
+  border-right: 1px solid rgba(197, 160, 89, 0.3);
+  display: flex;
+  flex-direction: column;
+  z-index: 500;
+  box-shadow: 4px 0 24px rgba(20, 40, 29, 0.08);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  height: 100%;
+}
+
+.map-sidebar-header {
+  padding: 16px 18px 12px;
+  background: #fff;
+  border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+  flex-shrink: 0;
+}
+
+.map-brand-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.map-title-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-serif, "Cormorant Garamond", serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-forest, #14281D);
+}
+
+.map-proto-pill {
+  background: rgba(197, 160, 89, 0.15);
+  border: 1px solid rgba(197, 160, 89, 0.4);
+  color: #8c6b23;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ── Route Planning Widget ──────────────────────────────────── */
+.route-card {
+  background: rgba(20, 40, 29, 0.03);
+  border: 1px solid rgba(197, 160, 89, 0.25);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+}
+
+.route-card-title {
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: var(--color-forest, #14281D);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.route-field {
+  margin-bottom: 8px;
+}
+
+.route-field:last-of-type {
+  margin-bottom: 10px;
+}
+
+.route-field label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: rgba(20, 40, 29, 0.6);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.route-input-row {
+  display: flex;
+  gap: 6px;
+}
+
+.route-input {
+  width: 100%;
+  padding: 8px 11px;
+  background: #fff;
+  border: 1.5px solid rgba(197, 160, 89, 0.3);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.82rem;
+  color: var(--color-forest, #14281D);
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.route-input:focus {
+  border-color: var(--color-gold, #C5A059);
+  box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.15);
+}
+
+.locate-mini-btn {
+  width: 36px;
+  height: 36px;
+  background: #fff;
+  border: 1.5px solid rgba(197, 160, 89, 0.3);
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.locate-mini-btn:hover {
+  background: var(--color-forest, #14281D);
+  color: #fff;
+  border-color: var(--color-forest, #14281D);
+}
+
+.route-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-get-route {
+  flex: 1;
+  background: var(--color-forest, #14281D);
+  color: var(--color-ivory, #FAF6EE);
+  border: 1px solid var(--color-gold, #C5A059);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.btn-get-route:hover {
+  background: var(--color-forest-mid, #1C3627);
+  box-shadow: 0 4px 12px rgba(20, 40, 29, 0.2);
+}
+
+.btn-get-route:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.btn-clear-route {
+  background: #fff;
+  border: 1px solid rgba(20, 40, 29, 0.15);
+  color: rgba(20, 40, 29, 0.7);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-clear-route:hover {
+  background: #f8fafc;
+  color: #b91c1c;
+}
+
+.route-status {
+  font-size: 0.72rem;
+  margin-top: 6px;
+  min-height: 16px;
+  color: rgba(20, 40, 29, 0.65);
+  line-height: 1.4;
+}
+
+.route-status.success { color: #15803d; font-weight: 600; }
+.route-status.error   { color: #dc2626; font-weight: 600; }
+.route-status.info    { color: #0284c7; }
+
+.route-summary {
+  margin-top: 8px;
+  padding: 8px 10px;
+  background: #fff;
+  border: 1px solid rgba(197, 160, 89, 0.35);
+  border-radius: 8px;
+  display: flex;
+  gap: 8px;
+}
+
+.route-summary-item {
+  flex: 1;
+  text-align: center;
+}
+
+.route-summary-val {
+  display: block;
+  font-family: var(--font-serif, "Cormorant Garamond", serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-forest, #14281D);
+}
+
+.route-summary-label {
+  font-size: 0.65rem;
+  color: rgba(20, 40, 29, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ── Destination Search & Filters ───────────────────────────── */
+.dest-section-title {
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: var(--color-forest, #14281D);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 6px 0 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dest-count-badge {
+  font-size: 0.68rem;
+  background: rgba(197, 160, 89, 0.2);
+  color: var(--color-forest, #14281D);
+  padding: 2px 7px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.map-search-box {
+  position: relative;
+  margin-bottom: 8px;
+}
+
+.map-search-input {
+  width: 100%;
+  padding: 8px 12px 8px 30px;
+  background: #fff;
+  border: 1.5px solid rgba(197, 160, 89, 0.3);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.82rem;
+  color: var(--color-forest, #14281D);
+  outline: none;
+  transition: all 0.2s;
+}
+
+.map-search-input:focus {
+  border-color: var(--color-gold, #C5A059);
+}
+
+.map-search-icon {
+  position: absolute;
+  left: 9px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.85rem;
+  color: rgba(20, 40, 29, 0.4);
+}
+
+/* Filter pills scrollable row */
+.map-filter-chips {
+  display: flex;
+  gap: 5px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+
+.map-filter-chips::-webkit-scrollbar { display: none; }
+
+.map-filter-chip {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1.2px solid rgba(197, 160, 89, 0.35);
+  color: var(--color-forest, #14281D);
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.map-filter-chip:hover {
+  background: rgba(197, 160, 89, 0.15);
+}
+
+.map-filter-chip.active {
+  background: var(--color-forest, #14281D);
+  color: var(--color-ivory, #FAF6EE);
+  border-color: var(--color-forest, #14281D);
+}
+
+/* ── Scrollable Destination List ────────────────────────────── */
+.map-dest-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 12px;
+  background: var(--color-ivory, #FAF6EE);
+}
+
+.map-dest-item {
+  background: #fff;
+  border: 1px solid rgba(197, 160, 89, 0.25);
+  border-radius: 10px;
+  padding: 11px 12px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.map-dest-item:hover {
+  transform: translateY(-1px);
+  border-color: var(--color-gold, #C5A059);
+  box-shadow: 0 4px 14px rgba(20, 40, 29, 0.08);
+}
+
+.map-dest-item.active {
+  border-color: var(--color-forest, #14281D);
+  background: #fcfbf8;
+  box-shadow: 0 0 0 2px var(--color-gold, #C5A059);
+}
+
+.dest-item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.dest-item-name {
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--color-forest, #14281D);
+}
+
+.dest-item-badges {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.dest-gem-icon {
+  font-size: 0.82rem;
+}
+
+.dest-item-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.74rem;
+  margin-bottom: 6px;
+}
+
+.dest-item-location {
+  color: rgba(20, 40, 29, 0.6);
+}
+
+.dest-pressure-badge {
+  font-weight: 700;
+  font-size: 0.72rem;
+}
+
+.dest-pressure-bar-track {
+  height: 4px;
+  background: rgba(20, 40, 29, 0.08);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.dest-pressure-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+
+/* ── Map Canvas Area ────────────────────────────────────────── */
+.map-canvas-wrap {
+  flex: 1;
+  position: relative;
+  height: 100%;
+  min-height: calc(100vh - 70px);
+  overflow: hidden;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+  min-height: calc(100vh - 70px);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+/* ── Floating Controls Stack ────────────────────────────────── */
+.map-floating-controls {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 450;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.map-control-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: rgba(250, 246, 238, 0.96);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(197, 160, 89, 0.35);
+  box-shadow: 0 4px 16px rgba(20, 40, 29, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.15rem;
+  color: var(--color-forest, #14281D);
+  transition: all 0.2s ease;
+}
+
+.map-control-btn:hover {
+  background: var(--color-forest, #14281D);
+  color: var(--color-ivory, #FAF6EE);
+  transform: scale(1.05);
+}
+
+/* ── Floating Legend ────────────────────────────────────────── */
+.map-legend-card {
+  position: absolute;
+  top: 16px;
+  right: 68px;
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(197, 160, 89, 0.35);
+  border-radius: 12px;
+  padding: 12px 14px;
+  z-index: 450;
+  box-shadow: 0 8px 24px rgba(20, 40, 29, 0.12);
+  min-width: 180px;
+  display: none;
+  animation: legendIn 0.2s ease;
+}
+
+@keyframes legendIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.map-legend-title {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--color-forest, #14281D);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+  padding-bottom: 4px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.76rem;
+  color: rgba(20, 40, 29, 0.8);
+  margin-bottom: 6px;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.legend-dot.high     { background: #ef4444; }
+.legend-dot.moderate { background: #f59e0b; }
+.legend-dot.low      { background: #22c55e; }
+
+/* ── Offline Download Bar ───────────────────────────────────── */
+.map-offline-bar {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #14281D;
+  color: #FAF6EE;
+  border: 1px solid rgba(197, 160, 89, 0.5);
+  border-radius: 14px;
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  z-index: 450;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+  min-width: 330px;
+  max-width: 90%;
+}
+
+.offline-bar-text {
+  font-size: 0.82rem;
+  font-weight: 600;
+  flex: 1;
+}
+
+.offline-bar-progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.progress-track {
+  flex: 1;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #C5A059, #22c55e);
+  width: 0;
+  border-radius: 6px;
+  transition: width 0.15s linear;
+}
+
+.progress-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  min-width: 36px;
+  text-align: right;
+}
+
+.offline-download-btn {
+  background: var(--color-gold, #C5A059);
+  color: #14281D;
+  border: none;
+  border-radius: 8px;
+  padding: 7px 14px;
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.offline-download-btn:hover {
+  background: #deb86d;
+}
+
+.offline-download-btn:disabled {
+  background: #15803d;
+  color: #fff;
+  cursor: default;
+}
+
+/* ── Destination Details Drawer / Popup ─────────────────────── */
+#map-drawer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 380px;
+  max-width: 100%;
+  background: var(--color-ivory, #FAF6EE);
+  z-index: 600;
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-y: auto;
+  box-shadow: -6px 0 32px rgba(20, 40, 29, 0.16);
+  display: flex;
+  flex-direction: column;
+}
+
+#map-drawer.drawer-open {
+  transform: translateX(0);
+}
+
+.drawer-close-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(20, 40, 29, 0.1);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  color: var(--color-forest, #14281D);
+  z-index: 2;
+  transition: all 0.2s;
+}
+
+.drawer-close-btn:hover {
+  background: var(--color-forest, #14281D);
+  color: #fff;
+}
+
+.drawer-img-wrap {
+  width: 100%;
+  height: 200px;
+  flex-shrink: 0;
+  position: relative;
+  background: #14281D;
+  overflow: hidden;
+}
+
+.drawer-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.drawer-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+}
+
+.drawer-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.drawer-name {
+  font-family: var(--font-serif, "Cormorant Garamond", serif);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--color-forest, #14281D);
+  line-height: 1.15;
+  margin: 0;
+}
+
+.drawer-location {
+  font-size: 0.8rem;
+  color: rgba(20, 40, 29, 0.6);
+  margin-top: -6px;
+}
+
+/* Scores Row */
+.drawer-scores-row {
+  display: flex;
+  gap: 8px;
+}
+
+.drawer-score-card {
+  flex: 1;
+  background: #fff;
+  border: 1px solid rgba(197, 160, 89, 0.3);
+  border-radius: 8px;
+  padding: 8px 6px;
+  text-align: center;
+}
+
+.drawer-score-val {
+  font-family: var(--font-serif, "Cormorant Garamond", serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-forest, #14281D);
+  line-height: 1;
+}
+
+.drawer-score-label {
+  font-size: 0.62rem;
+  color: rgba(20, 40, 29, 0.6);
+  text-transform: uppercase;
+  margin-top: 4px;
+  display: block;
+}
+
+/* Drawer actions */
+.drawer-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 10px;
+}
+
+.drawer-btn-route {
+  flex: 1;
+  background: var(--color-forest, #14281D);
+  color: var(--color-ivory, #FAF6EE);
+  border: 1px solid var(--color-gold, #C5A059);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-family: inherit;
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+.drawer-btn-route:hover {
+  background: var(--color-forest-mid, #1C3627);
+  box-shadow: 0 4px 16px rgba(20, 40, 29, 0.2);
+}
+
+.drawer-btn-plan {
+  background: #fff;
+  border: 1.5px solid rgba(197, 160, 89, 0.5);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-family: inherit;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--color-forest, #14281D);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+.drawer-btn-plan:hover {
+  background: rgba(197, 160, 89, 0.15);
+}
+
+/* ── Mobile Sidebar Toggle Button ───────────────────────────── */
+.map-sidebar-toggle-btn {
+  display: none;
+  position: absolute;
+  bottom: 20px;
+  left: 16px;
+  z-index: 450;
+  background: var(--color-forest, #14281D);
+  color: var(--color-ivory, #FAF6EE);
+  border: 1px solid var(--color-gold, #C5A059);
+  border-radius: 999px;
+  padding: 10px 16px;
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ── Responsive breakpoints ─────────────────────────────────── */
+@media (max-width: 900px) {
+  .map-sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    transform: translateX(-100%);
+    box-shadow: 8px 0 32px rgba(0, 0, 0, 0.3);
+  }
+
+  .map-sidebar.sidebar-open {
+    transform: translateX(0);
+  }
+
+  .map-sidebar-toggle-btn {
+    display: inline-flex;
+  }
+
+  #map-drawer {
+    width: 100%;
+    top: auto;
+    bottom: 0;
+    max-height: 75vh;
+    border-radius: 20px 20px 0 0;
+    transform: translateY(100%);
+  }
+
+  #map-drawer.drawer-open {
+    transform: translateY(0);
+  }
+
+  .map-offline-bar {
+    bottom: 74px;
+    font-size: 0.75rem;
+    padding: 8px 14px;
+  }
+}
+
+/* ── Sleek Minimalist Luxury GIS Markers (Zero Childish Pointers) ─── */
+.ys-marker-wrapper {
+  background: transparent !important;
+  border: none !important;
+}
+
+.ys-marker {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(20, 40, 29, 0.22), 0 0 0 1.5px rgba(20, 40, 29, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+}
+
+.ys-marker:hover {
+  transform: scale(1.4);
+  box-shadow: 0 4px 14px rgba(20, 40, 29, 0.35);
+  z-index: 1000 !important;
+}
+
+.ys-marker-core {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: block;
+}
+
+.ys-marker--low .ys-marker-core {
+  background: #16a34a;
+}
+
+.ys-marker--moderate .ys-marker-core {
+  background: #d97706;
+}
+
+.ys-marker--high .ys-marker-core {
+  background: #dc2626;
+}
+
+/* Hidden Gem: Refined Royal Gold Ring & Subtle Pulse */
+.ys-marker.is-gem {
+  box-shadow: 0 0 0 2px #C5A059, 0 2px 10px rgba(197, 160, 89, 0.4);
+}
+
+.ys-marker.is-gem .ys-marker-core {
+  background: #C5A059;
+}
+
+.ys-marker.is-gem .ys-marker-pulse {
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(197, 160, 89, 0.6);
+  animation: gemPulse 2.2s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+  pointer-events: none;
+}
+
+@keyframes gemPulse {
+  0%   { transform: scale(0.9); opacity: 0.9; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
+
+/* Route Start (A) and Destination (B) Markers */
+.ys-route-marker {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 800;
+  font-family: inherit;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+}
+
+.ys-route-marker.start {
+  background: #1d4ed8;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+}
+
+.ys-route-marker.end {
+  background: #14281D;
+  color: #C5A059;
+  border: 2px solid #C5A059;
+}
+
+/* Minimalist Map Tooltips */
+.ys-custom-tooltip {
+  background: var(--color-forest, #14281D) !important;
+  color: #FAF6EE !important;
+  border: 1px solid rgba(197, 160, 89, 0.4) !important;
+  border-radius: 8px !important;
+  padding: 6px 10px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25) !important;
+  font-family: inherit !important;
+}
+
+.ys-custom-tooltip::before {
+  border-top-color: var(--color-forest, #14281D) !important;
+}
+
+.ys-tooltip-inner strong {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.ys-tooltip-inner span {
+  font-size: 0.68rem;
+  color: rgba(250, 246, 238, 0.75);
+}
+
+/* Filter Chip Dots & Gem Star */
+.chip-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.chip-dot.low      { background: #16a34a; }
+.chip-dot.moderate { background: #d97706; }
+.chip-dot.high     { background: #dc2626; }
+
+.chip-gem-star {
+  color: #C5A059;
+  margin-right: 4px;
+  font-size: 0.85rem;
+}
+
+.legend-gem-icon {
+  color: #C5A059;
+  font-size: 0.85rem;
+}
+
+.dest-gem-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: rgba(197, 160, 89, 0.15);
+  border: 1px solid rgba(197, 160, 89, 0.4);
+  color: #8c6b23;
+  padding: 1px 6px;
+  border-radius: 999px;
+}
+
+.dest-pressure-badge.low      { color: #16a34a; }
+.dest-pressure-badge.moderate { color: #d97706; }
+.dest-pressure-badge.high     { color: #dc2626; }
+
+.dest-pressure-bar-fill.low      { background: #16a34a; }
+.dest-pressure-bar-fill.moderate { background: #d97706; }
+.dest-pressure-bar-fill.high     { background: #dc2626; }
+
+.badge--gem {
+  background: rgba(197, 160, 89, 0.15) !important;
+  color: #8c6b23 !important;
+  border: 1px solid rgba(197, 160, 89, 0.4) !important;
+}
+
+.badge--crowd-low {
+  background: #f0fdf4 !important;
+  color: #16a34a !important;
+  border: 1px solid #16a34a !important;
+}
+
+.badge--crowd-moderate {
+  background: #fffbeb !important;
+  color: #d97706 !important;
+  border: 1px solid #d97706 !important;
+}
+
+.badge--crowd-high {
+  background: #fef2f2 !important;
+  color: #dc2626 !important;
+  border: 1px solid #dc2626 !important;
+}
+
+/* ============================================================
+   Google Maps Platform Luxury Vector Styling
+   ============================================================ */
+
+/* Advanced Marker Element Styling */
+.gmp-luxury-marker {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(20, 40, 29, 0.28), 0 0 0 1.5px rgba(20, 40, 29, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+  user-select: none;
+}
+
+.gmp-luxury-marker:hover {
+  transform: scale(1.35);
+  box-shadow: 0 6px 16px rgba(20, 40, 29, 0.38);
+  z-index: 1000 !important;
+}
+
+.gmp-marker-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: block;
+}
+
+.gmp-luxury-marker--low .gmp-marker-dot {
+  background: #16a34a;
+}
+
+.gmp-luxury-marker--moderate .gmp-marker-dot {
+  background: #d97706;
+}
+
+.gmp-luxury-marker--high .gmp-marker-dot {
+  background: #dc2626;
+}
+
+/* Hidden Gem Luxury Ring & Pulse */
+.gmp-luxury-marker.is-gem {
+  box-shadow: 0 0 0 2px #C5A059, 0 2px 10px rgba(197, 160, 89, 0.45);
+}
+
+.gmp-luxury-marker.is-gem .gmp-marker-dot {
+  background: #C5A059;
+}
+
+.gmp-luxury-marker.is-gem .gmp-marker-glow {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(197, 160, 89, 0.7);
+  animation: gemGlowPulse 2.2s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+  pointer-events: none;
+}
+
+@keyframes gemGlowPulse {
+  0%   { transform: scale(0.9); opacity: 0.95; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+/* Waypoint / Route Stop Markers (Numbered 1, 2, 3...) */
+.gmp-route-marker {
+  min-width: 24px;
+  height: 24px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: var(--color-forest, #14281D);
+  color: var(--color-gold, #C5A059);
+  border: 2px solid #C5A059;
+  box-shadow: 0 3px 12px rgba(20, 40, 29, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans, -apple-system, sans-serif);
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.gmp-route-marker:hover {
+  transform: scale(1.2);
+}
+
+.gmp-route-marker.start {
+  background: #1d4ed8;
+  color: #fff;
+  border-color: #fff;
+}
+
+.gmp-route-marker.end {
+  background: #14281D;
+  color: #C5A059;
+  border-color: #C5A059;
+}
+
+/* Google Places Autocomplete Styling to match YatraSetu */
+.pac-container {
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: 1.5px solid rgba(197, 160, 89, 0.45);
+  box-shadow: 0 8px 30px rgba(20, 40, 29, 0.15);
+  font-family: var(--font-sans, inherit);
+  margin-top: 4px;
+  z-index: 10000;
+  overflow: hidden;
+}
+
+.pac-item {
+  padding: 8px 14px;
+  font-size: 0.82rem;
+  color: var(--color-forest, #14281D);
+  cursor: pointer;
+  border-top: 1px solid rgba(197, 160, 89, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pac-item:hover, .pac-item-selected {
+  background-color: rgba(197, 160, 89, 0.12);
+}
+
+.pac-item-query {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--color-forest, #14281D);
+}
+
+.pac-matched {
+  color: #8c6b23;
+  font-weight: 800;
+}
+
+.pac-icon {
+  display: none;
+}
+
+/* Places UI Kit Web Component <gmp-place-autocomplete> */
+gmp-place-autocomplete {
+  width: 100%;
+  display: block;
+}
+
+/* Connect Google Maps Demo Key Banner */
+.gmp-key-banner {
+  display: none !important;
+}
+
+.gmp-key-banner-btn {
+  background: var(--color-gold, #C5A059);
+  color: var(--color-forest, #14281D);
+  border: none;
+  border-radius: 6px;
+  padding: 4px 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.gmp-key-banner-btn:hover {
+  background: #deb86d;
+}
+
+/* In-Page Key Activation Modal */
+.gmp-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 30, 22, 0.65);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn 0.2s ease;
+}
+
+.gmp-modal-box {
+  background: #FAF6EE;
+  border: 1.5px solid var(--color-gold, #C5A059);
+  border-radius: 14px;
+  max-width: 480px;
+  width: 90%;
+  padding: 24px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  color: var(--color-forest, #14281D);
+}
+
+.gmp-modal-title {
+  font-family: var(--font-serif, "Cormorant Garamond", serif);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-forest, #14281D);
+  margin: 0 0 8px;
+}
+
+/* Dossier Map Container in my_yatra.html */
+#dossier-map-canvas {
+  width: 100%;
+  height: 380px;
+  border-radius: 10px;
+  border: 1px solid rgba(197, 160, 89, 0.35);
+  overflow: hidden;
+  margin-bottom: 20px;
+  position: relative;
+  box-shadow: 0 4px 18px rgba(20, 40, 29, 0.08);
+}
+

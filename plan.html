@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  
+  <meta name="theme-color" content="#14281D">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="YatraSetu">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="icon" type="image/svg+xml" href="./static/img/logo_emblem.svg?v=18">
+  <link rel="icon" type="image/png" sizes="32x32" href="./static/assets/favicon-32x32.png?v=18">
+  <link rel="icon" type="image/png" sizes="16x16" href="./static/assets/favicon-16x16.png?v=18">
+  <link rel="shortcut icon" type="image/x-icon" href="./static/favicon.ico?v=18">
+  <link rel="apple-touch-icon" sizes="180x180" href="./static/assets/apple-touch-icon.png?v=18">
+  <link rel="icon" type="image/png" sizes="192x192" href="./static/assets/icon-192.png?v=18">
+  <link rel="manifest" href="./static/manifest.json?v=18">
+
+  
+  <meta name="description" content="YatraSetu — India's intelligent gateway to hidden journeys. Discover under-explored destinations, plan crowd-aware itineraries, and travel safely.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="YatraSetu">
+  <meta property="og:title" content="AI-Powered Yatra Planner">
+  <meta property="og:description" content="An intelligent digital gateway to India's hidden journeys.">
+
+  <title>Plan Your Yatra — India's Hidden Journeys</title>
+
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  
+  <link rel="stylesheet" href="./static/css/main.css?v=16">
+  <link rel="stylesheet" href="./static/css/heritage.css?v=19">
+  <link rel="stylesheet" href="./static/css/responsive.css?v=17">
+
+  
+  
+<style>
+@media print {
+  /* Hide interactive web UI components */
+  .site-header,
+  .site-nav,
+  .site-footer,
+  .section--dark,
+  .itinerary-form-wrap,
+  #itinerary-form,
+  #offline-saved-banner,
+  #itinerary-loading,
+  .itinerary-tabs,
+  .itinerary-download-actions,
+  button,
+  .btn,
+  .flash-container,
+  .offline-badge {
+    display: none !important;
+  }
+
+  body {
+    background: #fff !important;
+    color: #14281D !important;
+    font-size: 11pt !important;
+    padding-top: 0 !important;
+  }
+
+  div[style*="padding-top:80px"] {
+    padding-top: 0 !important;
+  }
+
+  #itinerary-results {
+    display: block !important;
+  }
+
+  #offline-print-header {
+    display: block !important;
+  }
+
+  .decongestion-banner {
+    background: #fdfbf7 !important;
+    color: #14281D !important;
+    border: 1px solid #C5A059 !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    margin-bottom: 20px !important;
+  }
+
+  .decongestion-banner * {
+    color: #14281D !important;
+  }
+
+  #budget-summary-section {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    margin-bottom: 20px !important;
+  }
+
+  /* Force ALL day panels to render sequentially in print/PDF */
+  .tab-panel {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    margin-bottom: 28px !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .activity-card {
+    box-shadow: none !important;
+    border: 1px solid #dcd5c5 !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    margin-bottom: 12px !important;
+  }
+}
+
+/* Live status dot */
+.live-status-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #51cf66;
+  box-shadow: 0 0 0 2px rgba(81, 207, 102, 0.25);
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+/* YatraSetu Reasoning Banner */
+.intelligence-reasoning-banner {
+  background: linear-gradient(135deg, #102218 0%, #152c1f 50%, #1c3829 100%);
+  border: 1px solid rgba(197, 160, 89, 0.45);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  color: var(--color-ivory);
+  margin-bottom: var(--space-8);
+  box-shadow: 0 8px 24px rgba(16, 34, 24, 0.15);
+}
+
+.reasoning-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid rgba(197, 160, 89, 0.25);
+}
+
+.reasoning-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+.reasoning-summary-text {
+  font-size: var(--text-sm);
+  color: rgba(250, 246, 238, 0.85);
+  line-height: 1.65;
+  margin-bottom: var(--space-5);
+}
+
+.reasoning-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-4);
+}
+
+.reasoning-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(197, 160, 89, 0.22);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+}
+
+.reasoning-card-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.reasoning-card-body {
+  font-size: 12px;
+  color: rgba(250, 246, 238, 0.78);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Leveled-Up Activity Cards */
+.activity-card-rich {
+  background: #FFFFFF;
+  border: 1px solid rgba(20, 40, 29, 0.12);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  display: flex;
+  gap: var(--space-5);
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  box-shadow: 0 2px 8px rgba(20, 40, 29, 0.04);
+}
+
+.activity-card-rich:hover {
+  border-color: rgba(197, 160, 89, 0.6);
+  box-shadow: 0 6px 18px rgba(20, 40, 29, 0.08);
+  transform: translateY(-1px);
+}
+
+.overnight-stay-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.overnight-stay-card:hover {
+  border-color: rgba(197, 160, 89, 0.85);
+  box-shadow: 0 8px 24px rgba(20, 40, 29, 0.1);
+  transform: translateY(-1px);
+}
+
+.activity-visual-col {
+  flex-shrink: 0;
+  width: 140px;
+}
+
+.activity-thumb-wrap {
+  width: 140px;
+  height: 115px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  position: relative;
+  background: #EFECE6;
+  border: 1px solid rgba(20, 40, 29, 0.1);
+}
+
+.activity-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.activity-card-rich:hover .activity-thumb-img {
+  transform: scale(1.04);
+}
+
+.activity-elevation-badge {
+  position: absolute;
+  bottom: 6px;
+  left: 6px;
+  background: rgba(16, 34, 24, 0.88);
+  backdrop-filter: blur(4px);
+  color: var(--color-gold);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+  border: 1px solid rgba(197, 160, 89, 0.3);
+}
+
+.activity-content-col {
+  flex: 1;
+  min-width: 0;
+}
+
+.activity-meta-strip {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.pill-time {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-forest);
+  background: rgba(20, 40, 29, 0.06);
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.03em;
+  font-variant-numeric: tabular-nums;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pill-cat {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-gold);
+  background: rgba(197, 160, 89, 0.12);
+  border: 1px solid rgba(197, 160, 89, 0.3);
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.pill-crowd-status {
+  font-size: 10px;
+  font-weight: 600;
+  color: #2b8a3e;
+  background: rgba(81, 207, 102, 0.12);
+  border: 1px solid rgba(81, 207, 102, 0.3);
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.activity-title {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  color: var(--color-forest);
+  margin: 0 0 6px 0;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.activity-location-text {
+  font-size: 12px;
+  color: var(--color-gold);
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.activity-desc {
+  font-size: var(--text-sm);
+  color: rgba(20, 40, 29, 0.75);
+  line-height: 1.6;
+  margin: 0 0 10px 0;
+}
+
+.activity-insider-tip {
+  background: #FAF7F0;
+  border-left: 3px solid var(--color-gold);
+  border-radius: 0 6px 6px 0;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: #2D3D32;
+  line-height: 1.5;
+}
+
+.activity-insider-tip strong {
+  color: var(--color-forest);
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  display: inline-block;
+  margin-right: 4px;
+}
+
+/* Mountain transit strip between activities */
+.mountain-transit-strip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 10px 0 10px 30px;
+  padding: 8px 14px;
+  background: rgba(197, 160, 89, 0.06);
+  border-left: 2px dashed var(--color-gold);
+  border-radius: 0 6px 6px 0;
+  font-size: 12px;
+  color: rgba(20, 40, 29, 0.85);
+}
+
+.transit-time-tag {
+  font-weight: 700;
+  color: var(--color-forest);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.transit-details {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.transit-terrain-pill {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 1px 6px;
+  border-radius: 3px;
+  background: rgba(20, 40, 29, 0.08);
+  color: var(--color-forest);
+}
+
+.mountain-transit-strip.is-walkable {
+  background: rgba(46, 125, 50, 0.05);
+  border-left: 2px dashed #2e7d32;
+}
+
+.transit-walk-pill {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: rgba(46, 125, 50, 0.12);
+  color: #2e7d32;
+  border: 1px solid rgba(46, 125, 50, 0.25);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+@media (max-width: 640px) {
+  .activity-card-rich {
+    flex-direction: column;
+  }
+  .activity-visual-col {
+    width: 100%;
+  }
+  .activity-thumb-wrap {
+    width: 100%;
+    height: 160px;
+  }
+  .mountain-transit-strip {
+    margin-left: 0;
+  }
+}
+
+/* ── Decongestion Decision Pipeline Hero ────────────────────────── */
+.decongestion-pipeline-card {
+  background: linear-gradient(135deg, #0d1e15 0%, #14281D 50%, #1c3628 100%);
+  border: 1.5px solid rgba(197, 160, 89, 0.55);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  color: var(--color-ivory);
+  margin-bottom: var(--space-8);
+  box-shadow: 0 10px 30px rgba(13, 30, 21, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.decongestion-pipeline-card::after {
+  content: '';
+  position: absolute;
+  top: -40%;
+  right: -20%;
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, rgba(197, 160, 89, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.pipeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid rgba(197, 160, 89, 0.25);
+}
+
+.pipeline-flow-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr 1fr;
+  gap: var(--space-5);
+  align-items: stretch;
+}
+
+@media (max-width: 920px) {
+  .pipeline-flow-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pipeline-stage {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.pipeline-stage--unoptimized {
+  border: 1px solid rgba(220, 38, 38, 0.35);
+  background: linear-gradient(180deg, rgba(220, 38, 38, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+}
+
+.pipeline-stage--interventions {
+  border: 1px solid rgba(197, 160, 89, 0.4);
+  background: linear-gradient(180deg, rgba(197, 160, 89, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
+}
+
+.pipeline-stage--optimized {
+  border: 1px solid rgba(81, 207, 102, 0.4);
+  background: linear-gradient(180deg, rgba(81, 207, 102, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+}
+
+.pipeline-stage-tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 8px;
+}
+
+.pipeline-stage--unoptimized .pipeline-stage-tag { color: #f87171; }
+.pipeline-stage--interventions .pipeline-stage-tag { color: var(--color-gold); }
+.pipeline-stage--optimized .pipeline-stage-tag { color: #51cf66; }
+
+.pipeline-intervention-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 8px;
+  padding: 6px 10px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: var(--radius-sm);
+  border-left: 2px solid var(--color-gold);
+}
+
+.pipeline-intervention-num {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  color: #14281D;
+  font-weight: 800;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.pipeline-metric-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  padding: 4px 0;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+}
+
+.pipeline-metric-row:last-child {
+  border-bottom: none;
+}
+
+/* ── Activity Decision Factors Drawer ───────────────────────────── */
+.activity-decisions-wrap {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(20, 40, 29, 0.08);
+}
+
+.decisions-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.decision-pills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.decision-pill {
+  font-size: 11px;
+  line-height: 1.4;
+  padding: 3px 8px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.decision-pill--crowd {
+  background: rgba(22, 163, 74, 0.1);
+  color: #166534;
+  border: 1px solid rgba(22, 163, 74, 0.25);
+}
+
+.decision-pill--weather {
+  background: rgba(2, 132, 199, 0.1);
+  color: #075985;
+  border: 1px solid rgba(2, 132, 199, 0.25);
+}
+
+.decision-pill--risk {
+  background: rgba(217, 119, 6, 0.1);
+  color: #92400e;
+  border: 1px solid rgba(217, 119, 6, 0.25);
+}
+
+.decision-pill--community {
+  background: rgba(197, 160, 89, 0.14);
+  color: #785a1a;
+  border: 1px solid rgba(197, 160, 89, 0.35);
+  font-weight: 600;
+}
+
+.decision-pill--pref {
+  background: rgba(107, 114, 128, 0.1);
+  color: #374151;
+  border: 1px solid rgba(107, 114, 128, 0.2);
+}
+
+/* ── Day Safeguards & Local Impact ─────────────────────────────── */
+.day-safeguard-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 12px;
+  margin-bottom: var(--space-6);
+}
+
+.safeguard-card {
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.safeguard-card--weather {
+  background: rgba(2, 132, 199, 0.06);
+  border: 1px solid rgba(2, 132, 199, 0.25);
+}
+
+.safeguard-card--risk {
+  background: rgba(217, 119, 6, 0.06);
+  border: 1px solid rgba(217, 119, 6, 0.25);
+}
+
+.day-impact-card {
+  background: #FFFFFF;
+  border: 1.5px solid rgba(27, 94, 59, 0.3);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  margin-top: var(--space-6);
+  margin-bottom: var(--space-4);
+  box-shadow: 0 4px 14px rgba(20, 40, 29, 0.05);
+}
+
+.impact-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.impact-stat-box {
+  background: rgba(27, 94, 59, 0.05);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  border-left: 3px solid #1b5e3b;
+}
+</style>
+
+</head>
+<body class="page-itinerary">
+
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  
+  <div class="offline-badge" role="status" aria-live="polite">
+    <span>⚠</span> You are offline. Emergency numbers still work.
+  </div>
+
+  
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <a class="nav-logo" href="./index.html" aria-label="YatraSetu home" style="display:inline-flex;align-items:center;gap:14px;text-decoration:none;white-space:nowrap;">
+      <img src="./static/img/logo_surya_seal.svg?v=15" alt="" class="nav-logo-emblem" width="50" height="50" style="width:50px;height:50px;display:block;flex-shrink:0;vertical-align:middle;">
+      <span class="nav-logo-text" style="display:inline-flex;align-items:center;font-family:var(--font-serif);font-size:1.85rem;font-weight:700;color:var(--color-ivory);letter-spacing:0.02em;line-height:1;">YatraSetu</span>
+    </a>
+
+    <ul class="nav-links" role="list">
+      <li><a href="/map"   >Explore</a></li>
+      <li><a href="./plan.html"      aria-current="page">Plan Yatra</a></li>
+      <li><a href="/homestays" >Homestays</a></li>
+      <li><a href="/my-yatra"   style="color:var(--color-gold);font-weight:600;">My Yatra</a></li>
+      <li><a href="/voice/" >Voice Bridge</a></li>
+      <li><a href="./discover.html"  >Discover</a></li>
+      <li><a href="./safety.html" >Safety</a></li>
+      <li><a href="/submissions/submit" >Community</a></li>
+      
+        <li>
+          <a href="/tourist/login" style="display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:var(--radius-full);border:1px solid var(--color-gold);color:var(--color-gold);font-weight:600;" title="Tourist Sign In / Register">
+            <span>👤</span> Tourist Login
+          </a>
+        </li>
+      
+    </ul>
+
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="nav-mobile">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  
+  <div class="nav-mobile" id="nav-mobile" role="dialog" aria-label="Mobile navigation" aria-modal="true">
+    <button class="nav-mobile-close" id="nav-mobile-close" aria-label="Close navigation">✕</button>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:1.5rem;padding-left:4px;">
+      <img src="./static/img/logo_surya_seal.svg" alt="" width="30" height="30">
+      <span style="font-family:var(--font-serif);font-size:1.35rem;font-weight:700;color:var(--color-ivory);">YatraSetu</span>
+    </div>
+    <nav>
+      <a href="./index.html"              onclick="closeMobileNav()">Home</a>
+      <a href="/map"            onclick="closeMobileNav()">Explore</a>
+      <a href="./plan.html"               onclick="closeMobileNav()">Plan Yatra</a>
+      <a href="/homestays"          onclick="closeMobileNav()">🏡 Homestays &amp; Stays</a>
+      <a href="/my-yatra"           onclick="closeMobileNav()" style="color:var(--color-gold);font-weight:700;">🗺️ My Yatra (Offline Pack)</a>
+      <a href="/voice/"                                   onclick="closeMobileNav()" style="color:var(--color-terracotta);font-weight:700;">🎙️ Voice Bridge</a>
+      <a href="./discover.html"           onclick="closeMobileNav()">Discover</a>
+      <a href="./safety.html"      onclick="closeMobileNav()">Safety & SOS</a>
+      <a href="/submissions/submit" onclick="closeMobileNav()">Community</a>
+      
+        <a href="/tourist/login" style="color:var(--color-gold);font-weight:700;" onclick="closeMobileNav()">👤 Tourist Login / Sign Up</a>
+      
+    </nav>
+  </div>
+
+  
+  
+    
+  
+
+  
+  <main id="main-content" tabindex="-1">
+    
+<div style="padding-top:80px;">
+
+  <!-- Page header -->
+  <div class="section section--dark" style="padding-block:var(--space-16);">
+    <div class="container container--narrow" style="text-align:center;">
+      <div class="label" style="color:var(--color-gold);justify-content:center;display:inline-flex;align-items:center;gap:8px;margin-bottom:var(--space-4);">
+        <img src="./static/img/logo_surya_seal.svg?v=15" width="16" height="16" alt="" style="display:inline-block;">
+        <span>YatraSetu AI Itinerary Planner</span>
+      </div>
+      <h1 style="font-family:var(--font-serif);font-size:var(--text-2xl);color:var(--color-ivory);margin-bottom:var(--space-4);">
+        Design Your Perfect Yatra
+      </h1>
+      <p style="color:rgba(250,246,238,0.6);font-size:var(--text-md);max-width:540px;margin-inline:auto;">
+        Tell us your destination, how long you have, and what moves you —
+        and our AI will craft a crowd-aware day-by-day journey.
+      </p>
+    </div>
+  </div>
+
+  <!-- ── PLANNER FORM ───────────────────────────────────────────── -->
+  <section class="section" aria-label="Itinerary planner form">
+    <div class="container">
+      <div class="itinerary-form-wrap">
+
+        <!-- Saved Offline Yatra Notice (Zero Internet Recovery) -->
+        <div id="offline-saved-banner" style="display:none;margin-bottom:var(--space-6);background:rgba(197,160,89,0.12);border:1px solid rgba(197,160,89,0.35);border-radius:var(--radius-md);padding:var(--space-4) var(--space-5);align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--space-3);">
+          <div style="display:flex;align-items:center;gap:var(--space-3);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+            <div>
+              <div style="font-weight:700;color:var(--color-forest);font-size:var(--text-sm);" id="offline-banner-title">
+                Saved Offline Yatra Available
+              </div>
+              <div style="font-size:var(--text-xs);color:rgba(20,40,29,0.65);" id="offline-banner-meta">
+                Saved locally on your device for access with zero internet connection.
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn btn-outline" id="btn-open-saved-offline" style="padding:6px 14px;font-size:var(--text-xs);font-weight:600;border-color:var(--color-gold);color:var(--color-forest);display:inline-flex;align-items:center;gap:6px;">
+            <span>Open Offline Yatra</span>
+            <img src="./static/img/logo_surya_seal.svg?v=15" width="13" height="13" alt="" style="display:inline-block;">
+          </button>
+        </div>
+
+        <form id="itinerary-form" novalidate>
+
+          <!-- Destination -->
+          <div class="form-group">
+            <label class="form-label" for="destination-input">
+              Primary Destination
+            </label>
+            <div class="autocomplete-wrap">
+              <input
+                type="text"
+                id="destination-input"
+                class="form-control"
+                placeholder="Search for a destination…"
+                autocomplete="off"
+                required
+                aria-autocomplete="list"
+                aria-controls="destination-dropdown"
+              >
+              <div class="autocomplete-dropdown" id="destination-dropdown" role="listbox" aria-label="Destination suggestions"></div>
+            </div>
+            <input type="hidden" id="destination-id-input" name="destination_id" value="">
+            <div id="search-weather-preview" style="display:none;margin-top:var(--space-2);font-size:var(--text-xs);color:var(--color-gold);background:rgba(197,160,89,0.08);padding:6px 12px;border-radius:var(--radius-sm);border:1px solid rgba(197,160,89,0.25);align-items:center;gap:8px;">
+              <span class="live-status-dot"></span>
+              <span id="preview-weather-text">Checking live weather…</span>
+            </div>
+            <div class="form-hint">Start typing to search from our database of Indian destinations.</div>
+          </div>
+
+          <!-- Travel Dates & Duration -->
+          <div class="form-group" style="margin-top:var(--space-8);">
+            <label class="form-label" style="margin-bottom:var(--space-2);">
+              Travel Dates &amp; Duration
+            </label>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(190px, 1fr));gap:var(--space-4);margin-bottom:var(--space-4);">
+              <div>
+                <label for="start-date" style="font-size:var(--text-xs);font-weight:700;color:var(--color-forest);text-transform:uppercase;letter-spacing:0.05em;display:flex;align-items:center;gap:5px;margin-bottom:6px;">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                  <span>Start Date</span>
+                </label>
+                <input
+                  type="date"
+                  id="start-date"
+                  name="start_date"
+                  class="form-control"
+                  style="padding:10px 14px;font-family:var(--font-sans);background:var(--color-ivory);"
+                  aria-label="Trip start date"
+                >
+              </div>
+              <div>
+                <label for="end-date" style="font-size:var(--text-xs);font-weight:700;color:var(--color-forest);text-transform:uppercase;letter-spacing:0.05em;display:flex;align-items:center;gap:5px;margin-bottom:6px;">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                  <span>End Date</span>
+                </label>
+                <input
+                  type="date"
+                  id="end-date"
+                  name="end_date"
+                  class="form-control"
+                  style="padding:10px 14px;font-family:var(--font-sans);background:var(--color-ivory);"
+                  aria-label="Trip end date"
+                >
+              </div>
+            </div>
+
+            <div class="days-slider-wrap">
+              <div>
+                <div class="days-display" id="days-display" aria-live="polite">3</div>
+                <div class="days-label">Days</div>
+              </div>
+              <input
+                type="range"
+                id="trip-days-slider"
+                name="trip_days"
+                min="1" max="21" value="3"
+                aria-valuemin="1" aria-valuemax="21" aria-valuenow="3"
+                aria-label="Trip duration in days"
+              >
+            </div>
+            <div style="font-size:var(--text-xs);color:rgba(20,40,29,0.6);margin-top:var(--space-2);">
+              Pick your calendar dates or drag the slider — start date, end date, and total days update in real time.
+            </div>
+          </div>
+
+          <!-- Interests -->
+          <div class="form-group" style="margin-top:var(--space-8);">
+            <label class="form-label" as="div" id="interests-label">
+              Interests <span style="font-weight:400;letter-spacing:0;text-transform:none;color:rgba(20,40,29,0.4)">(select all that apply)</span>
+            </label>
+            <div class="interest-chips" role="group" aria-labelledby="interests-label" id="interest-chips">
+              <button type="button" class="chip" data-value="heritage">Heritage</button>
+              <button type="button" class="chip" data-value="nature">Nature</button>
+              <button type="button" class="chip" data-value="spiritual">Spiritual</button>
+              <button type="button" class="chip" data-value="culture">Culture</button>
+              <button type="button" class="chip" data-value="food">Cuisine &amp; Tea</button>
+              <button type="button" class="chip" data-value="photography">Photography</button>
+              <button type="button" class="chip" data-value="adventure">Adventure</button>
+              <button type="button" class="chip" data-value="rural">Rural Life</button>
+              <button type="button" class="chip" data-value="wellness">Wellness</button>
+              <button type="button" class="chip" data-value="wildlife">Wildlife</button>
+            </div>
+          </div>
+
+          <!-- Travel style -->
+          <div class="form-group" style="margin-top:var(--space-6);">
+            <label class="form-label" for="travel-style">Travel Style</label>
+            <select class="form-control" id="travel-style" name="travel_style">
+              <option value="">Select a style…</option>
+              <option value="relaxed">Relaxed — unhurried pace, longer stays</option>
+              <option value="balanced">Balanced — mix of sightseeing and downtime</option>
+              <option value="immersive">Immersive — deep local experiences</option>
+              <option value="active">Active — full days, lots of ground to cover</option>
+              <option value="budget">Budget — maximum experience, minimal spend</option>
+              <option value="premium">Premium — comfort and curated experiences</option>
+            </select>
+          </div>
+
+          <!-- Trip Budget -->
+          <div class="form-group" style="margin-top:var(--space-6);">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-2);">
+              <label class="form-label" for="budget-input" style="margin-bottom:0;">
+                Trip Budget (INR ₹)
+              </label>
+              <div style="display:flex;align-items:center;background:rgba(20,40,29,0.06);padding:3px 10px;border-radius:var(--radius-md);border:1px solid rgba(20,40,29,0.15);">
+                <span style="font-weight:700;color:var(--color-gold);margin-right:4px;">₹</span>
+                <input
+                  type="number"
+                  id="budget-input"
+                  name="budget"
+                  min="1000"
+                  max="500000"
+                  step="500"
+                  value="15000"
+                  style="width:90px;border:none;background:transparent;font-weight:700;font-size:1rem;color:var(--color-forest);outline:none;"
+                  aria-label="Trip budget amount in rupees"
+                >
+              </div>
+            </div>
+            <div class="days-slider-wrap" style="display:flex;align-items:center;gap:var(--space-4);">
+              <input
+                type="range"
+                id="budget-slider"
+                min="2000"
+                max="100000"
+                step="1000"
+                value="15000"
+                style="flex:1;"
+                aria-label="Trip budget slider"
+              >
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:var(--text-xs);color:rgba(20,40,29,0.5);margin-top:4px;">
+              <span>₹2,000 (Backpacker)</span>
+              <span>₹15,000 (Comfortable)</span>
+              <span>₹1,00,000+ (Luxury)</span>
+            </div>
+          </div>
+
+          <!-- Radius -->
+          <div class="form-group" style="margin-top:var(--space-6);">
+            <label class="form-label" for="radius-input">Alternative Search Radius</label>
+            <select class="form-control" id="radius-input" name="radius_km">
+              <option value="50" selected>Close by — within 50 km (Immediate Vicinity)</option>
+              <option value="75">Short Excursion — within 75 km</option>
+              <option value="150">Regional Gems — within 150 km</option>
+              <option value="300">Wider Exploration — within 300 km</option>
+            </select>
+            <div class="form-hint">YatraSetu will prioritize hidden gems closest to your destination first.</div>
+          </div>
+
+          <!-- Notes -->
+          <div class="form-group" style="margin-top:var(--space-6);">
+            <label class="form-label" for="notes-input">Traveller Notes <span style="font-weight:400;letter-spacing:0;text-transform:none;color:rgba(20,40,29,0.4)">(optional)</span></label>
+            <textarea
+              class="form-control"
+              id="notes-input"
+              name="traveller_notes"
+              maxlength="1000"
+              placeholder="Accessibility needs, special interests, who you're travelling with…"
+              rows="4"
+            ></textarea>
+            <div class="char-counter"><span id="notes-count">0</span>/1000</div>
+          </div>
+
+          <!-- Submit -->
+          <div style="margin-top:var(--space-8);">
+            <button type="submit" class="btn btn-primary btn-lg" id="generate-btn" style="width:100%;justify-content:center;display:inline-flex;align-items:center;gap:10px;">
+              <span>Generate My Yatra</span>
+              <img src="./static/img/logo_surya_seal.svg?v=15" alt="" width="22" height="22" style="width:22px;height:22px;display:inline-block;vertical-align:middle;">
+            </button>
+          </div>
+
+          <!-- Error message -->
+          <div id="itinerary-error" class="form-error-msg" style="display:none;margin-top:var(--space-4);text-align:center;font-size:var(--text-sm);">
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── LOADING STATE ──────────────────────────────────────────── -->
+  <div id="itinerary-loading" style="display:none;text-align:center;padding:var(--space-16);">
+    <div style="font-family:var(--font-serif);font-size:var(--text-xl);color:var(--color-forest);margin-bottom:var(--space-4);">
+      Consulting the heritage atlas…
+    </div>
+    <div style="display:flex;justify-content:center;gap:var(--space-3);">
+      <div class="skeleton" style="width:8px;height:8px;border-radius:50%;animation-delay:0s;"></div>
+      <div class="skeleton" style="width:8px;height:8px;border-radius:50%;animation-delay:0.2s;"></div>
+      <div class="skeleton" style="width:8px;height:8px;border-radius:50%;animation-delay:0.4s;"></div>
+    </div>
+  </div>
+
+  <!-- ── RESULTS ────────────────────────────────────────────────── -->
+  <div id="itinerary-results" style="display:none;">
+
+    <!-- Offline Print / PDF Dossier Header (Visible only on print/save to PDF) -->
+    <div id="offline-print-header" style="display:none;margin-bottom:24px;border-bottom:2px solid var(--color-gold);padding-bottom:14px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;">
+        <div>
+          <h1 style="font-family:var(--font-serif);font-size:22pt;color:var(--color-forest);margin:0 0 4px 0;">
+            YatraSetu — Offline Heritage Travel Dossier
+          </h1>
+          <div id="print-destination-meta" style="font-size:12pt;color:#333;font-weight:600;"></div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-size:8pt;text-transform:uppercase;color:#777;letter-spacing:1px;font-weight:700;">National Emergency SOS</div>
+          <div style="font-size:14pt;font-weight:800;color:#C1121F;line-height:1.2;">112</div>
+          <div style="font-size:8.5pt;color:#444;">Tourist Helpline: <strong>1363</strong> · Ambulance: <strong>108</strong></div>
+        </div>
+      </div>
+      <div id="print-advisory-note" style="margin-top:10px;font-size:9.5pt;color:#2c3e2e;background:#f9f8f4;padding:8px 12px;border-left:3px solid var(--color-gold);border-radius:2px;">
+        Zero-connectivity travel document generated by YatraSetu AI.
+      </div>
+    </div>
+
+    <!-- ── YatraSetu Autonomous Decongestion Decision Pipeline Hero ── -->
+    <section class="section" id="decongestion-pipeline-section" aria-label="Autonomous Decongestion Pipeline" style="padding-top:0;display:none;">
+      <div class="container">
+        <div class="decongestion-pipeline-card" id="decongestion-pipeline-card">
+          <!-- Rendered live by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Decongestion Banner -->
+    <section class="section" aria-label="Decongestion recommendations" style="padding-top:0;">
+      <div class="container">
+        <div class="decongestion-banner" id="decongestion-banner">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:var(--space-4);margin-bottom:var(--space-4);">
+            <div>
+              <div class="label" style="color:var(--color-gold);margin-bottom:var(--space-2);">Smart Decongestion &amp; Live Climate</div>
+              <h2 style="font-family:var(--font-serif);font-size:var(--text-2xl);color:var(--color-ivory);margin-bottom:var(--space-1);" id="primary-dest-name">—</h2>
+              <p style="color:rgba(250,246,238,0.7);font-size:var(--text-sm);margin-bottom:0;" id="primary-crowd-info">—</p>
+            </div>
+
+            <!-- Live Weather Forecast Card for Searched Destination -->
+            <div id="primary-weather-wrap" style="display:none;background:rgba(255,255,255,0.08);border:1px solid rgba(197,160,89,0.35);border-radius:var(--radius-lg);padding:var(--space-3) var(--space-5);min-width:270px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:4px;">
+                <span style="font-size:var(--text-xs);letter-spacing:0.08em;text-transform:uppercase;color:var(--color-gold);font-weight:700;display:inline-flex;align-items:center;gap:5px;">
+                  <img src="./static/img/logo_surya_seal.svg?v=15" width="12" height="12" alt="" style="display:inline-block;">
+                  <span>Live Weather</span>
+                </span>
+                <span style="font-size:10px;background:rgba(81,207,102,0.15);color:#51cf66;padding:2px 8px;border-radius:var(--radius-full);border:1px solid rgba(81,207,102,0.3);display:inline-flex;align-items:center;">
+                  <span class="live-status-dot"></span> Live Telemetry
+                </span>
+              </div>
+              <div style="display:flex;align-items:center;gap:var(--space-3);">
+                <span id="primary-weather-icon" style="font-size:1.4rem;color:var(--color-gold);" aria-hidden="true"></span>
+                <div>
+                  <div style="display:flex;align-items:baseline;gap:8px;">
+                    <span id="primary-weather-temp" style="font-size:var(--text-xl);font-weight:700;color:var(--color-ivory);">--°C</span>
+                    <span id="primary-weather-desc" style="font-size:var(--text-sm);color:var(--color-gold);font-weight:600;text-transform:capitalize;">--</span>
+                  </div>
+                  <div id="primary-weather-details" style="font-size:11px;color:rgba(250,246,238,0.7);margin-top:2px;">
+                    <!-- Filled by JS -->
+                  </div>
+                </div>
+              </div>
+              <div id="primary-weather-advisory" style="margin-top:var(--space-2);font-size:11px;color:rgba(250,246,238,0.85);background:rgba(0,0,0,0.25);padding:3px 8px;border-radius:var(--radius-sm);border:1px solid rgba(255,255,255,0.08);">
+                Checking atmosphere…
+              </div>
+            </div>
+          </div>
+
+          <div id="alternatives-wrap">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Budget Plan Summary Banner -->
+    <section class="section" id="budget-summary-section" style="padding-top:0;display:none;">
+      <div class="container">
+        <div style="background:rgba(197,160,89,0.08);border:1px solid rgba(197,160,89,0.3);border-radius:var(--radius-lg);padding:var(--space-6);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--space-4);">
+          <div>
+            <div style="font-size:var(--text-xs);letter-spacing:0.1em;text-transform:uppercase;color:var(--color-gold);font-weight:700;margin-bottom:var(--space-1);display:inline-flex;align-items:center;gap:6px;">
+              <img src="./static/img/logo_surya_seal.svg?v=15" width="13" height="13" alt="" style="display:inline-block;">
+              <span>Calibrated Trip Budget</span>
+            </div>
+            <div id="budget-summary-title" style="font-family:var(--font-serif);font-size:var(--text-xl);color:var(--color-forest);font-weight:600;">₹15,000 Estimated Total Spend</div>
+            <p id="budget-summary-advice" style="font-size:var(--text-sm);color:rgba(20,40,29,0.75);margin-top:var(--space-2);margin-bottom:0;max-width:680px;line-height:1.6;">—</p>
+          </div>
+          <div id="budget-category-badge" style="padding:6px 16px;border-radius:var(--radius-full);background:var(--color-forest);color:var(--color-gold);font-weight:700;font-size:var(--text-xs);letter-spacing:0.05em;text-transform:uppercase;border:1px solid var(--color-gold);">
+            Comfortable
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Green Miles Visual Identity Card -->
+    <section class="section" id="green-miles-results-section" style="padding-top:0;display:none;">
+      <div class="container">
+        <div id="green-miles-results-wrap"></div>
+      </div>
+    </section>
+
+    <!-- Meet the People Behind the Place (Live Community Storytelling) -->
+    <section class="section" id="community-stories-results-section" style="padding-top:0;display:none;">
+      <div class="container">
+        <div class="people-behind-place">
+          <div class="people-gallery-header">
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:var(--space-2);">
+              <span style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-gold);display:inline-flex;align-items:center;gap:6px;">
+                DIRECT LOCAL IMPACT · SIH DECENTRALIZATION
+              </span>
+              <span id="itinerary-community-retention-badge" style="font-size:11px;background:rgba(81,207,102,0.15);color:#2b8a3e;padding:3px 10px;border-radius:var(--radius-full);border:1px solid rgba(81,207,102,0.4);font-weight:700;display:inline-flex;align-items:center;">
+                <span class="live-status-dot"></span> 92% Direct Wealth Retention
+              </span>
+            </div>
+            <h2 style="font-family:var(--font-serif);font-size:var(--text-2xl);color:var(--color-forest);margin:0 0 6px 0;font-weight:700;">
+              Meet the People Behind the Place
+            </h2>
+            <p id="itinerary-community-cultural-summary" style="font-size:var(--text-sm);color:rgba(20,40,29,0.7);margin:0;line-height:1.6;">
+              Tourism income reaches the families, artisans, and native guides who preserve these sacred places for generations.
+            </p>
+          </div>
+
+          <div class="people-gallery-grid" id="itinerary-storytellers-grid">
+            <!-- Populated live by AI -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- YatraSetu Intelligence Reasoning Engine Banner -->
+    <section class="section" id="intelligence-reasoning-section" style="padding-top:0;display:none;">
+      <div class="container">
+        <div class="intelligence-reasoning-banner" id="intelligence-reasoning-banner">
+          <!-- Populated live by JS from why_yatrasetu_changed_your_journey -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Day-by-Day Itinerary -->
+    <section class="section" aria-label="Your itinerary" style="padding-top:0;">
+      <div class="container">
+        
+        <!-- Header with Dates & Offline Download Actions -->
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--space-4);margin-bottom:var(--space-6);padding-bottom:var(--space-4);border-bottom:1px solid rgba(20,40,29,0.12);">
+          <div>
+            <div class="label" style="margin-bottom:var(--space-1);">Your Day-by-Day Yatra</div>
+            <div id="itinerary-dates-summary" style="font-family:var(--font-serif);font-size:var(--text-lg);color:var(--color-forest);font-weight:700;display:flex;align-items:center;gap:6px;">
+              <!-- Filled by JS -->
+            </div>
+          </div>
+          <div class="itinerary-download-actions" style="display:flex;align-items:center;gap:var(--space-3);flex-wrap:wrap;">
+            <button type="button" class="btn btn-outline" id="btn-save-to-account" style="display:inline-flex;align-items:center;gap:7px;background:rgba(197,160,89,0.12);border-color:var(--color-gold);color:var(--color-forest);font-weight:600;" title="Save this Yatra to your Tourist Profile">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+              <span>Save to Account</span>
+            </button>
+            <button type="button" class="btn btn-primary" id="btn-download-pdf" style="display:inline-flex;align-items:center;gap:7px;box-shadow:var(--shadow-sm);" title="Download as PDF or Print for zero connectivity">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              <span>Download PDF Dossier</span>
+            </button>
+            <button type="button" class="btn btn-outline" id="btn-download-html" style="display:inline-flex;align-items:center;gap:7px;background:#fff;border-color:var(--color-gold);color:var(--color-forest);" title="Save standalone offline HTML bundle directly to your phone or PC">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+              <span>Save Standalone HTML</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Day tabs -->
+        <div class="itinerary-tabs" id="itinerary-tabs" role="tablist" aria-label="Itinerary days">
+          <!-- Injected by JS -->
+        </div>
+
+        <!-- Day panels -->
+        <div id="itinerary-panels" style="margin-top:var(--space-8);">
+          <!-- Injected by JS -->
+        </div>
+
+        <!-- Actions Row (Regenerate, Save to Account & Offline Download) -->
+        <div style="display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:var(--space-4);margin-top:var(--space-12);padding-top:var(--space-8);border-top:1px solid rgba(20,40,29,0.12);">
+          <button type="button" class="btn btn-outline" onclick="document.getElementById('itinerary-results').style.display='none';document.getElementById('itinerary-form').scrollIntoView({behavior:'smooth'});">
+            ← Adjust &amp; Regenerate
+          </button>
+          <button type="button" class="btn btn-outline" id="btn-save-to-account-bottom" style="display:inline-flex;align-items:center;gap:7px;background:rgba(197,160,89,0.12);border-color:var(--color-gold);color:var(--color-forest);font-weight:600;" title="Save this Yatra to your Tourist Profile">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+            <span>Save to Account</span>
+          </button>
+          <button type="button" class="btn btn-primary" id="btn-download-pdf-bottom" style="display:inline-flex;align-items:center;gap:7px;" title="Download as PDF or Print for zero connectivity">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <span>Download PDF Dossier</span>
+          </button>
+          <button type="button" class="btn btn-outline" id="btn-download-html-bottom" style="display:inline-flex;align-items:center;gap:7px;background:#fff;border-color:var(--color-gold);color:var(--color-forest);" title="Save standalone offline HTML bundle">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+            <span>Save Standalone HTML</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /itinerary-results -->
+
+</div>
+
+  </main>
+
+  
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <div class="footer-logo">
+            <img src="./static/img/logo_surya_seal.svg?v=15" alt="" class="footer-logo-emblem" width="28" height="28">
+            <span>YatraSetu</span>
+          </div>
+          <p class="footer-tagline">
+            An intelligent digital gateway to India's hidden journeys —
+            crowd-aware, community-powered, and built for the curious traveller.
+          </p>
+          <div class="footer-emergency" role="alert">
+            <span>🚨</span>
+            <span>Emergency: <strong>112</strong> &nbsp;|&nbsp; Medical: <strong>108</strong></span>
+          </div>
+        </div>
+        <div>
+          <div class="footer-section-title">Navigate</div>
+          <ul class="footer-links">
+            <li><a href="/map">Explore Destinations</a></li>
+            <li><a href="./plan.html">Plan Your Yatra</a></li>
+            <li><a href="/homestays">Community Homestays</a></li>
+            <li><a href="/voice/">Voice Bridge (Translator)</a></li>
+            <li><a href="./discover.html">Discover Hidden Spots</a></li>
+            <li><a href="/submissions/submit">Submit a Spot</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-section-title">Help &amp; Safety</div>
+          <ul class="footer-links">
+            <li><a href="./safety.html">Safety &amp; SOS</a></li>
+            <li><a href="/safety/emergency-directory">Emergency Directory</a></li>
+            <li><a href="/tourist/login">Tourist Portal / Login</a></li>
+            <li><a href="/yatrasetu-admin/login">Tourism Board</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 YatraSetu. Built for India's hidden journeys.</span>
+      </div>
+    </div>
+  </footer>
+
+  
+  <div id="offline-redirect-modal" role="dialog" aria-modal="true" aria-labelledby="offline-modal-title" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(15,30,22,0.85);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:var(--space-4);">
+    <div style="background:#fff;border-radius:var(--radius-lg);border:2px solid var(--color-gold);box-shadow:0 20px 40px rgba(0,0,0,0.4);max-width:480px;width:100%;padding:var(--space-6);text-align:center;position:relative;">
+      <div style="font-size:3rem;margin-bottom:var(--space-2);line-height:1;">📡⚡</div>
+      <div style="display:inline-block;background:#fff5f5;border:1px solid #ffc9c9;color:#e03131;padding:3px 12px;border-radius:var(--radius-full);font-size:var(--text-xs);font-weight:700;text-transform:uppercase;margin-bottom:var(--space-2);">
+        No Internet Connection Detected
+      </div>
+      <h3 id="offline-modal-title" style="font-family:var(--font-serif);font-size:var(--text-xl);color:var(--color-forest);font-weight:700;margin:0 0 var(--space-2);">
+        Switching to Saved Offline Yatra
+      </h3>
+      <p style="font-size:var(--text-sm);color:rgba(20,40,29,0.8);line-height:1.5;margin-bottom:var(--space-5);">
+        You are currently offline. We detected your saved itinerary dossier and emergency directory on this device. Redirecting in <strong id="offline-redirect-countdown" style="color:var(--color-forest);font-size:1.2em;">3</strong> seconds…
+      </p>
+      <div style="display:flex;gap:var(--space-3);justify-content:center;flex-wrap:wrap;">
+        <a href="/my-yatra" class="btn btn-primary" id="btn-offline-go-now" style="font-weight:700;display:inline-flex;align-items:center;gap:6px;">
+          <span>🗺️</span> Open Offline Dossier Now
+        </a>
+        <button type="button" class="btn btn-outline" id="btn-offline-dismiss" style="font-size:var(--text-xs);">
+          Stay on this page
+        </button>
+      </div>
+    </div>
+  </div>
+
+  
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('/sw.js').catch(function (err) {
+          console.warn('[YatraSetu] Service worker registration failed:', err);
+        });
+      });
+    }
+  </script>
+
+  
+  <script>
+    /* ── Scroll-aware nav ──────────────────────────────────────── */
+    (function () {
+      var nav = document.querySelector('.site-nav');
+      if (!nav) return;
+      var tick = false;
+      function updateNav() {
+        nav.classList.toggle('scrolled', window.scrollY > 40);
+        tick = false;
+      }
+      window.addEventListener('scroll', function () {
+        if (!tick) { requestAnimationFrame(updateNav); tick = true; }
+      }, { passive: true });
+      updateNav();
+    })();
+
+    /* ── Mobile nav ────────────────────────────────────────────── */
+    var hamburger = document.getElementById('nav-hamburger');
+    var mobileNav = document.getElementById('nav-mobile');
+    var mobileClose = document.getElementById('nav-mobile-close');
+
+    function openMobileNav() {
+      mobileNav.classList.add('is-open');
+      document.body.classList.add('scroll-locked');
+      hamburger.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeMobileNav() {
+      mobileNav.classList.remove('is-open');
+      document.body.classList.remove('scroll-locked');
+      hamburger.setAttribute('aria-expanded', 'false');
+    }
+
+    if (hamburger) hamburger.addEventListener('click', openMobileNav);
+    if (mobileClose) mobileClose.addEventListener('click', closeMobileNav);
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeMobileNav();
+    });
+
+    /* ── Offline detection & Auto-Redirect ──────────────────────── */
+    var offlineCountdownTimer = null;
+    var offlineCountdownSecs = 3;
+
+    function handleOfflineState() {
+      var isOffline = !navigator.onLine;
+      document.body.classList.toggle('is-offline', isOffline);
+
+      var modal = document.getElementById('offline-redirect-modal');
+      var countdownEl = document.getElementById('offline-redirect-countdown');
+
+      if (isOffline) {
+        // If already on /my-yatra, stay there and let it run from pack
+        if (window.location.pathname === '/my-yatra') {
+          if (modal) modal.style.display = 'none';
+          return;
+        }
+
+        var hasSaved = localStorage.getItem('yatrasetu_active_itinerary') ||
+                       localStorage.getItem('yatrasetu_offline_plan') ||
+                       localStorage.getItem('yatrasetu_offline_itinerary') ||
+                       localStorage.getItem('yatrasetu_last_itinerary');
+
+        if (hasSaved && modal) {
+          modal.style.display = 'flex';
+          offlineCountdownSecs = 3;
+          if (countdownEl) countdownEl.textContent = offlineCountdownSecs;
+
+          clearInterval(offlineCountdownTimer);
+          offlineCountdownTimer = setInterval(function () {
+            offlineCountdownSecs--;
+            if (countdownEl) countdownEl.textContent = offlineCountdownSecs;
+            if (offlineCountdownSecs <= 0) {
+              clearInterval(offlineCountdownTimer);
+              window.location.href = '/my-yatra';
+            }
+          }, 1000);
+        }
+      } else {
+        if (modal) modal.style.display = 'none';
+        clearInterval(offlineCountdownTimer);
+      }
+    }
+
+    var btnDismissOffline = document.getElementById('btn-offline-dismiss');
+    if (btnDismissOffline) {
+      btnDismissOffline.addEventListener('click', function () {
+        var modal = document.getElementById('offline-redirect-modal');
+        if (modal) modal.style.display = 'none';
+        clearInterval(offlineCountdownTimer);
+      });
+    }
+
+    window.addEventListener('online',  handleOfflineState);
+    window.addEventListener('offline', handleOfflineState);
+    handleOfflineState();
+
+    /* ── Flash auto-dismiss (5s) ───────────────────────────────── */
+    document.querySelectorAll('.flash').forEach(function (el) {
+      setTimeout(function () {
+        el.style.transition = 'opacity 0.4s ease';
+        el.style.opacity = '0';
+        setTimeout(function () { el.remove(); }, 400);
+      }, 5000);
+    });
+
+    /* ── Scroll reveal (IntersectionObserver) ──────────────────── */
+    (function () {
+      var els = document.querySelectorAll('.reveal-on-scroll');
+      if (!els.length) return;
+      var mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+      if (mq.matches) {
+        els.forEach(function (el) { el.classList.add('is-visible'); });
+        return;
+      }
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      els.forEach(function (el) { observer.observe(el); });
+    })();
+  </script>
+
+  
+  <script src="./static/js/cards.js?v=17"></script>
+
+  
+  
+<script src="./static/js/green_miles.js?v=10.0"></script>
+<script src="./static/js/itinerary.js?v=12.0"></script>
+
+
+</body>
+</html>

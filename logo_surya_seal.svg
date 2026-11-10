@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <defs>
+    <linearGradient id="surya-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F5D77F" />
+      <stop offset="45%" stop-color="#C5A059" />
+      <stop offset="100%" stop-color="#8E6C25" />
+    </linearGradient>
+    <linearGradient id="surya-light" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF3D1" />
+      <stop offset="100%" stop-color="#D4A548" />
+    </linearGradient>
+    <radialGradient id="surya-core" cx="45%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#FFF6DE" />
+      <stop offset="40%" stop-color="#C5A059" />
+      <stop offset="100%" stop-color="#7A5A1B" />
+    </radialGradient>
+  </defs>
+
+  <!-- Outer Concentric Golden Rings -->
+  <circle cx="60" cy="60" r="48.0" stroke="url(#surya-gold)" stroke-width="2.5" />
+  <circle cx="60" cy="60" r="43.0" stroke="url(#surya-gold)" stroke-width="1.5" stroke-dasharray="32 8" opacity="0.85" />
+
+  <path d="M 77.33 57.56 Q 82.01 58.01 94.00 60.00 Q 85.47 61.27 77.33 62.44 Z" fill="url(#surya-gold)" opacity="0.92" />
+  <path d="M 73.98 70.53 Q 76.97 74.16 84.04 84.04 Q 77.11 78.91 70.53 73.98 Z" fill="url(#surya-gold)" opacity="0.92" />
+  <path d="M 62.44 77.33 Q 61.99 82.01 60.00 94.00 Q 58.73 85.47 57.56 77.33 Z" fill="url(#surya-gold)" opacity="0.92" />
+  <path d="M 49.47 73.98 Q 45.84 76.97 35.96 84.04 Q 41.09 77.11 46.02 70.53 Z" fill="url(#surya-gold)" opacity="0.92" />
+  <path d="M 42.67 62.44 Q 37.99 61.99 26.00 60.00 Q 34.53 58.73 42.67 57.56 Z" fill="url(#surya-gold)" opacity="0.92" />
+  <path d="M 46.02 49.47 Q 43.03 45.84 35.96 35.96 Q 42.89 41.09 49.47 46.02 Z" fill="url(#surya-gold)" opacity="0.92" />
+  <path d="M 57.56 42.67 Q 58.01 37.99 60.00 26.00 Q 61.27 34.53 62.44 42.67 Z" fill="url(#surya-gold)" opacity="0.92" />
+  <path d="M 70.53 46.02 Q 74.16 43.03 84.04 35.96 Q 78.91 42.89 73.98 49.47 Z" fill="url(#surya-gold)" opacity="0.92" />
+
+  <!-- 4 Diagonal Points (NE, SE, SW, NW) -->
+  <polygon points="60.00,60.00 75.00,70.83 91.82,91.82" fill="url(#surya-light)" />
+  <polygon points="60.00,60.00 70.83,75.00 91.82,91.82" fill="#7A5A1B" />
+  <polygon points="60.00,60.00 49.17,75.00 28.18,91.82" fill="url(#surya-light)" />
+  <polygon points="60.00,60.00 45.00,70.83 28.18,91.82" fill="#7A5A1B" />
+  <polygon points="60.00,60.00 45.00,49.17 28.18,28.18" fill="url(#surya-light)" />
+  <polygon points="60.00,60.00 49.17,45.00 28.18,28.18" fill="#7A5A1B" />
+  <polygon points="60.00,60.00 70.83,45.00 91.82,28.18" fill="url(#surya-light)" />
+  <polygon points="60.00,60.00 75.00,49.17 91.82,28.18" fill="#7A5A1B" />
+
+  <!-- 4 Cardinal Compass Points (North, South, East, West) -->
+  <polygon points="60.00,60.00 56.70,40.78 60.00,2.00" fill="url(#surya-light)" stroke="#D4A548" stroke-width="0.5" />
+  <polygon points="60.00,60.00 63.30,40.78 60.00,2.00" fill="#7A5A1B" stroke="#684A12" stroke-width="0.5" />
+  <polygon points="60.00,60.00 63.30,79.22 60.00,118.00" fill="url(#surya-light)" stroke="#D4A548" stroke-width="0.5" />
+  <polygon points="60.00,60.00 56.70,79.22 60.00,118.00" fill="#7A5A1B" stroke="#684A12" stroke-width="0.5" />
+  <polygon points="60.00,60.00 79.22,56.70 118.00,60.00" fill="url(#surya-light)" stroke="#D4A548" stroke-width="0.5" />
+  <polygon points="60.00,60.00 79.22,63.30 118.00,60.00" fill="#7A5A1B" stroke="#684A12" stroke-width="0.5" />
+  <polygon points="60.00,60.00 40.78,63.30 2.00,60.00" fill="url(#surya-light)" stroke="#D4A548" stroke-width="0.5" />
+  <polygon points="60.00,60.00 40.78,56.70 2.00,60.00" fill="#7A5A1B" stroke="#684A12" stroke-width="0.5" />
+
+  <!-- Inner Ring and Center Surya Sun Core -->
+  <circle cx="60" cy="60" r="17.5" stroke="url(#surya-gold)" stroke-width="2.2" fill="none" />
+  <circle cx="60" cy="60" r="13.0" fill="url(#surya-core)" stroke="#F5D77F" stroke-width="1.5" />
+  <circle cx="60" cy="60" r="9.0" stroke="#8E6C25" stroke-width="1.0" fill="none" opacity="0.6" />
+</svg>

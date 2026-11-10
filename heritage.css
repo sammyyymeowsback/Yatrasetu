@@ -1,0 +1,2961 @@
+/* ============================================================
+   YatraSetu — heritage.css
+   Heritage identity layer: cinematic intro, doorway, Ganjifa
+   cards, jaali patterns, map drawer, keyframe animations.
+   All motion respects prefers-reduced-motion.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. Cinematic Intro Overlay — 5-Scene Experience
+   ------------------------------------------------------------ */
+#scene-intro {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-intro);
+  background-color: var(--color-obsidian);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  pointer-events: all;
+}
+
+/* Hidden state — after intro completes */
+#scene-intro.intro-done {
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.2s var(--ease-cinematic);
+}
+
+/* Skip button */
+#skip-intro {
+  position: absolute;
+  top: var(--space-6);
+  right: var(--space-8);
+  z-index: calc(var(--z-intro) + 5);
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: rgba(250,246,238,0.65);
+  background: rgba(10,18,14,0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(197,160,89,0.25);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all var(--duration-fast);
+  animation: fadeInSlow 2s var(--ease-cinematic) 0.8s both;
+}
+
+#skip-intro kbd {
+  font-family: inherit;
+  font-size: 0.75rem;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: var(--color-gold);
+}
+
+#skip-intro:hover {
+  color: var(--color-ivory);
+  background: rgba(10,18,14,0.75);
+  border-color: rgba(197,160,89,0.5);
+  transform: translateY(-1px);
+}
+
+/* ------------------------------------------------------------
+   1a. Scene 1 — Darkness, Ambient Glow & Silhouette
+   ------------------------------------------------------------ */
+.intro-ambient-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 60% 60% at 50% 50%,
+    rgba(197,160,89,0.08) 0%,
+    rgba(90,56,37,0.04) 45%,
+    transparent 75%
+  );
+  pointer-events: none;
+  z-index: 1;
+  animation: ambientBreathe 6s ease-in-out infinite alternate;
+}
+
+@keyframes ambientBreathe {
+  from { opacity: 0.5; transform: scale(0.98); }
+  to   { opacity: 1;   transform: scale(1.02); }
+}
+
+.intro-silhouette {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.intro-silhouette svg {
+  width: min(500px, 75vw);
+  height: auto;
+  opacity: 0;
+  animation: silhouetteFade 2.4s var(--ease-cinematic) both;
+}
+
+@keyframes silhouetteFade {
+  0%   { opacity: 0; transform: scale(0.94); }
+  40%  { opacity: 0.10; transform: scale(0.97); }
+  85%  { opacity: 0.08; }
+  100% { opacity: 0; transform: scale(1); }
+}
+
+/* ------------------------------------------------------------
+   1b. Scene 1 — Whispered Ancient Epigraph Wordmark
+   ------------------------------------------------------------ */
+.intro-wordmark {
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  text-align: center;
+  pointer-events: none;
+  animation: wordmarkReveal 2.8s var(--ease-cinematic) 0.2s both;
+  will-change: opacity, transform, filter;
+}
+
+.wordmark-symbol {
+  font-size: 1.2rem;
+  color: var(--color-gold);
+  opacity: 0.75;
+  margin-bottom: 6px;
+  letter-spacing: normal;
+}
+
+.wordmark-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 3.8vw, 3rem);
+  letter-spacing: 0.3em;
+  color: var(--color-ivory);
+  text-transform: uppercase;
+  font-weight: 500;
+  text-shadow: 0 2px 20px rgba(197,160,89,0.3);
+}
+
+.wordmark-sub {
+  font-family: var(--font-serif);
+  font-size: clamp(0.75rem, 1.3vw, 0.95rem);
+  letter-spacing: 0.35em;
+  color: var(--color-gold);
+  margin-top: 6px;
+  opacity: 0.8;
+}
+
+@keyframes wordmarkReveal {
+  0%   { opacity: 0; transform: translate(-50%, -46%) scale(0.96); letter-spacing: 0.36em; filter: blur(6px); }
+  28%  { opacity: 0.95; transform: translate(-50%, -50%) scale(1); letter-spacing: 0.3em; filter: blur(0); }
+  68%  { opacity: 0.95; transform: translate(-50%, -50%) scale(1); letter-spacing: 0.3em; filter: blur(0); }
+  100% { opacity: 0; transform: translate(-50%, -54%) scale(1.02); letter-spacing: 0.26em; filter: blur(4px); }
+}
+
+/* ------------------------------------------------------------
+   2. Ambient Floating Golden Dust Motes
+   ------------------------------------------------------------ */
+.dust-container {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.dust-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212,175,95,0.7) 0%, rgba(197,160,89,0.2) 60%, transparent 80%);
+  animation: dustFloat linear infinite;
+}
+
+.dust-particle:nth-child(1)  { width:3px; height:3px; left:14%; top:82%; animation-duration:22s; animation-delay:0s;    opacity:0.55; }
+.dust-particle:nth-child(2)  { width:2px; height:2px; left:26%; top:65%; animation-duration:25s; animation-delay:2s;    opacity:0.4; }
+.dust-particle:nth-child(3)  { width:4px; height:4px; left:42%; top:92%; animation-duration:19s; animation-delay:1s;    opacity:0.5; }
+.dust-particle:nth-child(4)  { width:2px; height:2px; left:58%; top:74%; animation-duration:24s; animation-delay:3.5s;  opacity:0.35; }
+.dust-particle:nth-child(5)  { width:3px; height:3px; left:72%; top:86%; animation-duration:27s; animation-delay:0.8s;  opacity:0.45; }
+.dust-particle:nth-child(6)  { width:2px; height:2px; left:86%; top:54%; animation-duration:21s; animation-delay:4s;    opacity:0.3; }
+.dust-particle:nth-child(7)  { width:4px; height:4px; left:50%; top:96%; animation-duration:23s; animation-delay:1.5s;  opacity:0.55; }
+.dust-particle:nth-child(8)  { width:2px; height:2px; left:10%; top:45%; animation-duration:18s; animation-delay:5.5s;  opacity:0.4; }
+.dust-particle:nth-child(9)  { width:3px; height:3px; left:92%; top:32%; animation-duration:22s; animation-delay:2.5s;  opacity:0.35; }
+.dust-particle:nth-child(10) { width:2px; height:2px; left:34%; top:22%; animation-duration:26s; animation-delay:6s;    opacity:0.45; }
+.dust-particle:nth-child(11) { width:3.5px; height:3.5px; left:62%; top:12%; animation-duration:17s; animation-delay:1.2s; opacity:0.5; }
+.dust-particle:nth-child(12) { width:2px; height:2px; left:68%; top:58%; animation-duration:28s; animation-delay:3.8s;  opacity:0.35; }
+.dust-particle:nth-child(13) { width:3px; height:3px; left:20%; top:28%; animation-duration:24s; animation-delay:4.5s;  opacity:0.4; }
+.dust-particle:nth-child(14) { width:2.5px; height:2.5px; left:80%; top:70%; animation-duration:20s; animation-delay:2.2s; opacity:0.45; }
+.dust-particle:nth-child(15) { width:2px; height:2px; left:48%; top:40%; animation-duration:25s; animation-delay:5s;    opacity:0.35; }
+.dust-particle:nth-child(16) { width:3px; height:3px; left:30%; top:88%; animation-duration:19s; animation-delay:0.5s;  opacity:0.5; }
+
+@keyframes dustFloat {
+  0%   { transform: translateY(0) translateX(0) scale(0.9); opacity: 0; }
+  12%  { opacity: 1; }
+  50%  { transform: translateY(-220px) translateX(20px) scale(1.2); }
+  85%  { opacity: 0.6; }
+  100% { transform: translateY(-540px) translateX(-15px) scale(0.8); opacity: 0; }
+}
+
+/* ------------------------------------------------------------
+   3. Doorway Structure — Pan-Indian Heritage Portal
+   ------------------------------------------------------------ */
+.doorway-wrap {
+  position: relative;
+  z-index: 4;
+  width: min(520px, 90vw);
+  height: min(720px, 86vh);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+  perspective: 1200px;
+  -webkit-perspective: 1200px;
+  /* Scene 2: architecture emerges ~1.1s in with subtle mist clear */
+  animation: doorwayReveal 2.0s var(--ease-cinematic) 1.1s both;
+  transition: transform 3.8s var(--ease-cinematic), opacity 2.2s var(--ease-cinematic);
+  will-change: transform, opacity;
+}
+
+@keyframes doorwayReveal {
+  from { opacity: 0; transform: scale(0.95) translateY(20px); filter: blur(3px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+}
+
+/* ------------------------------------------------------------
+   3a. Hanging Brass Oil Lamps / Diyas
+   ------------------------------------------------------------ */
+.hanging-diya {
+  position: absolute;
+  top: 48%;
+  z-index: 6;
+  width: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+  transform-origin: 50% 0;
+  animation: diyaSway 5s ease-in-out infinite alternate;
+}
+
+.hanging-diya--left  { left: 16%; }
+.hanging-diya--right { right: 16%; animation-delay: -2.5s; }
+
+.diya-chain {
+  width: 2px;
+  height: 90px;
+  background: repeating-linear-gradient(
+    180deg,
+    rgba(197,160,89,0.7) 0 3px,
+    transparent 3px 6px
+  );
+}
+
+.diya-cup {
+  width: 22px;
+  height: 12px;
+  background: linear-gradient(180deg, #D4AF5F 0%, #8C6214 70%, #4A3008 100%);
+  border-radius: 0 0 14px 14px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.6);
+  position: relative;
+}
+
+.diya-wick {
+  width: 2px;
+  height: 4px;
+  background: #3D2600;
+  position: absolute;
+  top: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.diya-flame {
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 15px;
+  background: radial-gradient(ellipse at 50% 80%, #FFF5CC 0%, #FFB732 40%, #E65C00 80%, transparent 100%);
+  border-radius: 50% 50% 35% 35% / 60% 60% 40% 40%;
+  filter: drop-shadow(0 0 6px rgba(255, 183, 50, 0.9));
+  animation: diyaFlame 1.8s ease-in-out infinite alternate;
+}
+
+.diya-aura {
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,183,50,0.22) 0%, transparent 70%);
+  pointer-events: none;
+  animation: diyaGlow 2.2s ease-in-out infinite alternate;
+}
+
+@keyframes diyaSway {
+  from { transform: rotate(-2deg); }
+  to   { transform: rotate(2deg); }
+}
+
+@keyframes diyaFlame {
+  0%   { transform: translateX(-50%) scale(0.92) skewX(-1.5deg); opacity: 0.85; }
+  50%  { transform: translateX(-50%) scale(1.06) skewX(1deg);    opacity: 1; }
+  100% { transform: translateX(-50%) scale(0.96) skewX(-0.5deg);  opacity: 0.9; }
+}
+
+@keyframes diyaGlow {
+  0%   { opacity: 0.6; transform: translateX(-50%) scale(0.9); }
+  100% { opacity: 1;   transform: translateX(-50%) scale(1.15); }
+}
+
+/* ------------------------------------------------------------
+   3b. Scene 3 — Life Beyond the Door (Transom & crevice preview)
+   ------------------------------------------------------------ */
+.beyond-door {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.beyond-sky {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 75% 95% at 50% 70%,
+    rgba(255,200,125,0.65) 0%,
+    rgba(215,160,75,0.38) 32%,
+    rgba(65,40,12,0.18) 65%,
+    transparent 100%
+  );
+  opacity: 0.05;
+  transition: opacity 2s var(--ease-cinematic);
+}
+
+.beyond-door.beyond-teaser .beyond-sky { opacity: 0.45; }
+.beyond-door.beyond-full   .beyond-sky { opacity: 0.92; }
+
+.beyond-sunbeams {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -35deg,
+    rgba(255,215,130,0.22) 0 35px,
+    transparent 35px 80px
+  );
+  opacity: 0;
+  mix-blend-mode: screen;
+  transition: opacity 2.2s var(--ease-cinematic);
+}
+
+.beyond-door.beyond-teaser .beyond-sunbeams { opacity: 0.35; }
+.beyond-door.beyond-full   .beyond-sunbeams { opacity: 0.75; }
+
+.beyond-haze {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(255,214,150,0.3), transparent 60%);
+  filter: blur(8px);
+  opacity: 0;
+  transition: opacity 2.4s var(--ease-cinematic);
+}
+
+.beyond-door.beyond-teaser .beyond-haze { opacity: 0.45; }
+.beyond-door.beyond-full   .beyond-haze { opacity: 0.85; }
+
+.beyond-structure,
+.beyond-foliage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 2.2s var(--ease-cinematic);
+}
+
+.beyond-door.beyond-teaser .beyond-structure { opacity: 0.38; }
+.beyond-door.beyond-full   .beyond-structure { opacity: 0.7; }
+
+.beyond-door.beyond-teaser .beyond-foliage   { opacity: 0.4; }
+.beyond-door.beyond-full   .beyond-foliage   { opacity: 0.78; }
+
+.beyond-foliage {
+  transform-origin: 50% 100%;
+  animation: foliageSway 8s ease-in-out infinite alternate;
+}
+
+@keyframes foliageSway {
+  from { transform: rotate(-0.8deg); }
+  to   { transform: rotate(0.8deg); }
+}
+
+.beyond-birds {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.8s var(--ease-cinematic);
+  pointer-events: none;
+}
+
+.beyond-door.beyond-teaser .beyond-birds,
+.beyond-door.beyond-full   .beyond-birds { opacity: 0.55; }
+
+.beyond-birds span {
+  position: absolute;
+  width: 10px;
+  height: 5px;
+  border-bottom: 2px solid rgba(25,18,10,0.65);
+  border-radius: 50%;
+  top: 28%;
+  left: 25%;
+  animation: birdDrift 16s linear infinite;
+}
+
+.beyond-birds span:nth-child(2) {
+  top: 22%;
+  left: 48%;
+  animation-duration: 20s;
+  animation-delay: 2.5s;
+}
+
+.beyond-birds span:nth-child(3) {
+  top: 34%;
+  left: 18%;
+  animation-duration: 18s;
+  animation-delay: 5s;
+}
+
+@keyframes birdDrift {
+  0%   { transform: translate(0, 0) scale(0.8); opacity: 0; }
+  15%  { opacity: 0.7; }
+  60%  { transform: translate(80px, -18px) scale(1); opacity: 0.7; }
+  100% { transform: translate(150px, -8px) scale(0.7); opacity: 0; }
+}
+
+/* ------------------------------------------------------------
+   3c. Realistic Heritage Architecture (Jaipur Lotus Gate)
+   ------------------------------------------------------------ */
+.portal-architecture {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 520px;
+  aspect-ratio: 578 / 845;
+  margin: 0 auto;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  filter: drop-shadow(0 20px 45px rgba(0, 0, 0, 0.9));
+}
+
+/* Realistic Jaipur Stone & Peacock Fan Arch Overlay */
+.portal-frame-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.portal-frame-img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  display: block;
+}
+
+/* ------------------------------------------------------------
+   3d. Scene 3 & 4 — Heritage Palace Interior Sanctuary
+   ------------------------------------------------------------ */
+.portal-interior {
+  position: absolute;
+  left: 31%;
+  top: 47%;
+  width: 38.5%;
+  height: 44.5%;
+  overflow: hidden;
+  z-index: 1;
+  background: #0d0804;
+  pointer-events: none;
+}
+
+.portal-interior-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 32%;
+  opacity: 0.18;
+  filter: brightness(0.45) contrast(1.1);
+  transform: scale(1.18);
+  transition: opacity 2.8s var(--ease-cinematic),
+              filter 2.8s var(--ease-cinematic),
+              transform 6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: opacity, filter, transform;
+}
+
+.portal-interior.glow-active .portal-interior-img {
+  opacity: 1;
+  filter: brightness(1.12) contrast(1.08) saturate(1.2);
+  transform: scale(1.02);
+}
+
+.portal-interior-haze {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 50% 65%,
+    rgba(255, 220, 140, 0.45) 0%,
+    rgba(220, 160, 45, 0.25) 50%,
+    rgba(15, 10, 5, 0.6) 100%
+  );
+  opacity: 0;
+  transition: opacity 2.6s var(--ease-cinematic);
+  pointer-events: none;
+}
+
+.portal-interior.glow-active .portal-interior-haze {
+  opacity: 0.85;
+}
+
+.portal-sunbeams {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -35deg,
+    rgba(255, 235, 170, 0.25) 0 32px,
+    transparent 32px 75px
+  );
+  mix-blend-mode: screen;
+  opacity: 0;
+  transition: opacity 2.4s var(--ease-cinematic);
+  pointer-events: none;
+}
+
+.portal-interior.glow-active .portal-sunbeams {
+  opacity: 0.75;
+}
+
+/* ------------------------------------------------------------
+   3e. Center Seam Light Leak (Crevice Glow)
+   ------------------------------------------------------------ */
+.portal-crevice-glow {
+  position: absolute;
+  left: calc(50% - 1.5px);
+  top: 48%;
+  width: 3px;
+  height: 43.5%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 240, 190, 0.98) 0%,
+    rgba(255, 200, 95, 0.9) 50%,
+    rgba(255, 240, 190, 0.98) 100%
+  );
+  box-shadow: 0 0 20px 6px rgba(255, 205, 100, 0.85);
+  opacity: 0;
+  z-index: 4;
+  pointer-events: none;
+  transition: opacity 1.6s var(--ease-cinematic), box-shadow 1.6s var(--ease-cinematic);
+  will-change: opacity, box-shadow;
+}
+
+.portal-crevice-glow.crevice-active {
+  opacity: 1;
+  box-shadow: 0 0 28px 10px rgba(255, 215, 120, 0.95);
+}
+
+.portal-crevice-glow.crevice-fade {
+  opacity: 0;
+  transition: opacity 1.2s var(--ease-cinematic);
+}
+
+/* ------------------------------------------------------------
+   3f. Scene 4 — Realistic 3D Opening Antique Brass Doors
+   ------------------------------------------------------------ */
+.portal-doors-stage {
+  position: absolute;
+  left: 31.14%;
+  top: 47.93%;
+  width: 38.24%;
+  height: 43.67%;
+  display: flex;
+  perspective: 1100px;
+  -webkit-perspective: 1100px;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  z-index: 3;
+  overflow: visible;
+}
+
+.portal-door-leaf {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform, filter, box-shadow;
+  transition: transform 3.6s var(--ease-door),
+              filter 3.6s var(--ease-door),
+              box-shadow 3.6s var(--ease-door);
+}
+
+.portal-door-leaf--left {
+  transform-origin: 0% 50%;
+}
+
+.portal-door-leaf--right {
+  transform-origin: 100% 50%;
+}
+
+/* 3D Physical Door Open States */
+.portal-door-leaf--left.door-open {
+  transform: rotateY(-82deg);
+  filter: brightness(0.68) drop-shadow(-14px 0 24px rgba(0, 0, 0, 0.85));
+}
+
+.portal-door-leaf--right.door-open {
+  transform: rotateY(82deg);
+  filter: brightness(0.68) drop-shadow(14px 0 24px rgba(0, 0, 0, 0.85));
+}
+
+.door-leaf-texture {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  display: block;
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------
+   3g. Radiant Golden Light Bloom Overlay
+   ------------------------------------------------------------ */
+.light-bloom {
+  position: absolute;
+  inset: -15%;
+  background: radial-gradient(
+    circle at 50% 65%,
+    rgba(255, 235, 175, 0.85) 0%,
+    rgba(235, 190, 110, 0.55) 45%,
+    rgba(200, 145, 60, 0.2) 70%,
+    transparent 88%
+  );
+  opacity: 0;
+  transition: opacity 2.2s var(--ease-cinematic);
+  pointer-events: none;
+  z-index: 5;
+  will-change: opacity;
+}
+
+.light-bloom.bloom-active {
+  opacity: 1;
+}
+
+/* ------------------------------------------------------------
+   3h. Scene 5 — Vast Indian Landscape Reveal
+   ------------------------------------------------------------ */
+.landscape-reveal {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.8s var(--ease-cinematic);
+  will-change: opacity;
+}
+
+.landscape-reveal.landscape-active {
+  opacity: 1;
+}
+
+.landscape-sky {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #12241A 0%, #2A1C06 50%, #B88E44 100%);
+}
+
+.landscape-sun {
+  position: absolute;
+  bottom: 24%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,245,210,0.85) 0%, rgba(255,190,90,0.4) 55%, transparent 75%);
+  filter: blur(10px);
+}
+
+.landscape-haze {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(255,220,160,0.4) 0%, transparent 65%);
+  opacity: 0.7;
+}
+
+/* Distant Himalayan / Ghats mountain ridges */
+.landscape-bg {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 58%;
+  background: linear-gradient(180deg, rgba(25,52,36,0.6), rgba(10,18,14,0.9));
+  clip-path: polygon(
+    0 60%, 8% 38%, 18% 54%, 28% 24%, 40% 48%,
+    52% 14%, 66% 44%, 78% 18%, 90% 40%, 100% 28%,
+    100% 100%, 0 100%
+  );
+  opacity: 0.65;
+  animation: driftSlow 46s ease-in-out infinite alternate;
+  animation-play-state: paused;
+}
+
+/* Midground ancient hill fort ramparts & misty valley */
+.landscape-mid {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 32%;
+  background: linear-gradient(180deg, #2D1D06 0%, #161007 100%);
+  clip-path: polygon(
+    0 72%, 6% 56%, 12% 70%, 20% 42%, 28% 62%,
+    36% 36%, 44% 58%, 52% 32%, 60% 56%, 68% 40%,
+    76% 62%, 84% 44%, 92% 60%, 100% 46%, 100% 100%, 0 100%
+  );
+  opacity: 0.82;
+  animation: driftMed 32s ease-in-out infinite alternate;
+  animation-play-state: paused;
+}
+
+/* Foreground architectural balustrade ledge */
+.landscape-fg {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 15%;
+  background: linear-gradient(180deg, #180D02, #0A0500);
+  clip-path: polygon(
+    0 100%, 0 45%, 5% 58%, 10% 32%, 16% 62%, 22% 36%,
+    28% 60%, 35% 26%, 42% 58%, 49% 40%, 56% 62%, 63% 32%,
+    70% 56%, 77% 36%, 84% 60%, 91% 42%, 97% 58%, 100% 36%, 100% 100%
+  );
+  opacity: 0.96;
+  animation: driftFast 22s ease-in-out infinite alternate;
+  animation-play-state: paused;
+}
+
+.landscape-reveal.landscape-active .landscape-bg,
+.landscape-reveal.landscape-active .landscape-mid,
+.landscape-reveal.landscape-active .landscape-fg {
+  animation-play-state: running;
+}
+
+@keyframes driftSlow { from { transform: translateX(0); } to { transform: translateX(-2.5%); } }
+@keyframes driftMed  { from { transform: translateX(0); } to { transform: translateX(-4%); } }
+@keyframes driftFast { from { transform: translateX(0); } to { transform: translateX(-5.5%); } }
+
+.landscape-particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.landscape-particles span {
+  position: absolute;
+  width: 2.5px;
+  height: 2.5px;
+  border-radius: 50%;
+  background: rgba(255,220,150,0.6);
+  animation: dustFloat linear infinite;
+}
+
+.landscape-particles span:nth-child(1) { left: 18%; top: 68%; animation-duration: 20s; }
+.landscape-particles span:nth-child(2) { left: 52%; top: 58%; animation-duration: 24s; animation-delay: 2.5s; }
+.landscape-particles span:nth-child(3) { left: 78%; top: 72%; animation-duration: 18s; animation-delay: 1.2s; }
+.landscape-particles span:nth-child(4) { left: 35%; top: 45%; animation-duration: 22s; animation-delay: 4s; }
+
+/* Landscape Title Card: "Travel beyond the obvious." */
+.landscape-title-card {
+  position: absolute;
+  top: 36%;
+  left: 50%;
+  transform: translate(-50%, -46%);
+  text-align: center;
+  z-index: 6;
+  width: min(600px, 90vw);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.8s var(--ease-cinematic) 0.4s,
+              transform 1.8s var(--ease-cinematic) 0.4s;
+  will-change: opacity, transform;
+}
+
+.landscape-reveal.landscape-active .landscape-title-card {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+}
+
+.reveal-badge {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  color: var(--color-gold);
+  margin-bottom: var(--space-2);
+}
+
+.reveal-brand {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  letter-spacing: 0.22em;
+  color: var(--color-ivory);
+  text-transform: uppercase;
+  font-weight: 600;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.8);
+  margin-bottom: var(--space-2);
+}
+
+.reveal-tagline {
+  font-family: var(--font-serif);
+  font-size: clamp(1rem, 2.2vw, 1.4rem);
+  font-style: italic;
+  color: rgba(250,246,238,0.9);
+  text-shadow: 0 2px 12px rgba(0,0,0,0.85);
+  letter-spacing: 0.04em;
+}
+
+/* ------------------------------------------------------------
+   4. Scene Transition Overlay (Ivory Dissolve Bridge)
+   ------------------------------------------------------------ */
+.scene-dissolve {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-intro) + 10);
+  background: radial-gradient(circle at 50% 45%, #FFFDF8 0%, #FAF6EE 55%, #F5EEDC 100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.5s var(--ease-in-out-smooth);
+  will-change: opacity;
+}
+
+.scene-dissolve.dissolve-in {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ------------------------------------------------------------
+   5. Ganjifa (Royal Playing Card) Deck & Interactive Physics
+   ------------------------------------------------------------ */
+.ganjifa-deck {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-6);
+  padding: var(--space-4);
+  margin-inline: calc(-1 * var(--space-4));
+  border-radius: var(--radius-xl);
+  /* Subtle ambient spotlight tracking mouse across deck */
+  background: radial-gradient(
+    circle 650px at var(--deck-spot-x, 50%) var(--deck-spot-y, 45%),
+    rgba(212, 175, 55, 0.085) 0%,
+    rgba(197, 160, 89, 0.028) 45%,
+    transparent 72%
+  );
+  transition: background 0.15s ease-out;
+}
+
+/* Floating Gold Dust Canvas Layer */
+.deck-gold-dust-canvas {
+  position: absolute;
+  top: -30px;
+  left: -20px;
+  width: calc(100% + 40px);
+  height: calc(100% + 60px);
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible;
+}
+
+.ganjifa-card {
+  --card-h: 440px;
+  --card-rest-rotation: 0deg;
+  --card-delay-entrance: 0s;
+  --card-delay-breathe: 0s;
+  position: relative;
+  z-index: 1;
+  height: var(--card-h);
+  perspective: 1200px;
+  -webkit-perspective: 1200px;
+  cursor: pointer;
+  background: transparent;
+  border-radius: var(--radius-lg);
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+  transform: rotate(var(--card-rest-rotation, 0deg));
+  transition: transform 0.45s var(--ease-silk);
+  will-change: transform;
+}
+
+.ganjifa-card,
+.ganjifa-card *,
+.ganjifa-card ::before,
+.ganjifa-card ::after {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+  -webkit-user-drag: none !important;
+}
+
+/* Slight Natural Rotation Differences (Physical Hand-dealt Card Aesthetic) */
+.ganjifa-card:nth-child(4n + 1) {
+  --card-rest-rotation: -1.75deg;
+  --card-delay-entrance: 0.02s;
+  --card-delay-breathe: 0s;
+}
+
+.ganjifa-card:nth-child(4n + 2) {
+  --card-rest-rotation: 1.1deg;
+  --card-delay-entrance: 0.12s;
+  --card-delay-breathe: -1.35s;
+}
+
+.ganjifa-card:nth-child(4n + 3) {
+  --card-rest-rotation: -0.75deg;
+  --card-delay-entrance: 0.22s;
+  --card-delay-breathe: -2.7s;
+}
+
+.ganjifa-card:nth-child(4n + 4) {
+  --card-rest-rotation: 1.85deg;
+  --card-delay-entrance: 0.32s;
+  --card-delay-breathe: -4.05s;
+}
+
+/* Staggered Entrance Animation */
+.ganjifa-deck:not(.deck-revealed) .ganjifa-card {
+  opacity: 0;
+  transform: translateY(38px) scale(0.94) rotate(calc(var(--card-rest-rotation, 0deg) * 1.6));
+}
+
+.ganjifa-deck.deck-revealed .ganjifa-card {
+  animation: ganjifaCardEntrance 0.75s cubic-bezier(0.16, 1, 0.3, 1) var(--card-delay-entrance, 0s) forwards;
+}
+
+@keyframes ganjifaCardEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(38px) scale(0.94) rotate(calc(var(--card-rest-rotation, 0deg) * 1.6));
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(var(--card-rest-rotation, 0deg)) translateY(0) scale(1);
+  }
+}
+
+/* Gentle Card Breathing Animation (activated after entrance, idle state) */
+.ganjifa-card.is-breathing:not(.is-flipped):not(:hover) {
+  animation: ganjifaCardBreathe 5.2s ease-in-out var(--card-delay-breathe, 0s) infinite;
+}
+
+@keyframes ganjifaCardBreathe {
+  0%, 100% {
+    transform: rotate(var(--card-rest-rotation, 0deg)) translateY(0px) scale(1);
+  }
+  50% {
+    transform: rotate(var(--card-rest-rotation, 0deg)) translateY(-6px) scale(1.006);
+  }
+}
+
+/* Straighten on hover */
+@media (hover: hover) and (pointer: fine) {
+  .ganjifa-card:hover:not(.is-flipped) {
+    transform: rotate(0deg) translateY(-8px) scale(1.02) !important;
+  }
+}
+
+.ganjifa-card.is-flipped {
+  animation: none !important;
+  transform: rotate(0deg) translateY(0) !important;
+}
+
+/* Contact Ground Shadow beneath cards */
+.ganjifa-card::after {
+  content: '';
+  position: absolute;
+  bottom: -16px;
+  left: 10%;
+  right: 10%;
+  height: 24px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.16) 48%, transparent 75%);
+  filter: blur(6px);
+  pointer-events: none;
+  z-index: -1;
+  transition: transform 0.45s var(--ease-silk), opacity 0.45s var(--ease-silk);
+  will-change: transform, opacity;
+}
+
+.ganjifa-card.is-breathing:not(.is-flipped):not(:hover)::after {
+  animation: ganjifaGroundShadow 5.2s ease-in-out var(--card-delay-breathe, 0s) infinite;
+}
+
+@keyframes ganjifaGroundShadow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(0.86);
+    opacity: 0.45;
+  }
+}
+
+.ganjifa-card:hover::after {
+  transform: scale(0.8) translateY(6px);
+  opacity: 0.4;
+}
+
+.ganjifa-card.is-flipped::after {
+  animation: none;
+  transform: scale(0.94);
+  opacity: 0.7;
+}
+
+/* 3D Flipper Core with Multi-depth Card Elevation Shadows */
+.ganjifa-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transition: transform 0.75s var(--ease-silk),
+              box-shadow 0.45s var(--ease-silk);
+  border-radius: var(--radius-lg);
+  box-shadow:
+    0 4px 10px rgba(0, 0, 0, 0.28),
+    0 16px 36px -4px rgba(0, 0, 0, 0.52),
+    0 0 0 1px rgba(197, 160, 89, 0.22),
+    0 0 24px -4px rgba(212, 175, 55, 0.16);
+  will-change: transform, box-shadow;
+}
+
+/* Subtle idle hover tilt on desktop (only when unflipped) */
+@media (hover: hover) and (pointer: fine) {
+  .ganjifa-card:hover:not(.is-flipped) .ganjifa-card-inner {
+    transform: rotateY(8deg) rotateX(-3deg);
+    box-shadow:
+      0 8px 18px rgba(0, 0, 0, 0.35),
+      0 28px 58px -6px rgba(0, 0, 0, 0.68),
+      0 0 0 1.5px rgba(223, 183, 108, 0.48),
+      0 0 36px 2px rgba(212, 175, 55, 0.3);
+  }
+}
+
+/* Active 3D Flip State — Full 180-degree rotation */
+.ganjifa-card.is-flipped .ganjifa-card-inner {
+  transform: rotateY(180deg) !important;
+  box-shadow:
+    0 6px 14px rgba(0, 0, 0, 0.3),
+    0 20px 42px -4px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(197, 160, 89, 0.3),
+    0 0 24px -2px rgba(212, 175, 55, 0.18);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ganjifa-card.is-flipped:hover .ganjifa-card-inner {
+    transform: rotateY(180deg) translateY(-4px) !important;
+    box-shadow:
+      0 10px 22px rgba(0, 0, 0, 0.38),
+      0 28px 56px -6px rgba(0, 0, 0, 0.62),
+      0 0 0 1.5px rgba(223, 183, 108, 0.45),
+      0 0 34px 2px rgba(212, 175, 55, 0.25);
+  }
+}
+
+/* Both faces */
+.card-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-lg);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Back face: Authentic Royal Indian Playing Card SVG --- */
+.card-back {
+  background-color: #FAF7EE;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-lg);
+  transform: rotateY(0deg) translateZ(1px);
+  -webkit-transform: rotateY(0deg) translateZ(1px);
+  z-index: 2;
+  pointer-events: auto;
+}
+
+.card-back-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  pointer-events: none !important;
+  -webkit-user-drag: none !important;
+  border-radius: var(--radius-lg);
+}
+
+/* --- Front face: Revealed Destination with Name, Photo & Plan --- */
+.card-front {
+  transform: rotateY(180deg) translateZ(1px);
+  -webkit-transform: rotateY(180deg) translateZ(1px);
+  background-color: var(--color-ivory);
+  border: 1.5px solid rgba(197, 160, 89, 0.4);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Active Face Interaction Switching */
+.ganjifa-card:not(.is-flipped) .card-back {
+  z-index: 2;
+  pointer-events: auto;
+}
+
+.ganjifa-card:not(.is-flipped) .card-front {
+  z-index: 1;
+  pointer-events: none;
+}
+
+.ganjifa-card.is-flipped .card-back {
+  z-index: 1;
+  pointer-events: none;
+}
+
+.ganjifa-card.is-flipped .card-front {
+  z-index: 6;
+  pointer-events: auto;
+}
+
+/* Shimmer Prompt Pill */
+.card-reveal-prompt {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #1A1A1A;
+  background: rgba(255, 253, 248, 0.94);
+  padding: 5px 14px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(197, 160, 89, 0.65);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+  white-space: nowrap;
+  pointer-events: none;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.ganjifa-card:hover .card-reveal-prompt {
+  background: var(--color-gold);
+  color: #0A120E;
+  border-color: #DFB76C;
+  transform: translateX(-50%) scale(1.06);
+  box-shadow: 0 6px 18px rgba(197, 160, 89, 0.45);
+}
+
+.ganjifa-card.is-flipped .card-reveal-prompt {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Corner Pip Badge on Front */
+.royal-front-pip {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  z-index: 3;
+  background: rgba(10, 18, 14, 0.82);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: var(--color-gold);
+  padding: 3px 9px;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  border: 1px solid rgba(197, 160, 89, 0.4);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Flip Back Action Button on Front */
+.card-flip-back-btn {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  z-index: 6;
+  background: rgba(10, 18, 14, 0.85);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: var(--color-gold);
+  border: 1px solid rgba(197, 160, 89, 0.45);
+  border-radius: var(--radius-full);
+  padding: 4px 10px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s ease;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.ganjifa-card:not(.is-flipped) .card-flip-back-btn {
+  display: none;
+  pointer-events: none;
+}
+
+.card-flip-back-btn:hover {
+  background: var(--color-gold);
+  color: #0A120E;
+  border-color: var(--color-gold);
+  transform: scale(1.06);
+}
+
+/* Dynamic Spotlight Hover Sheen */
+.card-sheen {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle 260px at var(--card-spot-x, 50%) var(--card-spot-y, 50%),
+    rgba(255, 238, 185, 0.32) 0%,
+    rgba(212, 175, 55, 0.14) 38%,
+    transparent 72%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+  border-radius: var(--radius-lg);
+  z-index: 5;
+  mix-blend-mode: screen;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.ganjifa-card:hover .card-sheen { opacity: 1; }
+
+.card-front-img-wrap {
+  position: relative;
+  width: 100%;
+  height: 46%;
+  overflow: hidden;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.card-front-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.ganjifa-card:hover .card-front-img {
+  transform: scale(1.05);
+}
+
+.card-front-body {
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex: 1;
+  min-height: 0;
+  justify-content: space-between;
+}
+
+.card-front-name {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-forest);
+  line-height: 1.2;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.card-front-name:hover {
+  color: #8C6214;
+}
+
+.card-front-location {
+  font-size: 0.75rem;
+  color: rgba(20, 40, 29, 0.6);
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.card-action-group {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+/* Discovery Deck Toolbar */
+.deck-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+  flex-wrap: wrap;
+  background: rgba(10, 18, 14, 0.6);
+  border: 1px solid rgba(197, 160, 89, 0.25);
+  border-radius: var(--radius-md);
+  padding: 12px 18px;
+}
+
+.card-front-secret {
+  font-size: var(--text-xs);
+  color: rgba(20,40,29,0.6);
+  line-height: 1.5;
+  font-style: italic;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-front-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.card-weather-badge {
+  font-size: var(--text-xs);
+  color: var(--color-indigo);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+/* SVG architectural fallback on card front */
+.card-img-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, var(--color-forest-mid), var(--color-terra));
+}
+
+/* ------------------------------------------------------------
+   6. Interactive Map Styles
+   ------------------------------------------------------------ */
+#map-container {
+  position: relative;
+  height: calc(100vh - 70px);
+  margin-top: 70px;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+}
+
+/* Category filter bar */
+.map-filter-bar {
+  position: absolute;
+  top: var(--space-4);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: var(--z-overlay);
+  display: flex;
+  gap: var(--space-2);
+  background: rgba(250,246,238,0.96);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: var(--radius-full);
+  padding: var(--space-2);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid rgba(197,160,89,0.2);
+  white-space: nowrap;
+  overflow-x: auto;
+  max-width: calc(100vw - var(--space-16));
+  scrollbar-width: none;
+}
+
+.map-filter-bar::-webkit-scrollbar { display: none; }
+
+.map-filter-btn {
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--color-forest);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background var(--duration-fast), color var(--duration-fast);
+  white-space: nowrap;
+}
+
+.map-filter-btn:hover,
+.map-filter-btn.active {
+  background: var(--color-forest);
+  color: var(--color-ivory);
+}
+
+/* Map control buttons (Locate Me, Fullscreen, Tile toggle) */
+.map-control-btn {
+  position: absolute;
+  z-index: var(--z-overlay);
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: rgba(250,246,238,0.96);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(197,160,89,0.25);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background var(--duration-fast), transform var(--duration-fast);
+}
+
+.map-control-btn:hover { background: var(--color-forest); color: var(--color-ivory); transform: scale(1.05); }
+
+#locate-btn      { bottom: var(--space-8); right: var(--space-4); }
+#fullscreen-btn  { bottom: calc(var(--space-8) + 56px); right: var(--space-4); }
+#tile-toggle-btn { bottom: calc(var(--space-8) + 112px); right: var(--space-4); }
+
+/* Pulsing geolocation dot */
+@keyframes locatePulse {
+  0%   { box-shadow: 0 0 0 0 rgba(59,130,246,0.5); }
+  70%  { box-shadow: 0 0 0 12px rgba(59,130,246,0); }
+  100% { box-shadow: 0 0 0 0 rgba(59,130,246,0); }
+}
+
+.locate-marker-inner {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #3B82F6;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 8px rgba(59,130,246,0.5);
+  animation: locatePulse 1.8s infinite;
+}
+
+/* Map Destination Drawer */
+#map-drawer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 380px;
+  max-width: 100%;
+  background-color: var(--color-ivory);
+  z-index: var(--z-drawer);
+  transform: translateX(100%);
+  transition: transform 0.5s var(--ease-cinematic);
+  overflow-y: auto;
+  box-shadow: var(--shadow-xl);
+  display: flex;
+  flex-direction: column;
+}
+
+#map-drawer.drawer-open {
+  transform: translateX(0);
+}
+
+.drawer-close-btn {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(20,40,29,0.08);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: var(--color-forest);
+  transition: background var(--duration-fast);
+  z-index: 2;
+}
+
+.drawer-close-btn:hover { background: rgba(20,40,29,0.15); }
+
+.drawer-img-wrap {
+  width: 100%;
+  height: 220px;
+  flex-shrink: 0;
+  overflow: hidden;
+  background-color: var(--color-forest-mid);
+  position: relative;
+}
+
+.drawer-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.drawer-body {
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  flex: 1;
+}
+
+.drawer-name {
+  font-family: var(--font-serif);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  color: var(--color-forest);
+  line-height: 1.2;
+  padding-right: var(--space-10);
+}
+
+.drawer-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+/* Crowd meter */
+.crowd-meter-wrap {
+  margin-top: var(--space-2);
+}
+
+.crowd-meter-label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(20,40,29,0.5);
+  margin-bottom: var(--space-2);
+}
+
+.crowd-meter-track {
+  height: 6px;
+  background: var(--color-ivory-deep);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.crowd-meter-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 0.8s var(--ease-cinematic);
+}
+
+.crowd-meter-fill--low      { width: 25%;  background: var(--color-crowd-low); }
+.crowd-meter-fill--moderate { width: 55%;  background: var(--color-crowd-mod); }
+.crowd-meter-fill--high     { width: 80%;  background: var(--color-crowd-high); }
+.crowd-meter-fill--very_high{ width: 100%; background: var(--color-crowd-vhigh); }
+
+.drawer-weather {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: rgba(20,40,29,0.04);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(20,40,29,0.06);
+  font-size: var(--text-sm);
+}
+
+.drawer-secret {
+  font-style: italic;
+  font-size: var(--text-sm);
+  color: rgba(20,40,29,0.65);
+  line-height: 1.6;
+  padding-left: var(--space-4);
+  border-left: 2px solid rgba(197,160,89,0.4);
+}
+
+.drawer-cta { margin-top: auto; }
+
+/* Leaflet custom marker overrides */
+.ys-marker {
+  width: 32px;
+  height: 32px;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+  border: 2px solid rgba(255,255,255,0.6);
+}
+
+.ys-marker-inner {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.8);
+  transform: rotate(45deg);
+}
+
+.ys-marker--low      { background: var(--color-crowd-low); }
+.ys-marker--moderate { background: var(--color-crowd-mod); }
+.ys-marker--high,
+.ys-marker--very_high { background: var(--color-crowd-high); }
+
+/* ------------------------------------------------------------
+   7. Itinerary Planner Styles
+   ------------------------------------------------------------ */
+.itinerary-form-wrap {
+  max-width: 760px;
+  margin-inline: auto;
+}
+
+/* Trip days slider */
+.days-slider-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.days-display {
+  min-width: 80px;
+  text-align: center;
+  font-family: var(--font-serif);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--color-gold);
+  line-height: 1;
+}
+
+.days-label {
+  font-size: var(--text-xs);
+  color: rgba(20,40,29,0.5);
+  text-align: center;
+  letter-spacing: 0.08em;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  background: var(--color-ivory-deep);
+  border-radius: var(--radius-full);
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  border: 3px solid #fff;
+  transition: transform var(--duration-fast), box-shadow var(--duration-fast);
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: var(--shadow-gold);
+}
+
+/* Interest chips */
+.interest-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.chip {
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--color-ivory-deep);
+  background: transparent;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  color: rgba(20,40,29,0.6);
+  transition: all var(--duration-fast);
+  user-select: none;
+}
+
+.chip:hover {
+  border-color: var(--color-gold);
+  color: var(--color-gold-dim);
+}
+
+.chip.selected {
+  background-color: var(--color-forest);
+  border-color: var(--color-forest);
+  color: var(--color-ivory);
+}
+
+/* Destination autocomplete */
+.autocomplete-wrap {
+  position: relative;
+}
+
+.autocomplete-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1.5px solid var(--color-ivory-deep);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-overlay);
+  max-height: 240px;
+  overflow-y: auto;
+  display: none;
+}
+
+.autocomplete-dropdown.is-open { display: block; }
+
+.autocomplete-item {
+  padding: var(--space-3) var(--space-4);
+  cursor: pointer;
+  font-size: var(--text-sm);
+  border-bottom: 1px solid var(--color-ivory-deep);
+  transition: background var(--duration-fast);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.autocomplete-item:last-child { border-bottom: none; }
+.autocomplete-item:hover { background-color: var(--color-ivory); }
+
+.autocomplete-item-name { font-weight: 500; color: var(--color-forest); }
+.autocomplete-item-meta { font-size: var(--text-xs); color: rgba(20,40,29,0.45); }
+
+/* Decongestion banner */
+.decongestion-banner {
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--color-forest) 0%, var(--color-forest-mid) 100%);
+  color: var(--color-ivory);
+  padding: var(--space-8);
+  margin-block: var(--space-8);
+}
+
+.tos-bar-wrap { margin-top: var(--space-3); }
+
+.tos-bar-track {
+  height: 8px;
+  background: rgba(250,246,238,0.2);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.tos-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-gold-dim), var(--color-gold));
+  border-radius: var(--radius-full);
+  transition: width 1s var(--ease-cinematic) 0.3s;
+}
+
+/* Itinerary day tabs */
+.itinerary-tabs {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  border-bottom: 2px solid var(--color-ivory-deep);
+}
+
+.itinerary-tab {
+  padding: var(--space-3) var(--space-5);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: rgba(20,40,29,0.45);
+  cursor: pointer;
+  border: none;
+  background: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  white-space: nowrap;
+  transition: color var(--duration-fast), border-color var(--duration-fast);
+}
+
+.itinerary-tab.active {
+  color: var(--color-forest);
+  border-bottom-color: var(--color-gold);
+}
+
+/* Day activity cards */
+.day-section-label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: var(--space-3);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.day-section-label::before {
+  content: '';
+  width: 20px;
+  height: 1px;
+  background: var(--color-gold);
+  flex-shrink: 0;
+}
+
+.activity-card {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  border: 1px solid var(--color-ivory-deep);
+  box-shadow: var(--shadow-sm);
+  animation: cardReveal var(--duration-slow) var(--ease-cinematic) both;
+}
+
+@keyframes cardReveal {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ------------------------------------------------------------
+   8. SOS / Safety Page
+   ------------------------------------------------------------ */
+.sos-hero {
+  text-align: center;
+  padding-block: var(--space-16);
+}
+
+.sos-btn-wrap {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  margin-inline: auto;
+  margin-block: var(--space-8);
+}
+
+/* Hold-to-confirm ring */
+.sos-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: conic-gradient(
+    #C1121F var(--sos-progress, 0deg),
+    rgba(193,18,31,0.15) var(--sos-progress, 0deg)
+  );
+  transition: none;
+}
+
+.sos-ring::after {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  background: var(--color-ivory);
+}
+
+.sos-main-btn {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(160deg, #E31C25, #C1121F);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: var(--text-md);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 32px rgba(193,18,31,0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  user-select: none;
+  transition: transform var(--duration-fast), box-shadow var(--duration-fast);
+}
+
+.sos-main-btn:active { transform: scale(0.97); }
+
+.sos-main-btn .sos-icon { font-size: 2rem; }
+.sos-main-btn .sos-label { font-size: var(--text-xs); font-weight: 500; letter-spacing: 0.12em; }
+
+.sos-hold-hint {
+  font-size: var(--text-xs);
+  color: rgba(20,40,29,0.45);
+  text-align: center;
+  margin-top: var(--space-4);
+  letter-spacing: 0.05em;
+}
+
+/* Coordinates display */
+.coords-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  padding: var(--space-5) var(--space-6);
+  background: var(--color-forest);
+  color: var(--color-ivory);
+  border-radius: var(--radius-lg);
+  font-family: monospace;
+  font-size: var(--text-sm);
+  margin-block: var(--space-8);
+}
+
+.coords-display.acquiring { color: rgba(250,246,238,0.4); }
+
+.coords-copy-btn {
+  background: rgba(250,246,238,0.1);
+  border: 1px solid rgba(250,246,238,0.2);
+  color: var(--color-ivory);
+  border-radius: var(--radius-sm);
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-xs);
+  cursor: pointer;
+  transition: background var(--duration-fast);
+}
+
+.coords-copy-btn:hover { background: rgba(250,246,238,0.2); }
+
+/* Emergency directory table */
+.emergency-table {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--color-ivory-deep);
+}
+
+.emergency-table th {
+  background: var(--color-forest);
+  color: var(--color-ivory);
+  padding: var(--space-3) var(--space-5);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+.emergency-table td {
+  padding: var(--space-4) var(--space-5);
+  font-size: var(--text-sm);
+  border-bottom: 1px solid var(--color-ivory-deep);
+  vertical-align: middle;
+}
+
+.emergency-table tr:last-child td { border-bottom: none; }
+.emergency-table tr:nth-child(even) td { background: rgba(250,246,238,0.5); }
+
+.emergency-number {
+  font-family: var(--font-sans);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--color-crowd-high);
+}
+
+.emergency-number a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* SOS confirmation modal */
+.sos-modal {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  background: rgba(10,18,14,0.85);
+  backdrop-filter: blur(4px);
+  display: none;
+}
+
+.sos-modal.is-open { display: flex; }
+
+.sos-modal-card {
+  background: var(--color-ivory);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  max-width: 480px;
+  width: 100%;
+  box-shadow: var(--shadow-xl);
+  animation: cardReveal var(--duration-base) var(--ease-cinematic);
+}
+
+/* ------------------------------------------------------------
+   9. Admin Panel (Standalone)
+   ------------------------------------------------------------ */
+.admin-wrap {
+  min-height: 100vh;
+  background-color: #F7F7F7;
+  font-family: var(--font-sans);
+}
+
+.admin-topbar {
+  background: var(--color-forest);
+  color: var(--color-ivory);
+  padding: var(--space-4) var(--space-8);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.admin-brand {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--color-gold);
+}
+
+.admin-content { padding: var(--space-8); }
+
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+}
+
+.admin-stat-card {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  padding: var(--space-5) var(--space-6);
+  box-shadow: var(--shadow-sm);
+  border-left: 4px solid var(--color-gold);
+}
+
+.admin-stat-num {
+  font-family: var(--font-serif);
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  color: var(--color-forest);
+  line-height: 1;
+}
+
+.admin-stat-label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(20,40,29,0.45);
+  margin-top: var(--space-2);
+}
+
+/* Admin data table */
+.admin-table {
+  width: 100%;
+  background: #fff;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+.admin-table th {
+  background: var(--color-ivory);
+  color: rgba(20,40,29,0.6);
+  padding: var(--space-3) var(--space-5);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: left;
+  border-bottom: 1px solid var(--color-ivory-deep);
+}
+
+.admin-table td {
+  padding: var(--space-4) var(--space-5);
+  font-size: var(--text-sm);
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+  vertical-align: top;
+}
+
+.admin-table tr:last-child td { border-bottom: none; }
+.admin-table tr:hover td { background-color: rgba(250,246,238,0.6); }
+
+/* Admin tabs */
+.admin-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid var(--color-ivory-deep);
+  margin-bottom: var(--space-6);
+}
+
+.admin-tab {
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  background: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  color: rgba(20,40,29,0.45);
+  transition: all var(--duration-fast);
+}
+
+.admin-tab.active {
+  color: var(--color-forest);
+  border-bottom-color: var(--color-gold);
+}
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* Login card */
+.admin-login-wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, var(--color-forest) 0%, var(--color-obsidian) 100%);
+  padding: var(--space-6);
+}
+
+.admin-login-card {
+  background: var(--color-ivory);
+  border-radius: var(--radius-xl);
+  padding: var(--space-10) var(--space-8);
+  width: 100%;
+  max-width: 400px;
+  box-shadow: var(--shadow-xl);
+}
+
+.admin-login-logo {
+  text-align: center;
+  margin-bottom: var(--space-8);
+}
+
+.admin-login-logo-text {
+  font-family: var(--font-serif);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--color-forest);
+}
+
+.admin-login-logo-sub {
+  font-size: var(--text-xs);
+  color: var(--color-gold);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-top: var(--space-1);
+}
+
+/* ------------------------------------------------------------
+   10. Homepage Hero & Sections
+   ------------------------------------------------------------ */
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(160deg, var(--color-obsidian) 0%, var(--color-forest) 100%);
+  padding-top: 80px;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 50%, rgba(197,160,89,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 80% at 20% 80%, rgba(90,56,37,0.2) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+}
+
+.hero-label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.hero-label::before {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: var(--color-gold);
+  flex-shrink: 0;
+}
+
+.hero-title {
+  font-family: var(--font-serif);
+  font-size: var(--text-hero);
+  font-weight: 600;
+  color: var(--color-ivory);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-6);
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--color-gold);
+}
+
+.hero-subtitle {
+  font-size: var(--text-lg);
+  color: rgba(250,246,238,0.7);
+  line-height: 1.6;
+  max-width: 560px;
+  margin-bottom: var(--space-10);
+}
+
+.hero-cta-group {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+/* Scroll indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: var(--space-8);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  color: rgba(250,246,238,0.4);
+  animation: scrollBounce 2s ease-in-out infinite;
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(8px); }
+}
+
+.scroll-indicator span {
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ------------------------------------------------------------
+   11. Purpose / About section
+   ------------------------------------------------------------ */
+.purpose-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-16);
+  align-items: center;
+}
+
+.purpose-text .label { margin-bottom: var(--space-4); }
+
+.purpose-pillars {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  margin-top: var(--space-8);
+}
+
+.pillar {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.pillar-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background: rgba(197,160,89,0.1);
+  border: 1px solid rgba(197,160,89,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+/* Map teaser section */
+.map-teaser-section {
+  position: relative;
+  height: 500px;
+  overflow: hidden;
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+}
+
+.map-teaser-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  background: transparent;
+  text-align: center;
+  color: var(--color-ivory);
+}
+
+/* Destination detail page */
+.destination-hero {
+  height: 70vh;
+  min-height: 480px;
+  position: relative;
+  overflow: hidden;
+}
+
+.destination-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.destination-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 30%,
+    rgba(10,18,14,0.8) 100%
+  );
+  display: flex;
+  align-items: flex-end;
+  padding: var(--space-12);
+}
+
+.destination-hero-content {
+  color: var(--color-ivory);
+  max-width: 700px;
+}
+
+/* ------------------------------------------------------------
+   12. Keyframes — General
+   ------------------------------------------------------------ */
+@keyframes fadeInSlow {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+/* Loading skeleton */
+.skeleton {
+  background: linear-gradient(90deg, var(--color-ivory-deep) 25%, var(--color-ivory-dim) 50%, var(--color-ivory-deep) 75%);
+  background-size: 400px 100%;
+  animation: shimmer 1.4s ease infinite;
+  border-radius: var(--radius-sm);
+}
+
+/* ------------------------------------------------------------
+   13. Green Miles & Growing Sacred Tree (Kalpavriksha) Engine
+   ------------------------------------------------------------ */
+.green-miles-card {
+  background: linear-gradient(145deg, #14281D 0%, #0c1a13 55%, #183324 100%);
+  border: 1.5px solid rgba(197, 160, 89, 0.4);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  box-shadow: 0 10px 30px rgba(10, 18, 14, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  color: var(--color-ivory);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: var(--space-8);
+}
+
+.green-miles-card::before {
+  content: "";
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(197, 160, 89, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.green-miles-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(81, 207, 102, 0.12);
+  border: 1px solid rgba(81, 207, 102, 0.35);
+  color: #69db7c;
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-6);
+}
+
+.green-miles-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: var(--space-8);
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .green-miles-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.green-miles-odometer-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.green-miles-number {
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 5vw, 4.2rem);
+  font-weight: 700;
+  color: var(--color-gold);
+  line-height: 1;
+  text-shadow: 0 2px 10px rgba(197, 160, 89, 0.3);
+}
+
+.green-miles-label {
+  font-size: var(--text-md);
+  color: rgba(250, 246, 238, 0.7);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.green-miles-divider {
+  height: 1px;
+  background: linear-gradient(90deg, rgba(197, 160, 89, 0.6) 0%, rgba(197, 160, 89, 0.1) 100%);
+  margin: var(--space-4) 0 var(--space-5);
+}
+
+.green-miles-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.flow-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 12px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.flow-start {
+  background: rgba(197, 160, 89, 0.12);
+  border-color: rgba(197, 160, 89, 0.25);
+  font-weight: 700;
+  color: var(--color-ivory);
+}
+
+.flow-arrow {
+  color: var(--color-gold);
+  font-size: 1rem;
+  line-height: 1;
+  padding-left: 18px;
+  opacity: 0.8;
+}
+
+.flow-data {
+  display: flex;
+  flex-direction: column;
+}
+
+.flow-val {
+  font-weight: 700;
+  font-size: var(--text-sm);
+  color: var(--color-ivory);
+}
+
+.flow-sub {
+  font-size: 11px;
+  color: rgba(250, 246, 238, 0.6);
+}
+
+.green-miles-tree-column {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tree-canvas-wrapper {
+  width: 170px;
+  height: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.35));
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.tree-canvas-wrapper:hover {
+  transform: scale(1.05);
+}
+
+.tree-tier-caption {
+  margin-top: var(--space-2);
+}
+
+.tree-tier-pill {
+  display: inline-block;
+  background: rgba(197, 160, 89, 0.18);
+  border: 1px solid var(--color-gold);
+  color: var(--color-gold);
+  padding: 3px 12px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.tree-tier-note {
+  font-size: 11px;
+  color: rgba(250, 246, 238, 0.65);
+  margin-top: 6px;
+  max-width: 280px;
+  line-height: 1.4;
+}
+
+.green-miles-footer {
+  margin-top: var(--space-6);
+  padding-top: var(--space-4);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 11px;
+  color: rgba(197, 160, 89, 0.85);
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+/* Sacred tree vector animations */
+.sacred-tree-svg.animating .tree-trunk,
+.sacred-tree-svg.animating .tree-trunk-majestic,
+.sacred-tree-svg.animating .tree-sprout-stem {
+  animation: trunkGrow 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+  transform-origin: bottom center;
+}
+
+.sacred-tree-svg.animating .canopy-puff,
+.sacred-tree-svg.animating .bodhi-leaf-group {
+  animation: leafBloom 0.85s cubic-bezier(0.34, 1.35, 0.64, 1) both;
+  transform-origin: center center;
+}
+
+.sacred-tree-svg.animating .bodhi-leaf-group:nth-child(even) { animation-delay: 0.2s; }
+.sacred-tree-svg.animating .bodhi-leaf-group:nth-child(3n) { animation-delay: 0.4s; }
+.sacred-tree-svg.animating .bodhi-leaf-group:nth-child(5n) { animation-delay: 0.6s; }
+
+.sacred-tree-svg.animating .canopy-puff:nth-child(1) { animation-delay: 0.3s; }
+.sacred-tree-svg.animating .canopy-puff:nth-child(2) { animation-delay: 0.45s; }
+.sacred-tree-svg.animating .canopy-puff:nth-child(3) { animation-delay: 0.6s; }
+.sacred-tree-svg.animating .canopy-puff:nth-child(4) { animation-delay: 0.75s; }
+.sacred-tree-svg.animating .canopy-puff:nth-child(5) { animation-delay: 0.9s; }
+.sacred-tree-svg.animating .canopy-puff:nth-child(6) { animation-delay: 1.05s; }
+
+.amrita-droplets {
+  animation: amritaGlow 2.2s ease-in-out infinite alternate;
+}
+
+@keyframes amritaGlow {
+  0%   { filter: drop-shadow(0 0 1px #C5A059); opacity: 0.85; }
+  100% { filter: drop-shadow(0 0 5px #F2E3B8); opacity: 1; }
+}
+
+.sacred-tree-svg {
+  animation: treeSway 5s ease-in-out infinite alternate;
+  transform-origin: bottom center;
+}
+
+@keyframes treeSway {
+  0%   { transform: rotate(0deg); }
+  50%  { transform: rotate(1.2deg); }
+  100% { transform: rotate(-1.2deg); }
+}
+
+@keyframes trunkGrow {
+  0%   { transform: scaleY(0.2); opacity: 0; }
+  100% { transform: scaleY(1); opacity: 1; }
+}
+
+@keyframes leafBloom {
+  0%   { opacity: 0; transform-box: fill-box; }
+  100% { opacity: 1; transform-box: fill-box; }
+}
+
+@keyframes fireflyFloat {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.3; }
+  50%      { transform: translateY(-6px) scale(1.4); opacity: 1; filter: drop-shadow(0 0 4px #ffd43b); }
+}
+
+.firefly-1 { animation: fireflyFloat 2.8s ease-in-out infinite; }
+.firefly-2 { animation: fireflyFloat 3.5s ease-in-out infinite 0.9s; }
+.firefly-3 { animation: fireflyFloat 2.2s ease-in-out infinite 1.6s; }
+
+.tree-seed-pulse {
+  animation: seedPulse 2s ease-in-out infinite;
+}
+
+@keyframes seedPulse {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 2px #C5A059); }
+  50%      { transform: scale(1.25); filter: drop-shadow(0 0 8px #ffd43b); }
+}
+
+/* ------------------------------------------------------------
+   14. "Meet the People Behind the Place" Heritage Gallery
+   ------------------------------------------------------------ */
+.people-behind-place {
+  margin-bottom: var(--space-12);
+}
+
+.people-gallery-header {
+  margin-bottom: var(--space-6);
+  padding-bottom: var(--space-4);
+  border-bottom: 2px solid var(--color-gold);
+}
+
+.people-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-5);
+}
+
+.storyteller-card {
+  background: #fff;
+  border: 1px solid rgba(197, 160, 89, 0.3);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 16px rgba(20, 40, 29, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.storyteller-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-gold) 0%, transparent 100%);
+}
+
+.storyteller-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(20, 40, 29, 0.1);
+  border-color: var(--color-gold);
+}
+
+.storyteller-avatar-halo {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: rgba(197, 160, 89, 0.12);
+  border: 2px solid var(--color-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  margin-bottom: var(--space-3);
+}
+
+.storyteller-role-pill {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-forest);
+  background: rgba(197, 160, 89, 0.2);
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-2);
+}
+
+.storyteller-name {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--color-forest);
+  margin: 0 0 2px 0;
+}
+
+.storyteller-clan {
+  font-size: 11px;
+  color: rgba(20, 40, 29, 0.6);
+  font-weight: 500;
+  margin-bottom: var(--space-3);
+}
+
+.storyteller-quote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--text-sm);
+  color: rgba(20, 40, 29, 0.85);
+  line-height: 1.6;
+  border-left: 2px solid var(--color-gold);
+  padding-left: 10px;
+  margin: 0 0 var(--space-4) 0;
+  flex: 1;
+}
+
+.storyteller-impact-pill {
+  font-size: 11px;
+  background: rgba(81, 207, 102, 0.12);
+  color: #2b8a3e;
+  border: 1px solid rgba(81, 207, 102, 0.35);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: var(--space-3);
+}
+
+.storyteller-micro-exp {
+  font-size: 11px;
+  color: rgba(20, 40, 29, 0.7);
+  background: #fbf9f4;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px dashed rgba(197, 160, 89, 0.4);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   14. 3D Royal Traveler's Field Handbook (Offline Dossier Component)
+   ═══════════════════════════════════════════════════════════════════ */
+
+.dossier-hero-layout {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-8);
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .dossier-hero-layout {
+    grid-template-columns: 1fr !important;
+    justify-items: center;
+  }
+}
+
+.yatra-book-stage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.yatra-book {
+  position: relative;
+  border-radius: 8px 14px 14px 8px;
+  width: 275px;
+  height: 395px;
+  background-color: #FAF6EE;
+  -webkit-transform: preserve-3d;
+  -ms-transform: preserve-3d;
+  transform: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-perspective: 2000px;
+  perspective: 2000px;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 
+    inset 14px 0 20px -8px rgba(20, 40, 29, 0.4),
+    2px 2px 0 #ede5d2,
+    4px 4px 0 #ded3be,
+    6px 6px 0 #cfc2a9,
+    12px 18px 32px rgba(0, 0, 0, 0.45);
+}
+
+.yatra-book .yatra-cover {
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px 14px 14px 8px;
+  background: linear-gradient(145deg, #14281D 0%, #0d1a12 60%, #1e3c2b 100%);
+  border: 1.5px solid #C5A059;
+  cursor: pointer;
+  -webkit-transition: -webkit-transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, visibility 0.5s;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, visibility 0.5s;
+  -webkit-transform-origin: 0;
+  -ms-transform-origin: 0;
+  transform-origin: 0;
+  -webkit-box-shadow: 1px 1px 12px rgba(0, 0, 0, 0.5);
+  box-shadow: 1px 1px 12px rgba(0, 0, 0, 0.5);
+  z-index: 10;
+  opacity: 1;
+  visibility: visible;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.yatra-book .yatra-cover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 14px;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(to right, rgba(0,0,0,0.6), rgba(197,160,89,0.35), transparent);
+  box-shadow: 2px 0 6px rgba(0,0,0,0.4);
+}
+
+.yatra-cover .cover-frame {
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(197, 160, 89, 0.45);
+  border-radius: 6px;
+  pointer-events: none;
+}
+
+.yatra-cover .cover-frame::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1px dashed rgba(197, 160, 89, 0.25);
+  border-radius: 4px;
+}
+
+/* Subtle preview lift on hover when closed */
+.yatra-book:not(.is-open):hover .yatra-cover {
+  -webkit-transform: rotateY(-18deg);
+  -ms-transform: rotateY(-18deg);
+  transform: rotateY(-18deg);
+  -webkit-box-shadow: 4px 6px 20px rgba(0, 0, 0, 0.65), 0 0 12px rgba(197, 160, 89, 0.35);
+  box-shadow: 4px 6px 20px rgba(0, 0, 0, 0.65), 0 0 12px rgba(197, 160, 89, 0.35);
+}
+
+/* Turns completely and vanishes when open */
+.yatra-book.is-open .yatra-cover {
+  -webkit-transform: rotateY(-140deg);
+  -ms-transform: rotateY(-140deg);
+  transform: rotateY(-140deg);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  -webkit-transition: -webkit-transform 0.55s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease 0.18s, visibility 0.55s;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease 0.18s, visibility 0.55s;
+}
+
+.yatra-book .yatra-pages {
+  height: 100%;
+  padding: 14px 12px 10px 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #14281D;
+  overflow: hidden;
+}
+
+.yatra-pages .tab-content {
+  display: none;
+}
+
+.yatra-pages .tab-content.active {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.yatra-pages .custom-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.yatra-pages .custom-scroll::-webkit-scrollbar-track {
+  background: rgba(20, 40, 29, 0.05);
+  border-radius: 4px;
+}
+
+.yatra-pages .custom-scroll::-webkit-scrollbar-thumb {
+  background: #C5A059;
+  border-radius: 4px;
+}
+
+

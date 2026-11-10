@@ -1,0 +1,44 @@
+{
+  "name": "YatraSetu",
+  "short_name": "YatraSetu",
+  "description": "India's intelligent gateway to hidden journeys — crowd-aware, community-powered travel.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#14281D",
+  "theme_color": "#14281D",
+  "orientation": "portrait-primary",
+  "lang": "en",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/static/assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/static/assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Explore Destinations",
+      "short_name": "Explore",
+      "description": "Browse the interactive destination map",
+      "url": "/explore",
+      "icons": [{ "src": "/static/assets/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Safety & SOS",
+      "short_name": "SOS",
+      "description": "Emergency contacts and SOS",
+      "url": "/safety",
+      "icons": [{ "src": "/static/assets/icon-192.png", "sizes": "192x192" }]
+    }
+  ],
+  "categories": ["travel", "maps", "lifestyle"],
+  "screenshots": []
+}

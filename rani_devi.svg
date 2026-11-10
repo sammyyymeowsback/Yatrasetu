@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="card-stock" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FCFAF5"/>
+      <stop offset="50%" stop-color="#F7F3EA"/>
+      <stop offset="100%" stop-color="#EFE9DC"/>
+    </linearGradient>
+    <linearGradient id="gold-foil" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#DFB76C"/>
+      <stop offset="35%" stop-color="#F3E1B2"/>
+      <stop offset="70%" stop-color="#C5A059"/>
+      <stop offset="100%" stop-color="#9C7836"/>
+    </linearGradient>
+    <pattern id="jaali-pat" width="6" height="6" patternUnits="userSpaceOnUse">
+      <rect width="6" height="6" fill="none" stroke="#C5A059" stroke-width="0.5" opacity="0.4"/>
+      <circle cx="3" cy="3" r="1" fill="#C5A059" opacity="0.5"/>
+    </pattern>
+  </defs>
+
+  <!-- Card Stock -->
+  <rect x="2" y="2" width="316" height="476" rx="16" ry="16" fill="url(#card-stock)" stroke="#1A1A1A" stroke-width="2.5"/>
+  <rect x="8" y="8" width="304" height="464" rx="12" ry="12" fill="none" stroke="url(#gold-foil)" stroke-width="1.2"/>
+  <rect x="22" y="22" width="276" height="436" rx="8" ry="8" fill="none" stroke="#222" stroke-width="0.9" stroke-dasharray="6,2"/>
+
+  <!-- Corner Brackets -->
+  <path d="M 28 42 L 28 28 L 42 28" fill="none" stroke="#C5A059" stroke-width="1.8"/>
+  <path d="M 292 42 L 292 28 L 278 28" fill="none" stroke="#C5A059" stroke-width="1.8"/>
+  <path d="M 28 438 L 28 452 L 42 452" fill="none" stroke="#C5A059" stroke-width="1.8"/>
+  <path d="M 292 438 L 292 452 L 278 452" fill="none" stroke="#C5A059" stroke-width="1.8"/>
+
+  
+    <!-- Top-Left Pip -->
+    <g class="corner-pip" transform="translate(24, 38)">
+      <text x="0" y="0" font-family="'Cinzel', 'Times New Roman', serif" font-size="26" font-weight="800" fill="#1A1A1A" text-anchor="middle">Q</text>
+      <text x="0" y="22" font-family="serif" font-size="20" fill="#1A1A1A" text-anchor="middle">♠</text>
+    </g>
+    <!-- Bottom-Right Pip (Inverted) -->
+    <g class="corner-pip" transform="translate(296, 442) rotate(180)">
+      <text x="0" y="0" font-family="'Cinzel', 'Times New Roman', serif" font-size="26" font-weight="800" fill="#1A1A1A" text-anchor="middle">Q</text>
+      <text x="0" y="22" font-family="serif" font-size="20" fill="#1A1A1A" text-anchor="middle">♠</text>
+    </g>
+    
+  
+    <g transform="translate(14, 240) rotate(-90)">
+      <text x="0" y="0" font-family="'Cinzel', 'Times New Roman', serif" font-size="8.5" font-weight="700" letter-spacing="2.5" fill="#555" text-anchor="middle">❖ QUEEN DEVI · VIDISHA ❖</text>
+    </g>
+    <g transform="translate(306, 240) rotate(90)">
+      <text x="0" y="0" font-family="'Cinzel', 'Times New Roman', serif" font-size="8.5" font-weight="700" letter-spacing="2.5" fill="#555" text-anchor="middle">❖ QUEEN DEVI · VIDISHA ❖</text>
+    </g>
+    
+
+  <!-- Canvas Inset -->
+  <rect x="42" y="32" width="236" height="416" rx="4" ry="4" fill="none" stroke="#222" stroke-width="1.2"/>
+  <rect x="44" y="34" width="232" height="412" rx="3" ry="3" fill="none" stroke="#C5A059" stroke-width="0.6"/>
+
+  
+    
+    <g id="devi-half">
+      <circle cx="160" cy="118" r="42" fill="#FAF6EE" stroke="#C5A059" stroke-width="1.2"/>
+      <circle cx="160" cy="118" r="38" fill="none" stroke="#222" stroke-width="0.8" stroke-dasharray="2,2"/>
+      <path d="M 112 236 Q 116 182 142 164 L 178 164 Q 204 182 208 236 Z" fill="#FCFAF5" stroke="#222" stroke-width="1.5"/>
+      <rect x="153" y="145" width="14" height="18" fill="#FFFDF9" stroke="#222" stroke-width="1"/>
+      <path d="M 150 120 Q 150 146 160 150 Q 170 146 170 120 Q 170 108 160 108 Q 150 108 150 120 Z" fill="#FFFDF9" stroke="#222" stroke-width="1.4"/>
+      <ellipse cx="155" cy="122" rx="1.8" ry="1.2" fill="#1A1A1A"/>
+      <ellipse cx="165" cy="122" rx="1.8" ry="1.2" fill="#1A1A1A"/>
+      <circle cx="160" cy="115" r="1.5" fill="#C5A059"/>
+      <path d="M 148 110 L 145 84 L 160 70 L 175 84 L 173 110 Z" fill="#FAF3E0" stroke="#222" stroke-width="1.4"/>
+      <!-- Sanchi Lotus Bud -->
+      <g transform="translate(85, 115)">
+        <path d="M 15 70 Q 12 35 15 15" fill="none" stroke="#222" stroke-width="2"/>
+        <path d="M 15 15 Q 6 4 15 -6 Q 24 4 15 15 Z" fill="#FAF6EE" stroke="#C5A059" stroke-width="1.4"/>
+      </g>
+      <g transform="translate(92, 175)">
+        <ellipse cx="6" cy="6" rx="6" ry="4" fill="#FFFDF9" stroke="#222" stroke-width="1"/>
+      </g>
+    </g>
+    
+    <g transform="translate(42, 232)">
+      <rect x="0" y="0" width="236" height="16" fill="#FAF6EE" stroke="#222" stroke-width="1.4"/>
+      <rect x="2" y="2" width="232" height="12" fill="url(#jaali-pat)"/>
+      <circle cx="118" cy="8" r="7" fill="#C5A059" stroke="#222" stroke-width="1"/>
+      <text x="118" y="11" font-family="serif" font-size="9" font-weight="700" fill="#1A1A1A" text-anchor="middle">♠</text>
+    </g>
+    <use href="#devi-half" transform="translate(320, 480) rotate(180)"/>
+    
+</svg>

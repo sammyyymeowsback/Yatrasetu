@@ -1,0 +1,404 @@
+/* ============================================================
+   YatraSetu — responsive.css
+   Mobile-first responsive rules, breakpoints, reduced-motion.
+   Breakpoints: sm 480px | md 768px | lg 1024px | xl 1280px
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. Navigation — Mobile
+   ------------------------------------------------------------ */
+@media (max-width: 768px) {
+  .site-nav { padding: var(--space-3) var(--space-5); min-height: 70px; }
+
+  .nav-logo { gap: 10px !important; }
+  .nav-logo-emblem { width: 40px !important; height: 40px !important; }
+  .nav-logo-text { font-size: 1.45rem !important; }
+
+  .nav-links { display: none; }
+
+  .nav-hamburger { display: flex; }
+
+  .nav-mobile { padding: var(--space-8); gap: var(--space-6); }
+
+  .nav-mobile a { font-size: var(--text-xl); }
+}
+
+/* ------------------------------------------------------------
+   2. Footer — Responsive
+   ------------------------------------------------------------ */
+@media (max-width: 1024px) {
+  .footer-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+  }
+}
+
+@media (max-width: 640px) {
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: var(--space-3);
+    text-align: center;
+  }
+
+  .site-footer { padding-block: var(--space-12) var(--space-6); }
+}
+
+/* ------------------------------------------------------------
+   3. Hero Section — Responsive
+   ------------------------------------------------------------ */
+@media (max-width: 768px) {
+  .hero-section { padding-inline: var(--space-6); padding-top: 90px; }
+
+  .hero-title { font-size: clamp(2.5rem, 8vw, 4rem); }
+
+  .hero-subtitle { font-size: var(--text-base); }
+
+  .hero-cta-group { flex-direction: column; }
+
+  .hero-cta-group .btn { width: 100%; justify-content: center; }
+}
+
+/* ------------------------------------------------------------
+   4. Ganjifa Card Deck — Responsive
+   ------------------------------------------------------------ */
+@media (max-width: 1100px) {
+  .ganjifa-deck { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 540px) {
+  .ganjifa-deck {
+    grid-template-columns: 1fr;
+    max-width: 340px;
+    margin-inline: auto;
+  }
+
+  .ganjifa-card {
+    --card-h: 340px;
+    --card-rest-rotation: 0deg !important;
+  }
+}
+
+/* ------------------------------------------------------------
+   5. Purpose Grid — Responsive
+   ------------------------------------------------------------ */
+@media (max-width: 900px) {
+  .purpose-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-10);
+  }
+}
+
+/* ------------------------------------------------------------
+   6. Grid layouts — Responsive
+   ------------------------------------------------------------ */
+@media (max-width: 1024px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .grid-4,
+  .grid-3,
+  .grid-2 { grid-template-columns: 1fr; }
+}
+
+/* Container padding on mobile */
+@media (max-width: 640px) {
+  .container { padding-inline: var(--space-5); }
+  .section   { padding-block: var(--space-16); }
+}
+
+/* ------------------------------------------------------------
+   7. Map — Responsive
+   ------------------------------------------------------------ */
+@media (max-width: 768px) {
+  #map-container {
+    height: calc(100dvh - 70px);
+  }
+
+  #map-drawer {
+    top: auto;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 70%;
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    transform: translateY(100%);
+    transition: transform 0.5s var(--ease-cinematic);
+  }
+
+  #map-drawer.drawer-open { transform: translateY(0); }
+
+  .drawer-img-wrap { height: 180px; }
+
+  .map-filter-bar {
+    top: var(--space-3);
+    max-width: calc(100vw - var(--space-10));
+    padding: var(--space-1) var(--space-2);
+  }
+
+  .map-filter-btn { padding: var(--space-1) var(--space-3); }
+
+  #locate-btn     { bottom: calc(70px + var(--space-4)); }
+  #fullscreen-btn { display: none; }
+  #tile-toggle-btn { bottom: calc(70px + 60px); }
+}
+
+/* ------------------------------------------------------------
+   8. Itinerary — Responsive
+   ------------------------------------------------------------ */
+@media (max-width: 768px) {
+  .itinerary-form-wrap { max-width: 100%; }
+
+  .decongestion-banner { padding: var(--space-6); }
+
+  .itinerary-tab { padding: var(--space-3) var(--space-4); font-size: var(--text-xs); }
+}
+
+/* ------------------------------------------------------------
+   9. Safety / SOS — Responsive
+   ------------------------------------------------------------ */
+@media (max-width: 640px) {
+  .sos-btn-wrap { width: 140px; height: 140px; }
+
+  .emergency-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .sos-hero { padding-block: var(--space-10); }
+}
+
+/* ------------------------------------------------------------
+   10. Admin Dashboard — Responsive
+   ------------------------------------------------------------ */
+@media (max-width: 768px) {
+  .admin-stats { grid-template-columns: 1fr; }
+
+  .admin-content { padding: var(--space-5); }
+
+  .admin-topbar { padding: var(--space-4) var(--space-5); }
+
+  .admin-table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .admin-table thead,
+  .admin-table tbody,
+  .admin-table th,
+  .admin-table td,
+  .admin-table tr { display: block; }
+
+  .admin-table thead tr { display: none; }
+
+  .admin-table td {
+    position: relative;
+    padding-left: 45%;
+    white-space: normal;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    min-height: 44px;
+  }
+
+  .admin-table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: var(--space-4);
+    width: 40%;
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(20,40,29,0.45);
+    padding-top: 2px;
+  }
+}
+
+/* ------------------------------------------------------------
+   11. Destination Detail — Responsive
+   ------------------------------------------------------------ */
+@media (max-width: 768px) {
+  .destination-hero { height: 55vw; min-height: 320px; }
+
+  .destination-hero-overlay { padding: var(--space-6); }
+
+  .destination-hero-content h1 { font-size: var(--text-2xl); }
+}
+
+/* ------------------------------------------------------------
+   12. Doorway / Intro — Responsive
+   ------------------------------------------------------------ */
+@media (max-width: 540px) {
+  .doorway-wrap {
+    width: 92vw;
+    height: 72vh;
+  }
+
+  #skip-intro {
+    top: var(--space-4);
+    right: var(--space-4);
+    padding: 4px 10px;
+    font-size: 0.75rem;
+  }
+
+  /* Scale hanging diyas on mobile */
+  .hanging-diya {
+    top: 14%;
+    transform: scale(0.85);
+  }
+  .hanging-diya--left  { left: 1%; }
+  .hanging-diya--right { right: 1%; }
+  .diya-chain { height: 50px; }
+
+  /* Simplify architecture + reduce particle count on small screens */
+  .arch-pillar { width: 5%; }
+
+  .intro-wordmark .wordmark-title {
+    font-size: 1.6rem;
+    letter-spacing: 0.22em;
+  }
+  .intro-wordmark .wordmark-sub {
+    font-size: 0.75rem;
+    letter-spacing: 0.24em;
+  }
+
+  .beyond-birds { display: none; }
+  .dust-particle:nth-child(n+9) { display: none; }
+
+  /* Landscape reveal card mobile adjustments */
+  .landscape-title-card {
+    top: 32%;
+    width: 92vw;
+  }
+  .reveal-brand {
+    font-size: 2.1rem;
+    letter-spacing: 0.16em;
+  }
+  .reveal-tagline {
+    font-size: 1rem;
+  }
+}
+
+/* ------------------------------------------------------------
+   13. Flash messages — Mobile
+   ------------------------------------------------------------ */
+@media (max-width: 540px) {
+  .flash-container {
+    top: var(--space-4);
+    right: var(--space-4);
+    left: var(--space-4);
+    max-width: none;
+    width: auto;
+  }
+}
+
+/* ------------------------------------------------------------
+   14. Offline badge — Mobile
+   ------------------------------------------------------------ */
+@media (max-width: 540px) {
+  .offline-badge {
+    bottom: var(--space-4);
+    font-size: var(--text-xs);
+    padding: var(--space-2) var(--space-5);
+  }
+}
+
+/* ------------------------------------------------------------
+   15. Submit form — Mobile
+   ------------------------------------------------------------ */
+@media (max-width: 640px) {
+  .submit-coords-row {
+    flex-direction: column;
+  }
+}
+
+/* ------------------------------------------------------------
+   16. Map teaser section — Mobile
+   ------------------------------------------------------------ */
+@media (max-width: 768px) {
+  .map-teaser-section { height: 320px; }
+}
+
+/* ------------------------------------------------------------
+   17. Print styles (Safety emergency directory)
+   ------------------------------------------------------------ */
+@media print {
+  .site-nav,
+  .site-footer,
+  .flash-container,
+  .offline-badge,
+  #scene-intro,
+  .sos-btn-wrap,
+  .sos-hold-hint { display: none !important; }
+
+  body {
+    font-size: 12pt;
+    color: #000;
+    background: #fff;
+  }
+
+  .emergency-table th { background: #000; color: #fff; }
+
+  .emergency-number { color: #C1121F; }
+
+  a[href]::after { content: " (" attr(href) ")"; font-size: 0.8em; }
+}
+
+/* ============================================================
+   PREFERS-REDUCED-MOTION
+   All animations and transitions disabled or minimized.
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  /* Remove keyframe animations on general elements (preserve cinematic intro & cards) */
+  body > *:not(#scene-intro):not(.ganjifa-deck),
+  body > *:not(#scene-intro) *:not(.ganjifa-card):not(.ganjifa-card-inner) {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Reveal items immediately (excluding interactive flip cards) */
+  .reveal-on-scroll:not(.ganjifa-card):not(.ganjifa-card-inner) {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  /* Card flip still functions */
+  .ganjifa-card-inner { transition: transform 0.4s ease !important; }
+
+  /* Disable card breathing, rotation offsets, ground shadow & gold dust canvas */
+  .ganjifa-card {
+    --card-rest-rotation: 0deg !important;
+    transform: none !important;
+    animation: none !important;
+  }
+  .ganjifa-card::after {
+    display: none !important;
+  }
+  .ganjifa-deck:not(.deck-revealed) .ganjifa-card {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .deck-gold-dust-canvas {
+    display: none !important;
+  }
+
+  /* Remove map drawer slide */
+  #map-drawer { transition: none !important; }
+
+  /* Collapse scroll indicator */
+  .scroll-indicator { display: none; }
+
+  /* SOS ring — disable conic animation */
+  .sos-ring { transition: none !important; }
+}
+

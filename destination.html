@@ -1,0 +1,755 @@
+{% extends "base.html" %}
+{% block title %}{{ destination.name }}{% endblock %}
+{% block og_title %}{{ destination.name }} — YatraSetu{% endblock %}
+
+{% block extra_head %}
+<style>
+  .homestays-section {
+    margin-top: var(--space-10);
+    padding-top: var(--space-8);
+    border-top: 1px solid rgba(20, 40, 29, 0.12);
+  }
+  .homestays-header {
+    margin-bottom: var(--space-6);
+  }
+  .homestays-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-5);
+  }
+  .homestay-card {
+    background: #FFFFFF;
+    border: 1px solid rgba(20, 40, 29, 0.12);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(20, 40, 29, 0.04);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+  .homestay-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(20, 40, 29, 0.08);
+    border-color: rgba(197, 160, 89, 0.6);
+  }
+  .homestay-img-wrap {
+    height: 160px;
+    position: relative;
+    overflow: hidden;
+    background: #EFECE6;
+  }
+  .homestay-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .homestay-rating-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(20, 40, 29, 0.88);
+    backdrop-filter: blur(4px);
+    color: #FFFFFF;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 999px;
+    border: 1px solid rgba(197, 160, 89, 0.4);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .homestay-body {
+    padding: var(--space-5);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .homestay-name {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-forest);
+    margin: 0 0 4px 0;
+    line-height: 1.3;
+  }
+  .homestay-host {
+    font-size: 0.75rem;
+    color: rgba(20, 40, 29, 0.6);
+    margin-bottom: 8px;
+  }
+  .homestay-tariff {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+  .homestay-price {
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #1b5e3b;
+  }
+  .homestay-price-type {
+    font-size: 0.72rem;
+    color: rgba(20, 40, 29, 0.55);
+    text-transform: capitalize;
+  }
+  .homestay-desc {
+    font-size: 0.78rem;
+    color: rgba(20, 40, 29, 0.7);
+    line-height: 1.55;
+    margin-bottom: 12px;
+    flex: 1;
+  }
+  .homestay-amenities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 14px;
+  }
+  .homestay-amenity-tag {
+    font-size: 10px;
+    background: #FAF7F0;
+    color: var(--color-forest);
+    border: 1px solid rgba(20, 40, 29, 0.1);
+    padding: 2px 7px;
+    border-radius: 4px;
+  }
+  .homestay-actions {
+    padding: 0 var(--space-5) var(--space-5) var(--space-5);
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .btn-homestay-map {
+    flex: 1;
+    background: var(--color-forest);
+    color: #FFFFFF;
+    border: none;
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: background 0.2s;
+  }
+  .btn-homestay-map:hover {
+    background: #1e3d2c;
+    color: #FFFFFF;
+  }
+  .btn-homestay-call {
+    background: #FAF7F0;
+    color: var(--color-forest);
+    border: 1px solid rgba(197, 160, 89, 0.4);
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+  .btn-homestay-call:hover {
+    background: rgba(197, 160, 89, 0.15);
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div style="padding-top:70px;">
+
+  <!-- Hero image -->
+  <div class="destination-hero">
+    {% if destination.image_path %}
+      <img class="destination-hero-img"
+           src="{{ destination.image_path }}"
+           alt="Photo of {{ destination.name }}"
+           onerror="this.style.display='none';document.getElementById('hero-fallback').style.display='flex'">
+      <div id="hero-fallback" style="display:none;position:absolute;inset:0;background:linear-gradient(160deg,var(--color-forest-mid),var(--color-terra));" aria-hidden="true"></div>
+    {% else %}
+      <div style="position:absolute;inset:0;background:linear-gradient(160deg,var(--color-forest-mid),var(--color-terra));" aria-hidden="true"></div>
+    {% endif %}
+
+    <div class="destination-hero-overlay">
+      <div class="destination-hero-content">
+        <div style="margin-bottom:var(--space-3);display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="badge" style="background:rgba(197,160,89,0.2);border-color:rgba(197,160,89,0.4);color:var(--color-gold);">
+            {{ destination.category | replace('_', ' ') | title }}
+          </span>
+          {% if destination.verified or destination.is_approved or not destination.is_user_submitted %}
+          <span class="badge" style="background:rgba(27,94,59,0.92);backdrop-filter:blur(6px);color:#fdf6e2;border:1px solid rgba(212,175,55,0.7);font-size:0.75rem;padding:4px 10px;border-radius:999px;display:inline-flex;align-items:center;gap:6px;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
+            Verified by Tourism Board
+          </span>
+          {% endif %}
+          <button type="button" id="btn-listen-place" class="btn-listen-place" aria-label="Listen to 60-second heritage audio narration of {{ destination.name }}" style="background:rgba(20,40,29,0.85);backdrop-filter:blur(6px);border:1px solid var(--color-gold);color:var(--color-gold);font-size:0.78rem;font-weight:600;padding:4px 12px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:all 0.2s ease;">
+            <span id="listen-icon">🔊</span>
+            <span id="listen-text">Listen to this place (60s Audio)</span>
+          </button>
+        </div>
+        <h1 style="font-family:var(--font-serif);font-size:var(--text-3xl);color:var(--color-ivory);line-height:1.1;margin-bottom:var(--space-3);">
+          {{ destination.name }}
+        </h1>
+        <p style="color:rgba(250,246,238,0.65);font-size:var(--text-md);">
+          {% if destination.district %}{{ destination.district }}, {% endif %}
+          {{ destination.state or '' }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="section" style="padding-top:var(--space-12);">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:2fr 1fr;gap:var(--space-12);align-items:start;">
+
+        <!-- Main column -->
+        <div>
+          <!-- Audio Narration Active Mini-Player -->
+          <div id="audio-narration-player" style="display:none;margin-bottom:var(--space-6);background:linear-gradient(135deg,rgba(20,40,29,0.96),rgba(15,30,22,0.96));border:1.5px solid var(--color-gold);border-radius:var(--radius-lg);padding:14px 20px;color:var(--color-ivory);box-shadow:0 8px 24px rgba(0,0,0,0.25);">
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+              <div style="display:flex;align-items:center;gap:12px;">
+                <div style="width:36px;height:36px;border-radius:50%;background:rgba(197,160,89,0.2);border:1.5px solid var(--color-gold);display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:var(--color-gold);" id="narration-pulsing-disc">
+                  🎙️
+                </div>
+                <div>
+                  <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--color-gold);font-weight:700;">
+                    YatraSetu Heritage Audio Guide · 60s Field Narration
+                  </div>
+                  <div style="font-family:var(--font-serif);font-size:1.05rem;color:var(--color-ivory);font-weight:600;" id="narration-title">
+                    {{ destination.name }}
+                  </div>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <button type="button" id="btn-stop-narration" class="btn btn-sm btn-outline" style="border-color:rgba(197,160,89,0.6);color:var(--color-gold);font-size:0.75rem;padding:4px 12px;background:rgba(255,255,255,0.05);">
+                  ⏹ Stop Narration
+                </button>
+              </div>
+            </div>
+            <div style="margin-top:10px;height:4px;background:rgba(255,255,255,0.15);border-radius:2px;overflow:hidden;">
+              <div id="narration-progress-bar" style="height:100%;width:0%;background:var(--color-gold);transition:width 0.3s linear;"></div>
+            </div>
+          </div>
+
+          <!-- Back link -->
+          <a href="{{ url_for('main.explore') }}"
+             style="display:inline-flex;align-items:center;gap:var(--space-2);font-size:var(--text-sm);color:rgba(20,40,29,0.45);margin-bottom:var(--space-8);text-decoration:none;"
+             class="reveal-on-scroll">
+            ← Back to Explore
+          </a>
+
+          <!-- Crowd level -->
+          <div class="reveal-on-scroll" style="margin-bottom:var(--space-6);">
+            <div class="label" style="margin-bottom:var(--space-2);">Crowd Level</div>
+            <div style="display:flex;align-items:center;gap:var(--space-4);">
+              <span class="crowd-pill crowd-pill--{{ destination.crowd_level or 'low' }}" style="font-size:var(--text-sm);padding:var(--space-2) var(--space-4);">
+                {{ (destination.crowd_level or 'low') | replace('_', ' ') | title }}
+              </span>
+              <div class="crowd-meter-track" style="flex:1;max-width:200px;">
+                <div class="crowd-meter-fill crowd-meter-fill--{{ destination.crowd_level or 'low' }}"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Reason to visit -->
+          {% if destination.reason_to_visit %}
+          <div class="reveal-on-scroll delay-1" style="margin-bottom:var(--space-8);">
+            <div class="label" style="margin-bottom:var(--space-3);">Why Visit</div>
+            <blockquote style="
+              font-family:var(--font-serif);
+              font-size:var(--text-lg);
+              font-style:italic;
+              color:var(--color-forest);
+              line-height:1.6;
+              padding-left:var(--space-6);
+              border-left:3px solid rgba(197,160,89,0.5);
+            ">
+              {{ destination.reason_to_visit }}
+            </blockquote>
+          </div>
+          {% endif %}
+
+          <!-- Description -->
+          {% if destination.description %}
+          <div class="reveal-on-scroll delay-2" style="margin-bottom:var(--space-8);">
+            <div class="label" style="margin-bottom:var(--space-3);">About</div>
+            <p style="color:rgba(20,40,29,0.7);line-height:1.8;font-size:var(--text-md);">
+              {{ destination.description }}
+            </p>
+          </div>
+          {% endif %}
+
+          <!-- Meet the People Behind the Place (Real-Time AI Community Storytelling) -->
+          <div class="people-behind-place">
+            <div class="people-gallery-header">
+              <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:var(--space-2);">
+                <span style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-gold);display:inline-flex;align-items:center;gap:6px;">
+                  <span>🤝</span> DIRECT LOCAL IMPACT · SIH DECENTRALIZATION
+                </span>
+                <span id="community-retention-badge" style="font-size:11px;background:rgba(81,207,102,0.15);color:#2b8a3e;padding:3px 10px;border-radius:var(--radius-full);border:1px solid rgba(81,207,102,0.4);font-weight:700;">
+                  🟢 92% Direct Wealth Retention
+                </span>
+              </div>
+              <h2 style="font-family:var(--font-serif);font-size:var(--text-2xl);color:var(--color-forest);margin:0 0 6px 0;font-weight:700;">
+                Meet the People Behind the Place
+              </h2>
+              <p id="community-cultural-summary" style="font-size:var(--text-sm);color:rgba(20,40,29,0.7);margin:0;line-height:1.6;">
+                Tourism income reaches the families, artisans, and native guides who preserve these sacred places for generations.
+              </p>
+            </div>
+
+            <!-- Storyteller Cards Container (Live Real-Time AI Powered) -->
+            <div class="people-gallery-grid" id="storytellers-grid">
+              <!-- Animated Loading Skeletons -->
+              <div class="storyteller-card" style="min-height:220px;">
+                <div class="skeleton" style="width:54px;height:54px;border-radius:50%;margin-bottom:12px;"></div>
+                <div class="skeleton" style="width:80px;height:16px;margin-bottom:8px;"></div>
+                <div class="skeleton" style="width:140px;height:20px;margin-bottom:12px;"></div>
+                <div class="skeleton" style="width:100%;height:60px;margin-bottom:12px;"></div>
+                <div class="skeleton" style="width:110px;height:22px;"></div>
+              </div>
+              <div class="storyteller-card" style="min-height:220px;">
+                <div class="skeleton" style="width:54px;height:54px;border-radius:50%;margin-bottom:12px;"></div>
+                <div class="skeleton" style="width:80px;height:16px;margin-bottom:8px;"></div>
+                <div class="skeleton" style="width:140px;height:20px;margin-bottom:12px;"></div>
+                <div class="skeleton" style="width:100%;height:60px;margin-bottom:12px;"></div>
+                <div class="skeleton" style="width:110px;height:22px;"></div>
+              </div>
+              <div class="storyteller-card" style="min-height:220px;">
+                <div class="skeleton" style="width:54px;height:54px;border-radius:50%;margin-bottom:12px;"></div>
+                <div class="skeleton" style="width:80px;height:16px;margin-bottom:8px;"></div>
+                <div class="skeleton" style="width:140px;height:20px;margin-bottom:12px;"></div>
+                <div class="skeleton" style="width:100%;height:60px;margin-bottom:12px;"></div>
+                <div class="skeleton" style="width:110px;height:22px;"></div>
+              </div>
+            </div>
+
+            <!-- SIH Callout Footer -->
+            <div style="margin-top:var(--space-4);background:rgba(197,160,89,0.08);border:1px solid rgba(197,160,89,0.25);border-radius:var(--radius-md);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+              <span style="font-size:var(--text-xs);color:var(--color-forest);font-weight:600;">
+                💡 85–100% of spending on village homestays and registered native guides bypasses commercial aggregators.
+              </span>
+              <a href="{{ url_for('main.plan') }}?destination={{ destination.name }}" class="btn btn-primary btn-sm" style="font-size:var(--text-xs);padding:4px 12px;">
+                Plan Yatra with Local Guides &rarr;
+              </a>
+            </div>
+          </div>
+
+          <!-- Verified Community Homestays & Eco-Stays -->
+          {% if homestays|default([]) %}
+          <div id="nearby-homestays" class="homestays-section reveal-on-scroll">
+            <div class="homestays-header" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+              <div>
+                <div style="font-size:var(--text-xs);letter-spacing:0.12em;text-transform:uppercase;color:var(--color-gold);font-weight:700;margin-bottom:4px;">
+                  🏡 Community Tourism &amp; Local Living
+                </div>
+                <h2 style="font-family:var(--font-serif);font-size:var(--text-2xl);color:var(--color-forest);margin:0;">
+                  Verified Homestays &amp; Eco-Stays
+                </h2>
+                <p style="font-size:var(--text-xs);color:rgba(20,40,29,0.65);margin-top:4px;margin-bottom:0;">
+                  100% physically verified properties • Direct host contacts • Real Google ratings &amp; maps redirection
+                </p>
+              </div>
+              <a href="{{ url_for('main.homestays') }}" class="btn btn-sm btn-outline" style="font-size:var(--text-xs);border-color:rgba(197,160,89,0.4);color:var(--color-forest);">
+                Explore All Stays &rarr;
+              </a>
+            </div>
+
+            <div class="homestay-grid">
+              {% for h in homestays %}
+              <div class="homestay-card">
+                <div class="homestay-img-wrap">
+                  <img src="{{ h.image_url or url_for('static', filename='img/homestays/homestay_generic.jpg') }}" alt="{{ h.name }}" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=600&auto=format&fit=crop&q=80';">
+                  <div class="homestay-rating-badge">
+                    ★ {{ "%.1f"|format(h.rating) }} <span style="font-weight:400;opacity:0.8;font-size:10px;">({{ h.review_count }})</span>
+                  </div>
+                  {% if h.verification_badge %}
+                  <div style="position:absolute;bottom:8px;left:8px;background:rgba(20,40,29,0.88);color:#C5A059;font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px;border:1px solid rgba(197,160,89,0.3);backdrop-filter:blur(3px);">
+                    ✓ {{ h.verification_badge }}
+                  </div>
+                  {% endif %}
+                </div>
+
+                <div class="homestay-body">
+                  <h3 class="homestay-name">{{ h.name }}</h3>
+                  <div class="homestay-host">
+                    Hosted by <strong>{{ h.host_name }}</strong> • {{ h.village }}, {{ h.district }}
+                  </div>
+
+                  <div class="homestay-tariff">
+                    <span class="homestay-price">₹{{ "{:,}".format(h.price_inr|int) }}</span>
+                    <span class="homestay-price-type">/ {{ h.price_unit|replace('_', ' ') }}</span>
+                    <span style="font-size:10px;color:#1b5e3b;font-weight:600;background:rgba(27,94,59,0.1);padding:1px 6px;border-radius:3px;margin-left:auto;">
+                      {{ h.community_retention_pct }}% direct local
+                    </span>
+                  </div>
+
+                  <p class="homestay-desc">
+                    {{ h.description }}
+                  </p>
+
+                  {% if h.amenities_list %}
+                  <div class="homestay-amenities">
+                    {% for am in h.amenities_list[:4] %}
+                    <span class="homestay-amenity-tag">✓ {{ am }}</span>
+                    {% endfor %}
+                    {% if h.amenities_list|length > 4 %}
+                    <span class="homestay-amenity-tag">+{{ h.amenities_list|length - 4 }} more</span>
+                    {% endif %}
+                  </div>
+                  {% endif %}
+                </div>
+
+                <div class="homestay-actions">
+                  <a href="{{ h.google_maps_url }}" target="_blank" rel="noopener noreferrer" class="btn-homestay-map">
+                    <span>📍</span> View on Google Maps ↗
+                  </a>
+                  {% if h.contact_phone %}
+                  <a href="tel:{{ h.contact_phone }}" class="btn-homestay-call" title="Call host {{ h.host_name }}">
+                    <span>📞</span> Call Host
+                  </a>
+                  {% elif h.booking_url %}
+                  <a href="{{ h.booking_url }}" target="_blank" rel="noopener noreferrer" class="btn-homestay-call" title="Official Booking">
+                    <span>🌐</span> Book
+                  </a>
+                  {% endif %}
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}
+
+        </div>
+
+        <!-- Sidebar -->
+        <div>
+          <!-- Add to Yatra CTA -->
+          <div class="reveal-on-scroll" style="
+            background:var(--color-forest);
+            border-radius:var(--radius-xl);
+            padding:var(--space-8);
+            margin-bottom:var(--space-6);
+            text-align:center;
+          ">
+            <img src="{{ url_for('static', filename='img/logo_surya_seal.svg') }}?v=15" alt="" width="40" height="40" style="width:40px;height:40px;display:inline-block;margin-bottom:var(--space-4);filter:drop-shadow(0 2px 10px rgba(197,160,89,0.4));" aria-hidden="true">
+            <h3 style="font-family:var(--font-serif);font-size:var(--text-xl);color:var(--color-ivory);margin-bottom:var(--space-3);">
+              Plan a Yatra here
+            </h3>
+            <p style="font-size:var(--text-sm);color:rgba(250,246,238,0.6);margin-bottom:var(--space-6);">
+              Let YatraSetu AI design a crowd-aware itinerary around {{ destination.name }}.
+            </p>
+            <a href="{{ url_for('main.plan') }}?destination_id={{ destination.id }}"
+               class="btn btn-primary w-full" style="width:100%;justify-content:center;">
+              Add to Yatra
+            </a>
+          </div>
+
+          <!-- Live Weather Widget -->
+          <div class="reveal-on-scroll delay-1" id="dest-weather-card" style="
+            padding:var(--space-5);
+            border-radius:var(--radius-lg);
+            border:1px solid rgba(197,160,89,0.3);
+            background:rgba(197,160,89,0.06);
+            margin-bottom:var(--space-6);
+            display:none;
+          ">
+            <div class="label" style="margin-bottom:var(--space-2);color:var(--color-gold);">Current Weather</div>
+            <div style="display:flex;align-items:center;gap:var(--space-3);">
+              <span id="dest-weather-icon" style="font-size:1.8rem;" aria-hidden="true">🌤</span>
+              <div>
+                <div style="font-size:var(--text-lg);font-weight:700;color:var(--color-forest);" id="dest-weather-temp">--°C</div>
+                <div style="font-size:var(--text-xs);color:rgba(20,40,29,0.7);text-transform:capitalize;" id="dest-weather-cond">--</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Green Miles Potential Widget -->
+          <div style="
+            padding:var(--space-5);
+            border-radius:var(--radius-lg);
+            border:1.5px solid rgba(81,207,102,0.4);
+            background:linear-gradient(145deg, #14281D 0%, #0c1a13 100%);
+            margin-bottom:var(--space-6);
+            color:var(--color-ivory);
+          ">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-2);">
+              <span style="font-size:var(--text-xs);font-weight:700;color:#69db7c;text-transform:uppercase;letter-spacing:0.06em;display:inline-flex;align-items:center;gap:5px;">
+                <span>🌿</span> Eco-Footprint
+              </span>
+              <span style="font-size:10px;background:rgba(197,160,89,0.2);color:var(--color-gold);padding:2px 6px;border-radius:var(--radius-full);">Low Crowd</span>
+            </div>
+            <div style="font-family:var(--font-serif);font-size:var(--text-xl);color:var(--color-gold);font-weight:700;margin-bottom:4px;">
+              +45 to 65 Green Miles
+            </div>
+            <p style="font-size:var(--text-xs);color:rgba(250,246,238,0.7);margin:0 0 var(--space-3) 0;line-height:1.4;">
+              Visiting {{ destination.name }} reduces urban congestion and supports carbon-negative heritage exploration.
+            </p>
+            <div style="font-size:11px;color:#8ce99a;display:flex;align-items:center;gap:6px;">
+              <span>🌱 ~7.2 kg CO₂ saved per day on circuit</span>
+            </div>
+          </div>
+
+          <!-- Coordinates -->
+          {% if destination.latitude and destination.longitude %}
+          <div class="reveal-on-scroll delay-1" style="
+            padding:var(--space-5);
+            border-radius:var(--radius-lg);
+            border:1px solid var(--color-ivory-deep);
+            background:#fff;
+            margin-bottom:var(--space-6);
+          ">
+            <div class="label" style="margin-bottom:var(--space-3);">Location</div>
+            <div style="font-family:monospace;font-size:var(--text-sm);color:var(--color-forest);">
+              {{ destination.latitude }}, {{ destination.longitude }}
+            </div>
+            <a href="https://maps.google.com/?q={{ destination.latitude }},{{ destination.longitude }}"
+               target="_blank" rel="noopener noreferrer"
+               class="btn btn-ghost btn-sm" style="margin-top:var(--space-3);padding-left:0;color:var(--color-gold);">
+              Open in Maps →
+            </a>
+          </div>
+          {% endif %}
+
+          <!-- Safety link -->
+          <div class="reveal-on-scroll delay-2" style="
+            padding:var(--space-5);
+            border-radius:var(--radius-lg);
+            background:rgba(193,18,31,0.06);
+            border:1px solid rgba(193,18,31,0.15);
+          ">
+            <div style="font-weight:600;color:var(--color-crowd-high);margin-bottom:var(--space-2);font-size:var(--text-sm);">
+              🛡 Travel Safely
+            </div>
+            <p style="font-size:var(--text-xs);color:rgba(20,40,29,0.6);margin-bottom:var(--space-3);">
+              Save the emergency number 112 before departing.
+            </p>
+            <a href="{{ url_for('safety.safety_page') }}" class="btn btn-sm btn-outline" style="border-color:rgba(193,18,31,0.3);color:var(--color-crowd-high);">
+              Safety &amp; SOS
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+(function() {
+  var lat = "{{ destination.latitude or '' }}";
+  var lng = "{{ destination.longitude or '' }}";
+  var name = "{{ destination.name }}";
+  var state = "{{ destination.state or '' }}";
+  var destId = "{{ destination.id or '' }}";
+
+  /* 1. Live Weather */
+  var url = (lat && lng) ? ('/api/weather?lat=' + lat + '&lng=' + lng) : ('/api/weather?city=' + encodeURIComponent(name));
+  fetch(url)
+    .then(function(r) { return r.json(); })
+    .then(function(resp) {
+      if (resp.success && resp.data) {
+        var card = document.getElementById('dest-weather-card');
+        var temp = document.getElementById('dest-weather-temp');
+        var cond = document.getElementById('dest-weather-cond');
+        var icon = document.getElementById('dest-weather-icon');
+        if (card && temp && cond) {
+          var t = resp.data.temperature_c != null ? Math.round(resp.data.temperature_c) + '°C' : Math.round(resp.data.temperature) + '°C';
+          var c = resp.data.condition || resp.data.conditions || 'Clear';
+          temp.textContent = t;
+          cond.textContent = c;
+          var lc = c.toLowerCase();
+          if (lc.indexOf('rain') !== -1 || lc.indexOf('drizzle') !== -1) icon.textContent = '🌧';
+          else if (lc.indexOf('thunder') !== -1) icon.textContent = '⛈';
+          else if (lc.indexOf('snow') !== -1) icon.textContent = '❄';
+          else if (lc.indexOf('clear') !== -1) icon.textContent = '☀';
+          else if (lc.indexOf('cloud') !== -1) icon.textContent = '☁';
+          card.style.display = 'block';
+        }
+      }
+    })
+    .catch(function() {});
+
+  /* 2. Real-Time Gemini AI Community Storytelling */
+  var storiesUrl = '/api/community/stories?destination=' + encodeURIComponent(name) + '&state=' + encodeURIComponent(state) + '&id=' + encodeURIComponent(destId);
+  fetch(storiesUrl)
+    .then(function(r) { return r.json(); })
+    .then(function(resp) {
+      if (resp.success && resp.data) {
+        renderCommunityStories(resp.data);
+      }
+    })
+    .catch(function(e) {
+      console.info('Community storytelling fallback:', e);
+    });
+
+  function renderCommunityStories(data) {
+    var grid = document.getElementById('storytellers-grid');
+    var summaryEl = document.getElementById('community-cultural-summary');
+    var badgeEl = document.getElementById('community-retention-badge');
+
+    if (summaryEl && data.cultural_summary) {
+      summaryEl.textContent = data.cultural_summary;
+    }
+    if (badgeEl && data.community_retention_pct) {
+      badgeEl.textContent = '🟢 ' + data.community_retention_pct + '% Direct Wealth Retention';
+    }
+
+    if (!grid || !data.storytellers || !data.storytellers.length) return;
+
+    var html = '';
+    data.storytellers.forEach(function(st) {
+      var roleBadge = (st.role_type === 'craft') ? '🎨 Heritage Craft' :
+                      (st.role_type === 'guide') ? '🧭 Indigenous Guide' : '🏡 Village Hearth';
+
+      html +=
+        '<div class="storyteller-card">' +
+          '<div>' +
+            '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">' +
+              '<div class="storyteller-avatar-halo">' + escapeHtml(st.avatar_emoji || '👩') + '</div>' +
+              '<span class="storyteller-role-pill">' + roleBadge + '</span>' +
+            '</div>' +
+            '<h3 class="storyteller-name">' + escapeHtml(st.name || 'Local Custodian') + '</h3>' +
+            '<div class="storyteller-clan">' + escapeHtml(st.role_title || '') + (st.community_clan ? ' · ' + escapeHtml(st.community_clan) : '') + '</div>' +
+            '<blockquote class="storyteller-quote">“' + escapeHtml(st.quote || '') + '”</blockquote>' +
+            '<div style="margin-top:6px;">' +
+              '<button type="button" class="btn-listen-story" style="background:none;border:none;color:var(--color-gold);font-size:11px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:4px;padding:2px 0;" data-speech="' + escapeHtml((st.name || 'Local Custodian') + ' says: ' + (st.quote || '')) + '">' +
+                '<span>🔊</span> Listen to Custodian' +
+              '</button>' +
+            '</div>' +
+          '</div>' +
+          '<div>' +
+            '<div class="storyteller-impact-pill">' +
+              '<span>✓</span> ' + escapeHtml(st.direct_impact || 'Direct Fair-Trade Pay') +
+            '</div>' +
+            (st.micro_experience ? '<div class="storyteller-micro-exp"><strong>✨ Experience:</strong> ' + escapeHtml(st.micro_experience) + '</div>' : '') +
+            (st.role_type === 'homestay' ? '<div style="margin-top:8px;"><a href="#nearby-homestays" class="btn btn-outline btn-xs" style="font-size:11px;padding:3px 8px;border-color:rgba(197,160,89,0.5);color:var(--color-forest);">View Local Homestays &darr;</a></div>' : '') +
+          '</div>' +
+        '</div>';
+    });
+
+    grid.innerHTML = html;
+
+    /* Attach click handlers for individual custodian audio */
+    grid.querySelectorAll('.btn-listen-story').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        var speechText = this.getAttribute('data-speech');
+        if (!speechText || !window.speechSynthesis) return;
+        window.speechSynthesis.cancel();
+        var u = new SpeechSynthesisUtterance(speechText);
+        u.rate = 0.92;
+        var voices = window.speechSynthesis.getVoices();
+        var match = voices.find(function(v) { return v.lang && (v.lang.startsWith('en-IN') || v.lang.startsWith('hi')); }) ||
+                    voices.find(function(v) { return v.lang && v.lang.startsWith('en'); });
+        if (match) u.voice = match;
+        window.speechSynthesis.speak(u);
+      });
+    });
+  }
+
+  /* 3. Destination 60s Heritage Audio Narration */
+  var btnListen = document.getElementById('btn-listen-place');
+  var btnStop = document.getElementById('btn-stop-narration');
+  var playerCard = document.getElementById('audio-narration-player');
+  var progressBar = document.getElementById('narration-progress-bar');
+  var listenIcon = document.getElementById('listen-icon');
+  var listenText = document.getElementById('listen-text');
+  var progressTimer = null;
+  var isSpeaking = false;
+
+  var fullNarrationText = "Welcome to " + name + (state ? ", " + state : "") + ". " +
+    "{{ destination.reason_to_visit|default('', true)|replace('"', '\\"')|replace('\n', ' ')|replace('\r', '') }} " +
+    "{{ destination.description|default('', true)|replace('"', '\\"')|replace('\n', ' ')|replace('\r', '') }}";
+
+  function stopNarration() {
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    if (progressTimer) clearInterval(progressTimer);
+    isSpeaking = false;
+    if (playerCard) playerCard.style.display = 'none';
+    if (listenIcon) listenIcon.textContent = '🔊';
+    if (listenText) listenText.textContent = 'Listen to this place (60s Audio)';
+    if (progressBar) progressBar.style.width = '0%';
+  }
+
+  function startNarration() {
+    if (!window.speechSynthesis) {
+      alert('Speech synthesis audio is not supported by your current browser.');
+      return;
+    }
+    window.speechSynthesis.cancel();
+
+    var u = new SpeechSynthesisUtterance(fullNarrationText);
+    u.rate = 0.92;
+    u.pitch = 1.0;
+
+    var voices = window.speechSynthesis.getVoices();
+    var match = voices.find(function(v) { return v.lang && v.lang.startsWith('en-IN'); }) ||
+                voices.find(function(v) { return v.lang && v.lang.startsWith('en-GB'); }) ||
+                voices.find(function(v) { return v.lang && v.lang.startsWith('en'); });
+    if (match) u.voice = match;
+
+    var startTime = Date.now();
+    var estDurationSec = Math.max(25, Math.min(65, Math.round(fullNarrationText.split(' ').length / 2.2)));
+
+    if (playerCard) playerCard.style.display = 'block';
+    if (listenIcon) listenIcon.textContent = '⏹';
+    if (listenText) listenText.textContent = 'Stop Narration';
+    isSpeaking = true;
+
+    if (progressTimer) clearInterval(progressTimer);
+    progressTimer = setInterval(function() {
+      var elapsed = (Date.now() - startTime) / 1000;
+      var pct = Math.min(100, Math.round((elapsed / estDurationSec) * 100));
+      if (progressBar) progressBar.style.width = pct + '%';
+      if (pct >= 100) clearInterval(progressTimer);
+    }, 300);
+
+    u.onend = function() {
+      stopNarration();
+    };
+    u.onerror = function() {
+      stopNarration();
+    };
+
+    window.speechSynthesis.speak(u);
+  }
+
+  if (btnListen) {
+    btnListen.addEventListener('click', function() {
+      if (isSpeaking) {
+        stopNarration();
+      } else {
+        startNarration();
+      }
+    });
+  }
+
+  if (btnStop) {
+    btnStop.addEventListener('click', stopNarration);
+  }
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+})();
+</script>
+{% endblock %}

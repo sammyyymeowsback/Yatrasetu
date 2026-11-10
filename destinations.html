@@ -1,0 +1,301 @@
+{% extends "base.html" %}
+{% block title %}
+  {% if active_filter %}
+    Destinations — {{ active_filter.value | replace('_', ' ') | title }}
+  {% else %}
+    All Destinations — YatraSetu
+  {% endif %}
+{% endblock %}
+{% block og_title %}Destinations Directory — YatraSetu{% endblock %}
+{% block body_class %}page-destinations{% endblock %}
+
+{% block content %}
+<div style="padding-top:80px;">
+
+  <!-- Header banner -->
+  <div class="section section--dark" style="padding-block:var(--space-14);position:relative;overflow:hidden;">
+    <div class="container" style="text-align:center;position:relative;z-index:2;">
+      <div class="label" style="color:var(--color-gold);justify-content:center;display:flex;margin-bottom:var(--space-3);letter-spacing:0.12em;">
+        YATRA DIRECTORY &amp; CIRCUITS
+      </div>
+      <h1 style="font-family:var(--font-serif);font-size:clamp(2rem,4vw,3.2rem);color:var(--color-ivory);margin-bottom:var(--space-4);font-weight:700;">
+        {% if active_filter and active_filter.type == 'category' %}
+          {{ active_filter.value | capitalize }} Destinations
+        {% elif active_filter and active_filter.type == 'search' %}
+          Search: "{{ active_filter.value }}"
+        {% elif active_filter and active_filter.type == 'state' %}
+          Destinations in {{ active_filter.value | title }}
+        {% elif active_filter and active_filter.type == 'crowd_level' %}
+          {{ active_filter.value | replace('_', ' ') | title }} Footfall Destinations
+        {% elif active_filter and active_filter.type == 'risk_level' %}
+          {{ active_filter.value | capitalize }} Risk Advisory Destinations
+        {% else %}
+          Discover Sacred &amp; Scenic India
+        {% endif %}
+      </h1>
+      <p style="color:rgba(250,246,238,0.7);font-size:var(--text-md);max-width:620px;margin-inline:auto;line-height:1.6;">
+        Explore curated heritage sanctuaries, tranquil hill circuits, and nature reserves with real-time crowd awareness and climate updates.
+      </p>
+
+      <!-- Search bar inside header -->
+      <form action="{{ url_for('destinations.destination_search') }}" method="GET" style="max-width:540px;margin:var(--space-8) auto 0;display:flex;gap:var(--space-2);background:rgba(20,40,29,0.7);padding:6px;border-radius:var(--radius-full);border:1px solid rgba(197,160,89,0.35);box-shadow:0 10px 30px rgba(0,0,0,0.3);">
+        <input type="text"
+               name="q"
+               value="{{ active_filter.value if (active_filter and active_filter.type == 'search') else '' }}"
+               placeholder="Search by spot name, city, state..."
+               required
+               style="flex:1;background:transparent;border:none;padding:10px 18px;color:var(--color-ivory);font-size:var(--text-sm);outline:none;">
+        <button type="submit" class="btn btn-primary btn-sm" style="border-radius:var(--radius-full);padding-inline:20px;">
+          Search
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Main directory section -->
+  <section class="section" aria-label="Destinations catalog" style="padding-top:var(--space-10);padding-bottom:var(--space-20);">
+    <div class="container">
+
+      <!-- Category Filter Tabs & Toolbar -->
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--space-4);margin-bottom:var(--space-8);padding-bottom:var(--space-6);border-bottom:1px solid rgba(20,40,29,0.08);">
+        
+        <!-- Category pills -->
+        <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;align-items:center;">
+          <a href="{{ url_for('destinations.destination_list') }}"
+             class="btn btn-sm {% if not active_filter or active_filter.type != 'category' %}btn-secondary{% else %}btn-outline{% endif %}"
+             style="border-radius:var(--radius-full);">
+            All
+          </a>
+          <a href="{{ url_for('destinations.destinations_by_category', category='heritage') }}"
+             class="btn btn-sm {% if active_filter and active_filter.type == 'category' and active_filter.value == 'heritage' %}btn-secondary{% else %}btn-outline{% endif %}"
+             style="border-radius:var(--radius-full);">
+            🏛️ Heritage
+          </a>
+          <a href="{{ url_for('destinations.destinations_by_category', category='nature') }}"
+             class="btn btn-sm {% if active_filter and active_filter.type == 'category' and active_filter.value == 'nature' %}btn-secondary{% else %}btn-outline{% endif %}"
+             style="border-radius:var(--radius-full);">
+            🌲 Nature
+          </a>
+          <a href="{{ url_for('destinations.destinations_by_category', category='spiritual') }}"
+             class="btn btn-sm {% if active_filter and active_filter.type == 'category' and active_filter.value == 'spiritual' %}btn-secondary{% else %}btn-outline{% endif %}"
+             style="border-radius:var(--radius-full);">
+            🕉️ Spiritual
+          </a>
+          <a href="{{ url_for('destinations.destinations_by_category', category='culture') }}"
+             class="btn btn-sm {% if active_filter and active_filter.type == 'category' and active_filter.value == 'culture' %}btn-secondary{% else %}btn-outline{% endif %}"
+             style="border-radius:var(--radius-full);">
+            🎨 Culture
+          </a>
+          <a href="{{ url_for('destinations.destinations_by_category', category='rural') }}"
+             class="btn btn-sm {% if active_filter and active_filter.type == 'category' and active_filter.value == 'rural' %}btn-secondary{% else %}btn-outline{% endif %}"
+             style="border-radius:var(--radius-full);">
+            🌾 Rural
+          </a>
+        </div>
+
+        <!-- Right stats & count -->
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span style="font-size:var(--text-sm);color:rgba(20,40,29,0.6);font-weight:600;">
+            {{ destinations|length }} {% if destinations|length == 1 %}destination{% else %}destinations{% endif %}
+          </span>
+          {% if active_filter %}
+            <a href="{{ url_for('destinations.destination_list') }}"
+               class="btn btn-outline btn-sm"
+               style="font-size:var(--text-xs);padding:4px 10px;border-radius:var(--radius-full);color:var(--color-terra);border-color:rgba(184,80,66,0.3);">
+              ✕ Clear Filter
+            </a>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Active filter banner if present -->
+      {% if active_filter %}
+        <div style="background:rgba(197,160,89,0.1);border:1px solid rgba(197,160,89,0.3);border-radius:var(--radius-md);padding:12px 18px;margin-bottom:var(--space-8);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="color:var(--color-gold);font-size:1.1rem;">⚡</span>
+            <span style="font-size:var(--text-sm);color:var(--color-forest);">
+              Filter active: <strong>{{ active_filter.type | replace('_', ' ') | title }}</strong> = <em>"{{ active_filter.value }}"</em>
+            </span>
+          </div>
+          <a href="{{ url_for('destinations.destination_list') }}" style="font-size:var(--text-xs);color:var(--color-forest);text-decoration:underline;">
+            Show all destinations
+          </a>
+        </div>
+      {% endif %}
+
+      <!-- Destinations Grid -->
+      {% if destinations %}
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:var(--space-8);">
+          {% for dest in destinations %}
+            <article class="destination-card"
+                     style="background:var(--color-ivory-warm,#fff);border:1px solid rgba(20,40,29,0.1);border-radius:var(--radius-lg);overflow:hidden;display:flex;flex-direction:column;transition:transform 0.25s ease,box-shadow 0.25s ease;box-shadow:0 4px 14px rgba(0,0,0,0.05);"
+                     onmouseenter="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 28px rgba(0,0,0,0.1)';"
+                     onmouseleave="this.style.transform='none';this.style.boxShadow='0 4px 14px rgba(0,0,0,0.05)';">
+              
+              <!-- Card Image Header -->
+              <div style="position:relative;height:200px;background:linear-gradient(135deg,var(--color-forest-mid,#2d6a4f),var(--color-forest,#14281d));overflow:hidden;">
+                {% if dest.image_path %}
+                  <img src="{{ dest.image_path }}"
+                       alt="{{ dest.name }}"
+                       loading="lazy"
+                       style="width:100%;height:100%;object-fit:cover;display:block;"
+                       onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                  <div style="display:none;position:absolute;inset:0;background:linear-gradient(135deg,var(--color-forest-mid),var(--color-terra));align-items:center;justify-content:center;color:rgba(255,255,255,0.8);font-family:var(--font-serif);font-size:1.5rem;">
+                    {{ dest.name }}
+                  </div>
+                {% else %}
+                  <div style="position:absolute;inset:0;background:linear-gradient(135deg,var(--color-forest-mid),var(--color-terra));display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.8);font-family:var(--font-serif);font-size:1.5rem;">
+                    {{ dest.name }}
+                  </div>
+                {% endif %}
+
+                <!-- Top badges overlay -->
+                <div style="position:absolute;top:10px;left:10px;right:10px;display:flex;justify-content:space-between;align-items:flex-start;z-index:2;">
+                  <div style="display:flex;gap:4px;flex-direction:column;align-items:flex-start;">
+                    <span class="badge" style="background:rgba(20,40,29,0.88);backdrop-filter:blur(4px);color:var(--color-gold);border-color:rgba(197,160,89,0.4);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.06em;">
+                      {{ dest.category | title }}
+                    </span>
+                    {% if dest.verified or dest.is_approved or not dest.is_user_submitted %}
+                    <span class="badge" style="background:rgba(27,94,59,0.92);backdrop-filter:blur(4px);color:#fdf6e2;border:1px solid rgba(212,175,55,0.6);font-size:0.62rem;letter-spacing:0.04em;display:inline-flex;align-items:center;gap:3px;padding:1px 6px;">
+                      <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
+                      Verified
+                    </span>
+                    {% endif %}
+                  </div>
+                  <span class="crowd-pill crowd-pill--{{ dest.crowd_level or 'low' }}" style="box-shadow:0 2px 6px rgba(0,0,0,0.3);font-size:0.75rem;">
+                    {{ (dest.crowd_level or 'low') | replace('_', ' ') | title }} Footfall
+                  </span>
+                </div>
+              </div>
+
+              <!-- Card Body -->
+              <div style="padding:var(--space-5);display:flex;flex-direction:column;flex:1;">
+                
+                <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:6px;">
+                  <h2 style="font-family:var(--font-serif);font-size:1.35rem;font-weight:700;color:var(--color-forest);margin:0;line-height:1.2;">
+                    <a href="{{ url_for('destinations.destination_detail', destination_id=dest.id) }}" style="color:inherit;text-decoration:none;">
+                      {{ dest.name }}
+                    </a>
+                  </h2>
+                </div>
+
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:var(--text-xs);color:rgba(20,40,29,0.55);margin-bottom:var(--space-3);">
+                  <div style="display:flex;align-items:center;gap:6px;">
+                    <span>📍</span>
+                    <span>{% if dest.district %}{{ dest.district }}, {% endif %}{{ dest.state or 'India' }}</span>
+                  </div>
+                  <button type="button" class="btn-card-listen" style="background:rgba(197,160,89,0.1);border:1px solid rgba(197,160,89,0.35);color:var(--color-forest);font-size:10.5px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:999px;transition:all 0.2s;" data-speech="Welcome to {{ dest.name }}. {{ dest.reason_to_visit or dest.description or '' }}" title="Listen to audio overview of {{ dest.name }}">
+                    <span>🔊</span> Listen
+                  </button>
+                </div>
+
+                <p style="font-size:var(--text-sm);color:rgba(20,40,29,0.72);line-height:1.5;margin-bottom:var(--space-5);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;flex:1;">
+                  {{ dest.reason_to_visit or dest.description or 'A tranquil journey offering rich regional character and serene exploration.' }}
+                </p>
+
+                <!-- Footer with action buttons -->
+                <div style="display:flex;align-items:center;justify-content:space-between;padding-top:var(--space-4);border-top:1px solid rgba(20,40,29,0.06);gap:8px;">
+                  <a href="{{ url_for('destinations.destination_detail', destination_id=dest.id) }}"
+                     class="btn btn-outline btn-sm"
+                     style="flex:1;text-align:center;justify-content:center;padding:7px 12px;font-size:var(--text-xs);border-color:rgba(20,40,29,0.25);">
+                    View Details
+                  </a>
+                  <a href="{{ url_for('main.plan') }}?destination={{ dest.name | urlencode }}"
+                     class="btn btn-primary btn-sm"
+                     style="flex:1;text-align:center;justify-content:center;padding:7px 12px;font-size:var(--text-xs);">
+                    Plan Yatra →
+                  </a>
+                </div>
+              </div>
+
+            </article>
+          {% endfor %}
+        </div>
+      {% else %}
+        <!-- Empty state -->
+        <div style="text-align:center;padding:var(--space-16) var(--space-4);background:rgba(20,40,29,0.02);border:1px dashed rgba(20,40,29,0.15);border-radius:var(--radius-lg);max-width:600px;margin:var(--space-10) auto;">
+          <div style="font-size:2.8rem;margin-bottom:var(--space-4);">🗺️</div>
+          <h3 style="font-family:var(--font-serif);font-size:1.6rem;color:var(--color-forest);margin-bottom:var(--space-2);">
+            No Destinations Found
+          </h3>
+          <p style="font-size:var(--text-sm);color:rgba(20,40,29,0.6);margin-bottom:var(--space-6);line-height:1.6;">
+            We couldn't find any destinations matching your current search or category filter. Try clearing filters or exploring our full discovery deck.
+          </p>
+          <div style="display:flex;gap:var(--space-3);justify-content:center;flex-wrap:wrap;">
+            <a href="{{ url_for('destinations.destination_list') }}" class="btn btn-primary btn-sm">
+              View All Destinations
+            </a>
+            <a href="{{ url_for('main.explore') }}" class="btn btn-secondary btn-sm">
+              Explore Interactive Map
+            </a>
+          </div>
+        </div>
+      {% endif %}
+
+    </div>
+  </section>
+
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+(function() {
+  var activeBtn = null;
+
+  document.querySelectorAll('.btn-card-listen').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (!window.speechSynthesis) {
+        alert('Speech synthesis audio is not supported in this browser.');
+        return;
+      }
+
+      if (activeBtn === this) {
+        window.speechSynthesis.cancel();
+        this.innerHTML = '<span>🔊</span> Listen';
+        this.style.background = 'rgba(197,160,89,0.1)';
+        activeBtn = null;
+        return;
+      }
+
+      window.speechSynthesis.cancel();
+      if (activeBtn) {
+        activeBtn.innerHTML = '<span>🔊</span> Listen';
+        activeBtn.style.background = 'rgba(197,160,89,0.1)';
+      }
+
+      var text = this.getAttribute('data-speech');
+      if (!text) return;
+
+      var u = new SpeechSynthesisUtterance(text);
+      u.rate = 0.95;
+      var voices = window.speechSynthesis.getVoices();
+      var match = voices.find(function(v) { return v.lang && (v.lang.startsWith('en-IN') || v.lang.startsWith('hi')); }) ||
+                  voices.find(function(v) { return v.lang && v.lang.startsWith('en'); });
+      if (match) u.voice = match;
+
+      var current = this;
+      activeBtn = current;
+      current.innerHTML = '<span>⏹</span> Stop';
+      current.style.background = 'rgba(197,160,89,0.3)';
+
+      u.onend = function() {
+        current.innerHTML = '<span>🔊</span> Listen';
+        current.style.background = 'rgba(197,160,89,0.1)';
+        if (activeBtn === current) activeBtn = null;
+      };
+      u.onerror = function() {
+        current.innerHTML = '<span>🔊</span> Listen';
+        current.style.background = 'rgba(197,160,89,0.1)';
+        if (activeBtn === current) activeBtn = null;
+      };
+
+      window.speechSynthesis.speak(u);
+    });
+  });
+})();
+</script>
+{% endblock %}
